@@ -67,6 +67,18 @@ receives a *map* containing all metadata that will be attached to this file:
 	metadata [user-id: 123, username: 'johndoe', registered-date: new Date().format('dd/MM/yyyy')]
 </pre>
 
+h3. Defining default parameters
+
+If you do not set credentials, bucket or other params everytime, you can set this on your *Config.groovy* file, this way:
+
+<pre>
+	grails.plugin.aws.s3.config.accessKey = "AKICAAJI313YAXNMAEXORAJ6WUA"
+	grails.plugin.aws.s3.config.secretKey = "6OMHlB3RpCodfa3MhRbs4Rur4iuW_=3MdSt42MnZTWWh"
+	grails.plugin.aws.s3.config.bucket    = "grails-plugin-test"
+	grails.plugin.aws.s3.config.acl       = "public"
+	grails.plugin.aws.s3.config.rrs       = true
+</pre>
+
 h2. Changelog
 
 h3. Version 0.1
