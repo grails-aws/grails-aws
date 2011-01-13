@@ -6,7 +6,66 @@ Grails AWS plugin intends to provide most of any other reason, an *EASY WAY* to 
 
 h2. Features
 
-By now, only S3 upload are available, more features will come in a near future.
+h3. AWS S3 Uploads
+
+Plugin adds the *s3upload* method to the usual *io.File* class, you can call this method passing a simple closure configuring the upload request.
+Check the action snippet below:
+
+<pre>
+	def file = request.getFile("photo")
+	file.s3upload {
+		credentials "your-access-key-id", "your-secret-access-key"
+		bucket "the-bucket-name"
+		acl "public"
+		rrs true
+		metadata [param: value, param2: value2]
+	}
+</pre>
+
+h4. credentials 
+
+Use your credentials to connect to AWS.
+
+<pre>
+	credentials "AAAAAAAAAAAAAAAAAA", "ZZZZZZZZZZZZZZZZZZZZZZ"
+</pre>
+
+h4. bucket
+
+The name of the bucket to upload this file. Bucket will not be created, check if exists before uploading to it.
+
+<pre>
+	bucket "user-pictures"
+</pre>
+
+h4. acl
+
+The permissions that will be granted on this file, you can use:
+
+*public:* Allow public access to everyone that attemps to read this file
+*private:* Sets private access to this file, only your account will read/write on it
+*public_read_write:* This will make this file wide open to any AWS account, read and write
+*authenticated_read:* Using this acl string, only logged AWS accounts will have permissions to read the file
+
+<pre>
+	acl "public"|"private"|"public_read_write"|"authenticated_read"
+</pre>
+
+h4. rrs
+
+If this file will rely on RRS (Reduced Redundancy Storage) or not.
+
+<pre>
+	rrs true|false
+</pre>
+
+h4. metadata
+
+receives a *map* containing all metadata that will be attached to this file:
+
+<pre>
+	metadata [user-id: 123, username: 'johndoe', registered-date: new Date().format('dd/MM/yyyy')]
+</pre>
 
 h2. Changelog
 
