@@ -26,7 +26,7 @@ Plugin adds the *s3upload* method to the usual *io.File* class, you can call thi
 Check the action snippet below:
 
 <pre>
-	def file = request.getFile("photo")
+	def file = new File("/tmp/test123.txt") //the uploaded file
 	file.s3upload {
 		credentials "your-access-key-id", "your-secret-access-key"
 		bucket "the-bucket-name"
