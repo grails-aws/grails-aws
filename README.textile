@@ -81,7 +81,7 @@ If you do not set credentials, bucket or other params everytime, you can set thi
 
 h2. Changelog
 
-h3. Version 0.1
+h3. Version 0.1 (01/13/2011)
 
 * Upload to AWS S3
 
