@@ -4,6 +4,20 @@ h2. About
 
 Grails AWS plugin intends to provide most of any other reason, an *EASY WAY* to access and use AWS services 
 
+h2. Installing
+
+<pre>
+	grails intall-plugin aws
+</pre>
+
+h2. FAQ
+
+Q) Why not use amazon-s3 plugin?
+A) Because it is not under massive development anymore, because it depends on quartz plugin, and because I found some itchy bugs on it that really annoys me on my other project using it.
+
+Q) Why you don't submit a patch to it?
+A) Because it is not under massive development anymore (again), and because the idea on this grails-aws plugin, as I said before, is to offer an easier way to use AWS service, and not only S3.
+
 h2. Features
 
 h3. AWS S3 Uploads
