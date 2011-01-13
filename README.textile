@@ -1,0 +1,46 @@
+h1. Grails AWS Plugin
+
+h2. About
+
+Grails AWS plugin intends to provide most of any other reason, an *EASY WAY* to access and use AWS services 
+
+h2. Features
+
+By now, only S3 upload are available, more features will come in a near future.
+
+h2. Changelog
+
+h3. Version 0.1
+
+* Upload to AWS S3
+
+h2. Roadmap
+
+h3. Amazon S3
+
+* Create public links for private resources with a pre-defined time to expire
+* Ability to remove files from S3
+* Bucket management
+
+h3. Amazon Cloudfront
+
+* Cloudfront management
+
+h3. Amazon SNS
+
+* Basic integration with Amazon SNS
+
+h3. Amazon SQS
+
+* Basic integration with Amazon SQS
+
+h2. Contributions
+
+If you want to contribute, just fork the repo, implement what you want and send me a pull request.
+Just remember, the focus on this plugin it is not the complexity of features, but the ease on using it! :) 
+
+h2. Contact
+
+Lucas Teixeira
+lucastex at gmail dot com
+twitter @lucastex
