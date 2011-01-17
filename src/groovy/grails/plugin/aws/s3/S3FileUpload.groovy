@@ -11,7 +11,9 @@ class S3FileUpload {
 	String access
 	String secret
 	String bucket
+	AWSCredentials awsCredentials
 	String acl = "public"
+	
 	boolean rrs = false
 	Map metadata = [:]
 	File file
@@ -27,6 +29,10 @@ class S3FileUpload {
 	void credentials(_access, _secret) {
 		this.access = _access
 		this.secret = _secret
+	}
+	
+	void credentials(AWSCredentials _awsCredentials) {
+		this.awsCredentials = _awsCredentials
 	}
 
 	void bucket(_bucket) {
@@ -56,11 +62,20 @@ class S3FileUpload {
 		cls.delegate = this
 		cls()
 		
-		if (!access || !secret || !bucket) {
-			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set credentials and bucket")
+		//credentials validation
+		if (!awsCredentials && (!access || !secret)) {
+			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set your credentials")
 		}
 		
-		def s3Service = new RestS3Service(new AWSCredentials(access, secret));		
+		//bucket validation
+		if (!bucket) {
+			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set your bucket")
+		}
+				
+		if (!awsCredentials) {
+			awsCredentials = new AWSCredentials(access, secret)
+		}
+		def s3Service = new RestS3Service(awsCredentials)		
 		
 		//acl
 		def s3Object = new S3Object(file)
