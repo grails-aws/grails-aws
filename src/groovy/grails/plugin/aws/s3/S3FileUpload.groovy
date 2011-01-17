@@ -7,6 +7,7 @@ import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
 class S3FileUpload {
 	
+	String path
 	String access
 	String secret
 	String bucket
@@ -30,6 +31,10 @@ class S3FileUpload {
 
 	void bucket(_bucket) {
 		this.bucket = _bucket
+	}
+
+	void path(_path) {
+		this.path = _path
 	}
 
 	void metadata(_metadata) {
@@ -57,6 +62,7 @@ class S3FileUpload {
 		
 		def s3Service = new RestS3Service(new AWSCredentials(access, secret));		
 		
+		//acl
 		def s3Object = new S3Object(file)
 		if (acl == "public")
 			s3Object.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ)
@@ -67,8 +73,21 @@ class S3FileUpload {
 		if (acl == "authenticated_read")
 			s3Object.setAcl(AccessControlList.REST_CANNED_AUTHENTICATED_READ)
 		
+		//path
+		if (this.path) {
+			
+			def _path = this.path
+			if (!_path.endsWith("/")) {
+				_path = "${_path}/"
+			}
+			_path = "${_path}${file.getName()}"
+			s3Object.setKey(_path)
+		}
+		
+		//metadata
 		s3Object.addAllMetadata(metadata)
 		
+		//rrs
 		if (rrs) {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
