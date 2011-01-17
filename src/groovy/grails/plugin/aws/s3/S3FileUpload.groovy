@@ -1,5 +1,7 @@
 package grails.plugin.aws.s3
 
+import net.sf.jmimemagic.Magic
+import net.sf.jmimemagic.MagicMatch
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.acl.AccessControlList
 import org.jets3t.service.security.AWSCredentials
@@ -107,6 +109,11 @@ class S3FileUpload {
 		
 		//metadata
 		s3Object.addAllMetadata(metadata)
+		
+		//content-type
+		Magic parser = new Magic()
+		MagicMatch match = parser.getMagicMatch(file, true)
+		s3Object.setContentType(match.getMimeType())
 		
 		//rrs
 		if (rrs) {
