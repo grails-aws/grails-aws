@@ -10,7 +10,8 @@ class S3FileUpload {
 	String path
 	String access
 	String secret
-	String bucket
+	String bucketName
+	String bucketLocation
 	AWSCredentials awsCredentials
 	String acl = "public"
 	
@@ -19,9 +20,9 @@ class S3FileUpload {
 	File file
 
 	public S3FileUpload() {}
-	public S3FileUpload(String _access, String _secret, String _bucket, String _acl, Boolean _rrs) {
+	public S3FileUpload(String _access, String _secret, String _bucketName, String _acl, Boolean _rrs) {
 		credentials(_access, _secret)
-		bucket(_bucket)
+		bucket(_bucketName)
 		acl(_acl)
 		rrs(_rrs)
 	}
@@ -35,8 +36,13 @@ class S3FileUpload {
 		this.awsCredentials = _awsCredentials
 	}
 
-	void bucket(_bucket) {
-		this.bucket = _bucket
+	void bucket(_bucketName) {
+		this.bucketName = _bucketName
+	}
+	
+	void bucket(_bucketName, _bucketLocation) {
+		this.bucketName = _bucketName
+		this.bucketLocation = _bucketLocation
 	}
 
 	void path(_path) {
@@ -68,7 +74,7 @@ class S3FileUpload {
 		}
 		
 		//bucket validation
-		if (!bucket) {
+		if (!bucketName) {
 			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set your bucket")
 		}
 				
@@ -107,7 +113,7 @@ class S3FileUpload {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
 		
-		def bucketObject = s3Service.getOrCreateBucket(bucket)
+		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
 		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
 		return uploadedObject
 	}
