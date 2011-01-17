@@ -107,7 +107,8 @@ class S3FileUpload {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
 		
-		def uploadedObject = s3Service.putObject(bucket, s3Object)
+		def bucketObject = s3Service.getOrCreateBucket(bucket)
+		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
 		return uploadedObject
 	}
 }
