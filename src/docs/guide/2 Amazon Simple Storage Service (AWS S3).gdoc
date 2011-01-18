@@ -1,0 +1,1 @@
+Plugin adds the *s3upload* method to the common *io.File* class, you can call this method passing a simple closure configuring the upload request.

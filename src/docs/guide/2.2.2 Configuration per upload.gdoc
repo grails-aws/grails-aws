@@ -1,0 +1,64 @@
+h3. Overwriting AWS credentials
+
+Just call the *credentials* method inside the upload closure, and this credentials will be used (for this upload only). Example:
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	credentials "my-new-access-key", "my-new-secret-key"
+}
+{code}
+
+h3. Overwriting bucket to file upload
+
+You can call the *bucket* method and define witch different bucket (from default) will be used. This bucket will be created if does not exist.
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	bucket "new-bucket"
+}
+{code}
+
+This file will be uploaded to 
+
+{code}
+new-bucket.s3.amazonaws.com/test.txt
+{code}
+
+Remember, when plugin created a non pre-existent bucket, it will be created in the default *US* region. If you like to set a different location, just pass a second string parameter containing the region string. For example, to set the new bucket in Europe region:
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	bucket "bucket-not-yet-created-in-europe", "EU"
+}
+{code}
+
+h3. ACL (file permission)
+
+The permissions that will be granted on this file, you can use the same values shown in "General Plugin Config" topic on this guide.
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	acl "private"
+}
+{code}
+
+
+h3. RRS - Reduced Redundancy Storage
+
+If some specifically file you like to use a different RRS setting, call the rrs method in the closure, passing true or false, as you wish
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	rrs false
+}
+{code}
+
+h3. File Metadata
+
+AWS S3 files can store user metadata, doing this is simple as setting a metadata map to file upload
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	metadata [user-id: 123, username: 'johndoe', registered-date: new Date().format('dd/MM/yyyy')]
+}
+{code}

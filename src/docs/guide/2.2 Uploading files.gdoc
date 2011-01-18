@@ -1,0 +1,17 @@
+As described in the beggining, the plugin adds a s3upload(...) method to *File* class, so you'll just need to call this method passing a closure with overwritten config options and other ones, if you do not want to overwrite, just leave this and the plugin will catch from the Config.groovy default options. Check the examples below:
+
+h3. Simple File upload
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	path "folder/to/my/file/"
+}
+{code}
+
+This way your test.txt file will be uploaded to 
+
+{code}
+<default-bucket>.s3.amazonaws.com/folder/to/my/file/test.txt
+{code}
+
+If you want to overwrite config during the file upload, check this guide next section

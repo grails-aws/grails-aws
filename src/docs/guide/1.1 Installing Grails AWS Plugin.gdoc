@@ -1,0 +1,5 @@
+As other grails plugins you should install using *install-plugin* command
+
+{code}
+grails intall-plugin aws
+{code}

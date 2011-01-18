@@ -1,0 +1,4 @@
+Grails AWS plugin intends to provide most of any other reason, an EASY WAY to access and use AWS services.
+
+Initially just amazon s3 access is provided, but more services will come as people implement or as I get some time to do it.
+I really prefer people implementing it, as this is a community plugin.

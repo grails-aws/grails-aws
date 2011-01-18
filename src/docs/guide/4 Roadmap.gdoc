@@ -1,0 +1,17 @@
+h3. Amazon S3
+
+    * Create public links for private resources with a pre-defined time to expire
+    * Ability to remove files from S3
+    * Bucket management
+
+h3. Amazon Cloudfront
+
+    * Cloudfront management
+
+h3. Amazon SNS
+
+    * Basic integration with Amazon SNS
+
+h3. Amazon SQS
+
+    * Basic integration with Amazon SQS
