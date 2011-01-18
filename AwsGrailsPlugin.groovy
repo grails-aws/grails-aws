@@ -28,7 +28,7 @@ class AwsGrailsPlugin {
     def description = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
 
     // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/aws"
+    def documentation = "http://opensource.blanq.com.br/grails-aws"
 
 	//grailsApplication
 	def grailsApplication
