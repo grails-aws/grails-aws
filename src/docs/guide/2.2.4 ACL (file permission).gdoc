@@ -1,0 +1,7 @@
+The permissions that will be granted on this file, you can use the same values shown in "General Plugin Config" topic on this guide.
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+	acl "private"
+}
+{code}

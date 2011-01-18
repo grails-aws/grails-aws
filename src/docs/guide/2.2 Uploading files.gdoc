@@ -1,4 +1,8 @@
-As described in the beggining, the plugin adds a s3upload(...) method to *File* class, so you'll just need to call this method passing a closure with overwritten config options and other ones, if you do not want to overwrite, just leave this and the plugin will catch from the Config.groovy default options. Check the examples below:
+As described in the beggining, the plugin adds a s3upload(...) method to *File* class, so you'll just need to call this method passing a closure with overwritten config options and other ones, if you do not want to overwrite, just leave this and the plugin will catch from the Config.groovy default options. 
+
+This plugin uses jets3t (http://jets3t.s3.amazonaws.com/index.html) to handle file upload, and detects the file contentType using jmimemagic (http://sourceforge.net/projects/jmimemagic/).
+
+Check the examples below:
 
 h3. Simple File upload
 

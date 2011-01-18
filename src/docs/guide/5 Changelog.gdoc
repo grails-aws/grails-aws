@@ -1,4 +1,11 @@
+* *0.2 release* Jan 18 2010
+** [issue #6] Define bucket region when creating buckets that does not exists
+** [issue #5] Use groovy doc to plugins documentation instead github readme
+** [issue #4] Use encrypted credentials
+** [issue #3] Create buckets before upload if they does not exists
+** [issue #2] Ability to set path (virtual folder) to files
+** [issue #1] Set file content-type before upload 
+
 * *0.1 release* Jan 13 2010
 ** Upload to AWS S3
 ** Plugin configuration in Config.groovy
-    

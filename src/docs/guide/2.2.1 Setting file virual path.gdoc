@@ -1,0 +1,19 @@
+S3 does not support paths or buckets inside other buckets, to solve this and keep your files organized, you can use the path method inside the config closure. Doing this, the plugin will set a metadata into this file telling AWS that this file is virtually in a folder that does not exist. 
+
+The effect is exactly like in a regular folder. For example, doing the upload below:
+
+{code}
+def uploadedFile = new File("/tmp/profile-picture.jpg").s3upload {
+	bucket "my-aws-app"
+	path "pictures/user/profile/"
+}
+{code}
+
+The file will be stored and available in the following url:
+
+{code}
+http://my-aws-app.s3.amazonaws.com/pictures/user/profile/profile-picture.jpg
+{code}
+
+And using the AWS S3 console, the files will visually be inside folders either.
+Some third-party apps is already using this feature to show "folders".
