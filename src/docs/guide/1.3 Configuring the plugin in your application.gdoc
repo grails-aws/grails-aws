@@ -1,0 +1,1 @@
+You'll have to configure the plugin in Config.groovy to set AWS credentials and other properties specifically to each AWS service you may use.

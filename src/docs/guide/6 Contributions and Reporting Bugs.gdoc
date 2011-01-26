@@ -1,0 +1,13 @@
+If you want to contribute, just fork the repo, implement what you want and send me a pull request.
+
+Just remember, the focus on this plugin it is not the complexity of features, but the ease on using it! :)
+
+h2. Thanks to contributors
+
+* Kim A. Betti - @kimbetti
+
+h2. Found a bug? Report it for us
+
+Grails AWS Plugin is using the Codehaus JIRA for handling issues.
+
+If you found some bug or want to propose a new functionality, or anything related, send your questions on the Grails User Mailing List so people can help you out, or even fill a JIRA Issue here: http://jira.codehaus.org/browse/GRAILSPLUGINS under the component *Grails-AWS*
