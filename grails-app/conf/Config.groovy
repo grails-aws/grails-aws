@@ -24,3 +24,42 @@ log4j = {
 grails.doc.authors = 'Lucas Teixeira'
 grails.doc.license = 'Apache License'
 grails.doc.title = 'Grails AWS Plugin'
+
+grails {
+	
+	plugin {
+	
+		aws {
+	
+			credentials {
+	
+				//accessKey = "access-key"
+				//secretKey = "secret-key"
+				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"
+		
+			}
+	
+			s3 {
+				bucket = "grails-aws-test-bucket"
+				rrs    = true
+				acl    = "public"
+			}
+	
+			ses {
+				//ses config
+			}
+	
+			sns {
+				//sns config
+			}
+	
+			sqs {
+				//sqs config
+			}
+	
+			beanstalk {
+				//beanstalk config
+			}
+		}
+	}
+}

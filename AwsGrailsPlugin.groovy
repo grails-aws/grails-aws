@@ -1,4 +1,5 @@
 import grails.plugin.aws.s3.S3FileUpload
+import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class AwsGrailsPlugin {
@@ -15,7 +16,7 @@ class AwsGrailsPlugin {
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp",
-            "grails-app/controller/aws/s3/S3UploadController.groovy",
+            "grails-app/controller/aws/s3/S3TestController.groovy",
             "grails-app/conf/Config.groovy",
             "grails-app/conf/DataSource.groovy",
             "grails-app/conf/UrlMappings.groovy"
@@ -38,20 +39,20 @@ class AwsGrailsPlugin {
     }
 
     def doWithSpring = {
-        // TODO Implement runtime spring config (optional)
+
     }
 
     def doWithDynamicMethods = { ctx ->
         
 		File.metaClass.s3upload = { Closure s3Config ->
 			
-			def defaultAccessKey = ConfigurationHolder.config.grails.plugin.aws.s3.config.accessKey
-			def defaultSecretKey = ConfigurationHolder.config.grails.plugin.aws.s3.config.secretKey
-			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.config.bucket
-			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.config.acl
-			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.config.rrs
+			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
 			
-			def s3FileUpload = new S3FileUpload(defaultAccessKey, defaultSecretKey, defaultBucket, defaultAcl, defaultRrs)
+			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket
+			def defaultAcl    = ConfigurationHolder.config.grails.plugin.aws.s3.acl
+			def defaultRrs    = ConfigurationHolder.config.grails.plugin.aws.s3.rrs			
+			
+			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
 			s3FileUpload.upload(delegate, s3Config)
 		}
 		
@@ -68,7 +69,6 @@ class AwsGrailsPlugin {
     }
 
     def onConfigChange = { event ->
-        // TODO Implement code that is executed when the project configuration changes.
-        // The event is the same as for 'onChange'.
+
     }
 }

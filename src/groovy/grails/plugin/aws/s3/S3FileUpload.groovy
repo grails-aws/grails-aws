@@ -2,10 +2,18 @@ package grails.plugin.aws.s3
 
 import net.sf.jmimemagic.Magic
 import net.sf.jmimemagic.MagicMatch
+
+//jets3t
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.acl.AccessControlList
-import org.jets3t.service.security.AWSCredentials
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
+import org.jets3t.service.security.AWSCredentials
+
+//aws sdk
+import com.amazonaws.auth.AWSCredentials
+
+//plugin
+import grails.plugin.aws.GrailsAWSException
 
 class S3FileUpload {
 	
@@ -14,55 +22,59 @@ class S3FileUpload {
 	String secret
 	String bucketName
 	String bucketLocation
-	AWSCredentials awsCredentials
 	String acl = "public"
+	org.jets3t.service.security.AWSCredentials jetCredentials
 	
+	File file
 	boolean rrs = false
 	Map metadata = [:]
-	File file
 
 	public S3FileUpload() {}
-	public S3FileUpload(String _access, String _secret, String _bucketName, String _acl, Boolean _rrs) {
-		credentials(_access, _secret)
+	public S3FileUpload(com.amazonaws.auth.AWSCredentials defaultCredentials, String _bucketName, String _acl, Boolean _rrs) {
+		credentials(defaultCredentials.getAWSAccessKeyId(), defaultCredentials.getAWSSecretKey())
 		bucket(_bucketName)
 		acl(_acl)
 		rrs(_rrs)
 	}
 	
+	
+	//set credentials
 	void credentials(_access, _secret) {
-		this.access = _access
-		this.secret = _secret
+		jetCredentials = new org.jets3t.service.security.AWSCredentials(_access, _secret)
 	}
 	
-	void credentials(AWSCredentials _awsCredentials) {
-		this.awsCredentials = _awsCredentials
-	}
-
+	//set bucket
 	void bucket(_bucketName) {
 		this.bucketName = _bucketName
 	}
 	
+	//set bucket with location
 	void bucket(_bucketName, _bucketLocation) {
 		this.bucketName = _bucketName
 		this.bucketLocation = _bucketLocation
 	}
 
+	//set file path
 	void path(_path) {
 		this.path = _path
 	}
 
+	//file metadata
 	void metadata(_metadata) {
 		this.metadata = _metadata
 	}
 
+	//file's acl
 	void acl(_acl) {
 		this.acl = _acl
 	}
 
+	//if will or not use rrs
 	void rrs(_rrs) {
 		this.rrs = _rrs
 	}
 
+	//upload method
 	def upload(File _file, Closure cls) {
 		
 		this.file = _file
@@ -70,20 +82,12 @@ class S3FileUpload {
 		cls.delegate = this
 		cls()
 		
-		//credentials validation
-		if (!awsCredentials && (!access || !secret)) {
-			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set your credentials")
-		}
-		
 		//bucket validation
 		if (!bucketName) {
-			throw new Exception("[grails-aws-plugin][s3] invalid configuration, do not forget to set your bucket")
+			throw new GrailsAWSException("Invalid upload attemp, do not forget to set your bucket")
 		}
-				
-		if (!awsCredentials) {
-			awsCredentials = new AWSCredentials(access, secret)
-		}
-		def s3Service = new RestS3Service(awsCredentials)		
+
+		def s3Service = new RestS3Service(jetCredentials)		
 		
 		//acl
 		def s3Object = new S3Object(file)
