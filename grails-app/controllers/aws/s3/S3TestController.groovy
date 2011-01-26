@@ -10,6 +10,14 @@ class S3TestController {
 		render uploadedFile.toString()
 	}
 
+    def uploadWithDefaultPropertiesAndNoClosure = {
+	
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/uploadWithDefaultPropertiesAndNoClosure.pdf"
+		def uploadedFile = new File(fileToUpload).s3upload()
+		
+		render uploadedFile.toString()
+	}
+
     def uploadWithOtherBucket = {
 	
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"

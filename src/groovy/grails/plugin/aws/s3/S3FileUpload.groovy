@@ -76,8 +76,10 @@ class S3FileUpload {
 		
 		this.file = _file
 		
-		cls.delegate = this
-		cls()
+		if (cls) {
+			cls.delegate = this
+			cls()
+		}
 		
 		//bucket validation
 		if (!bucketName) {
