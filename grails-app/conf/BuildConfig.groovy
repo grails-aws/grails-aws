@@ -18,6 +18,7 @@ grails.project.dependency.resolution = {
 
     dependencies {	
 		compile 'net.java.dev.jets3t:jets3t:0.8.0'
+		compile 'com.amazonaws:aws-java-sdk:1.1.4'
     }
 
 }
