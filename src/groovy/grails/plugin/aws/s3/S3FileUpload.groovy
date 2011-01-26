@@ -113,12 +113,7 @@ class S3FileUpload {
 		
 		//metadata
 		s3Object.addAllMetadata(metadata)
-		
-		//content-type
-		Magic parser = new Magic()
-		MagicMatch match = parser.getMagicMatch(file, true)
-		s3Object.setContentType(match.getMimeType())
-		
+				
 		//rrs
 		if (rrs) {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
