@@ -1,8 +1,5 @@
 package grails.plugin.aws.s3
 
-import net.sf.jmimemagic.Magic
-import net.sf.jmimemagic.MagicMatch
-
 //jets3t
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.acl.AccessControlList
