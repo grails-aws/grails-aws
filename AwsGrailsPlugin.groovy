@@ -70,5 +70,8 @@ class AwsGrailsPlugin {
 
     def onConfigChange = { event ->
 
+		//reload credentials
+		GrailsAWSCredentialsWrapper.reload()
+
     }
 }
