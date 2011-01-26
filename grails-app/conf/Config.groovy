@@ -22,5 +22,5 @@ log4j = {
 }
 
 grails.doc.authors = 'Lucas Teixeira'
-//grails.doc.license = 'your license'
-//grails.doc.title = 'your doc title'
+grails.doc.license = 'Apache License'
+grails.doc.title = 'Grails AWS Plugin'
