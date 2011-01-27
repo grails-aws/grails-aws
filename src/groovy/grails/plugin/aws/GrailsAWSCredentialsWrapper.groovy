@@ -18,6 +18,7 @@ class GrailsAWSCredentialsWrapper {
 	public static AWSCredentials defaultCredentials() {
 		
 		if (!loaded) {
+			println "Loading AWS credentials from application config"
 			def applicationConfig = ConfigurationHolder.getConfig()
 			
 			accessKey  = applicationConfig.grails?.plugin?.aws?.credentials?.accessKey

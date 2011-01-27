@@ -22,7 +22,6 @@ class AwsGrailsPlugin {
             "grails-app/conf/UrlMappings.groovy"
     ]
 
-    // TODO Fill in these fields
     def author = "Lucas Teixeira"
     def authorEmail = "lucastex@gmail.com"
     def title = "Grails AWS Plugin"
@@ -34,12 +33,18 @@ class AwsGrailsPlugin {
 	//grailsApplication
 	def grailsApplication
 
+	//hash for plugin config closure, will use it to validate when config changes
+	//will reload plugin config only if it changes not other changes
+    def awsConfigHash = null
+
     def doWithWebDescriptor = { xml ->
         // TODO Implement additions to web.xml (optional), this event occurs before 
     }
 
     def doWithSpring = {
 
+		//initializes the config hash
+		awsConfigHash = ConfigurationHolder.getConfig().grails?.plugin?.aws?.hashCode()
     }
 
     def doWithDynamicMethods = { ctx ->
@@ -69,9 +74,16 @@ class AwsGrailsPlugin {
     }
 
     def onConfigChange = { event ->
+	
+		def newConfigHash = event.source.grails?.plugin?.aws?.hashCode()
+		if (awsConfigHash != newConfigHash) {
 
-		//reload credentials
-		GrailsAWSCredentialsWrapper.reload()
+			//reload credentials
+			GrailsAWSCredentialsWrapper.reload()
+
+			//store the current hash
+			awsConfigHash = newConfigHash
+		}
 
     }
 }
