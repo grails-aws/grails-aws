@@ -15,8 +15,6 @@ import grails.plugin.aws.GrailsAWSException
 class S3FileUpload {
 	
 	String path
-	String access
-	String secret
 	String bucketName
 	String bucketLocation
 	String acl = "public"

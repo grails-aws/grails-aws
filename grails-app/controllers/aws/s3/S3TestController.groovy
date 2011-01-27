@@ -1,7 +1,7 @@
 package aws.s3
 
 class S3TestController {
-
+	
     def uploadWithDefaultProperties = {
 	
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
@@ -76,5 +76,23 @@ class S3TestController {
 		}
 		
 		render uploadedFile.source.toString()
+	}    
+
+	def uploadPrivateWithPublicUrl = {
+	
+		def bucketName = "bucket-${System.currentTimeMillis()}"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadPrivate.pdf"
+		
+		def uploadedFile = new File(fileToUpload).s3upload { 
+			bucket bucketName
+			acl "private"
+		}
+		
+		def publicUrl = uploadedFile.publicUrlFor(5.minutes)
+		
+		render """
+		          ${uploadedFile.source.toString()}<br />
+		          http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
+		          ${publicUrl}"""
 	}    
 }

@@ -5,13 +5,13 @@ All these properties will be described in the next topic of this guide.
 h3. Using default plugin configuration
 
 {code}
-new File("test.txt").s3upload()
+def s3file = new File("test.txt").s3upload()
 {code}
 
 h3. Configuring per upload
 
 {code}
-new File("test.txt").s3upload {
+def s3file = new File("test.txt").s3upload {
    bucket "xxx"
    path "test/files/"
    //more config options

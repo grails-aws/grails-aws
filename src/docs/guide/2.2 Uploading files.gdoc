@@ -1,13 +1,34 @@
 As described in the beggining, the plugin adds a s3upload(...) method to *File* class, so you'll just need to call this method passing a closure with overwritten config options and other ones, if you do not want to overwrite, just leave this and the plugin will catch from the Config.groovy default options. 
 
-This plugin uses jets3t (http://jets3t.s3.amazonaws.com/index.html) to handle file upload.
+The *s3upload* operation returns an instance of *grails.plugin.aws.s3.S3File*. As this plugin uses jets3t (http://jets3t.s3.amazonaws.com/index.html) to handle file upload, the S3File is just a wrapper for a *delegated* jets3t S3Object instance as you can see below:
+
+{code}
+package grails.plugin.aws.s3
+import org.jets3t.service.model.S3Object
+
+class S3File {
+	
+	@Delegate S3Object source
+	
+	public S3File(S3Object _source) {
+		this.source = _source
+	}	
+}
+{code}
+
+So, you can call any S3Object method on S3File instance. S3Object API is available here: http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html, for example, to retrieve the ETag hash for the S3File uploaded you would just call:
+
+{code}
+def s3file = ... //upload the file
+def etag = s3file.getETag()
+{code}
 
 Check the examples below:
 
 h3. Simple File upload
 
 {code}
-def uploadedFile = new File("/tmp/test.txt").s3upload {
+def s3file = new File("/tmp/test.txt").s3upload {
 	path "folder/to/my/file/"
 }
 {code}

@@ -1,4 +1,5 @@
 import grails.plugin.aws.s3.S3FileUpload
+import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
@@ -45,10 +46,16 @@ class AwsGrailsPlugin {
 
 		//initializes the config hash
 		awsConfigHash = ConfigurationHolder.getConfig().grails?.plugin?.aws?.hashCode()
+		
     }
 
     def doWithDynamicMethods = { ctx ->
-        
+	
+		//inject helper methods on classes
+		def injector = new MetaClassInjector()
+		injector.injectIntegerMethods()
+	
+        //S3 handling
 		File.metaClass.s3upload = { Closure s3Config ->
 			
 			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
