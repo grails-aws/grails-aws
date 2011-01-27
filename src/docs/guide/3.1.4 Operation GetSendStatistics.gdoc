@@ -1,0 +1,7 @@
+Gives you the e-mail statistics for your user.
+
+Will tell you the amount of sent mails, bounced, spammed and etc.
+
+{code}
+grails aws-ses-get-send-statistics
+{code}

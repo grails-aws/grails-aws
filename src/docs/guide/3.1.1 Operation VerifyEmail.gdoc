@@ -1,0 +1,11 @@
+To let AWS SES send e-mails using your e-mail as 'from' address, you have to authorize it.
+
+To to so, you can run the script:
+
+{code}
+grails aws-ses-verify-email
+{code}
+
+You'll be prompted about the e-mail address to verify. After that, SWS will send an confirmation e-mail to this address, you should click on the link in that e-mail to start sending emails using this from.
+
+You will have to do it for all emails you want to use with SES.
