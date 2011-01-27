@@ -94,5 +94,19 @@ class S3TestController {
 		          ${uploadedFile.source.toString()}<br />
 		          Private URL: http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
 		          Public URL: ${publicUrl}"""
-	}    
+	}  
+	
+	def uploadAndGetTorrent = {
+	
+		def fileToUpload = "/Users/lucastex/Desktop/gc.log"
+		def bucketName = "bucket-${System.currentTimeMillis()}"
+		def uploadedFile = new File(fileToUpload).s3upload { 
+			bucket bucketName
+		}
+		
+		render """
+		          ${uploadedFile.source.toString()}<br />
+		          URL: http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
+		          Torrent URL: ${uploadedFile.torrent()}"""
+	}      
 }

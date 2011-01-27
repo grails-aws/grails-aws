@@ -21,5 +21,15 @@ class S3File {
 		def s3Service = new RestS3Service(jetCredentials)		
 			
 		return s3Service.createSignedGetUrl(source.bucketName, source.key, expiryDate)
-	}	
+	}
+	
+	public String torrent() {
+		
+		def sdkCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+		def jetCredentials = new AWSCredentials(sdkCredentials.getAWSAccessKeyId(), sdkCredentials.getAWSSecretKey())
+		def s3Service = new RestS3Service(jetCredentials)		
+			
+		return s3Service.createTorrentUrl(source.bucketName, source.key)
+	}
+		
 }
