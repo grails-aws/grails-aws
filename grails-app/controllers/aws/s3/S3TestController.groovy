@@ -92,7 +92,7 @@ class S3TestController {
 		
 		render """
 		          ${uploadedFile.source.toString()}<br />
-		          http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
-		          ${publicUrl}"""
+		          Private URL: http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
+		          Public URL: ${publicUrl}"""
 	}    
 }
