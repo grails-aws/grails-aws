@@ -7,7 +7,7 @@ class S3TestController {
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
 		def uploadedFile = new File(fileToUpload).s3upload { }
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}
 
     def uploadWithDefaultPropertiesAndNoClosure = {
@@ -15,7 +15,7 @@ class S3TestController {
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/uploadWithDefaultPropertiesAndNoClosure.pdf"
 		def uploadedFile = new File(fileToUpload).s3upload()
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}
 
     def uploadWithOtherBucket = {
@@ -25,7 +25,7 @@ class S3TestController {
 			bucket "new-bucket-in-default-region"
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}
 	
 	def uploadWithOtherBucketInOtherRegion = {
@@ -35,7 +35,7 @@ class S3TestController {
 			bucket "bucket-in-eu-region", "EU"
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}
 	
 	def uploadWithPath = {
@@ -45,7 +45,7 @@ class S3TestController {
 			path "path/created"
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}
 
 	def uploadWithMetadata = {
@@ -55,7 +55,7 @@ class S3TestController {
 			metadata param1: 'value1', param2: 'value2'
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}    
 
 	def uploadWithRRS = {
@@ -65,7 +65,7 @@ class S3TestController {
 			rrs true
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}    
 	
 	def uploadPrivate = {
@@ -75,6 +75,6 @@ class S3TestController {
 			acl "private"
 		}
 		
-		render uploadedFile.toString()
+		render uploadedFile.source.toString()
 	}    
 }

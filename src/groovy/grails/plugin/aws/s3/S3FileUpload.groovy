@@ -120,6 +120,6 @@ class S3FileUpload {
 		
 		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
 		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
-		return uploadedObject
+		return new S3File(uploadedObject)
 	}
 }
