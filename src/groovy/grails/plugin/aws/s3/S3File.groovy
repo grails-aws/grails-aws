@@ -14,7 +14,7 @@ class S3File {
 		this.source = _source
 	}
 	
-	public String publicUrlFor(expiryDate) {
+	public String publicUrlFor(expiryDate = 1.hour) {
 		
 		def sdkCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
 		def jetCredentials = new AWSCredentials(sdkCredentials.getAWSAccessKeyId(), sdkCredentials.getAWSSecretKey())

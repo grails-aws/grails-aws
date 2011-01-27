@@ -1,0 +1,46 @@
+When you upload a file to S3 with a "private" acl, means that the file won't be accessed directly using the URL, but only with your amazon credentials.
+
+For example:
+
+{code}
+def s3file = new File("test.txt") {
+   bucket "secret-files"
+   acl "private"
+}
+{code}
+
+This will make the file above (http://secret-files.s3.amazonaws.com/test.txt) inaccessible using its URL. If you need to allow someone to get the file in a short period of time, you can ask the plugin to generate a public URL for it. The object will remain private, but you can use the returned URL to access the file in a short period of time. For example:
+
+{code}
+def s3file = new File("test.txt") {
+   bucket "secret-files"
+   acl "private"
+}
+
+def publicUrl = s3file.publicUrlFor()
+{code}
+
+So, the value on the *publicUrl* is the URL for accessing the file. By default the URL will be valid for *1 hour*. Every requests on it will return the uploaded object. After one hour, next requests on it will return an error: "Access Denied for Object".
+
+h3. Defining when public URL will expire
+
+You can set the expires date for the public URL, passing an argument to *publicUrlFor* method. 
+
+{code}
+s3file.publicUrlFor(3.hours) //will be available for 3 hours
+s3file.publicUrlFor(10.years) //available for 10 years
+s3file.publicUrlFor(1.second) //you won't get this one on time 
+{code}
+
+You can any of these methods:
+
+{code}
+1.second or 2.seconds 
+1.minute or 2.minutes
+1.hour or 2.hours
+1.day or 2.days
+1.month or 2.months
+1.year or 2.years
+{code}
+
+This properties are injected on Integer class, so, enjoy the magic. 
