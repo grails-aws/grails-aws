@@ -3,7 +3,7 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest
 
 includeTargets << grailsScript("Init")
-includeTargets << new File("scripts/ReadAwsCredentials.groovy")
+includeTargets << new File("${awsPluginDir}/scripts/ReadAwsCredentials.groovy")
 
 target(main: "Verify this e-mail address to use with AWS SES") {
 	

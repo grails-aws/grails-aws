@@ -8,7 +8,7 @@ import com.amazonaws.services.simpleemail.model.SendEmailResult
 import com.amazonaws.services.simpleemail.model.SendEmailRequest
 
 includeTargets << grailsScript("Init")
-includeTargets << new File("scripts/ReadAwsCredentials.groovy")
+includeTargets << new File("${awsPluginDir}/scripts/ReadAwsCredentials.groovy")
 
 target(main: "Send test e-mail, so user can check if e-mail is verified and working") {
 
