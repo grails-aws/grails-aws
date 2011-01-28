@@ -71,5 +71,16 @@ class SesTestController {
 		
 		render "E-mail sent: ${mailId}"
 	}
+	
+	def sendHtmlMail = { 
+	
+		def mailId = sesMail {
+			to "lucastex@gmail.com"
+			subject "test html mail"
+			html "<html><body><h3>title</h3><strong>strong text</strong></body></html>"
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}
     
 }
