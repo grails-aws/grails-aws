@@ -32,15 +32,12 @@ class AwsGrailsPlugin {
     // URL to the plugin's documentation
     def documentation = "http://opensource.blanq.com.br/grails-aws"
 
-	//grailsApplication
-	def grailsApplication
-
 	//hash for plugin config closure, will use it to validate when config changes
 	//will reload plugin config only if it changes not other changes
     def awsConfigHash = null
 
     def doWithWebDescriptor = { xml ->
-        // TODO Implement additions to web.xml (optional), this event occurs before 
+
     }
 
     def doWithSpring = {
@@ -85,13 +82,11 @@ class AwsGrailsPlugin {
     }
 
     def doWithApplicationContext = { applicationContext ->
-        // TODO Implement post initialization spring config (optional)
+
     }
 
     def onChange = { event ->
-        // TODO Implement code that is executed when any artefact that this plugin is
-        // watching is modified and reloaded. The event contains: event.source,
-        // event.application, event.manager, event.ctx, and event.plugin.
+
     }
 
     def onConfigChange = { event ->
