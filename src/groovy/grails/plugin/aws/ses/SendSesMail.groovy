@@ -34,16 +34,13 @@ class SendSesMail {
 	void from(String _from) { this.from = _from }
 	
 	//to
-	void to(String _to) { this.to << _to }
-	void to(List _to)   { this.to.addAll(_to) }
+	void to(String ... _to) { this.to?.addAll(_to) }
 	
 	//cc
-	void cc(String _cc) { this.cc << _cc }
-	void cc(List _cc)   { this.cc.addAll(_cc) }
+	void cc(String ... _cc) { this.cc?.addAll(_cc) }
 
 	//bcc
-	void bcc(String _bcc) { this.bcc << _bcc }
-	void bcc(List _bcc)   { this.bcc.addAll(_bcc) }
+	void bcc(String ... _bcc) { this.bcc?.addAll(_bcc) }
 	
 	//body
 	void body(String _body) { this.body = _body }
