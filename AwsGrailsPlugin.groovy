@@ -56,9 +56,9 @@ class AwsGrailsPlugin {
 		//SES handling
 		for (controller in application.controllerClasses) {
             controller.metaClass.sesMail = { Closure config ->
-                
+                				
 				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
-				def defaultFrom = ConfigurationHolder.config?.grails?.plugin?.aws?.ses?.from
+				def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
 
 				def ses = new SendSesMail(defaultCredentials, defaultFrom)
 				ses.send(config)
@@ -71,10 +71,10 @@ class AwsGrailsPlugin {
 			
 			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
 			
-			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket
-			def defaultAcl    = ConfigurationHolder.config.grails.plugin.aws.s3.acl
-			def defaultRrs    = ConfigurationHolder.config.grails.plugin.aws.s3.rrs			
-			
+			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
+			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
+			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
+									
 			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
 			s3FileUpload.upload(delegate, s3Config)
 		}
