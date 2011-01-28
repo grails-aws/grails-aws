@@ -39,4 +39,11 @@ This way your test.txt file will be uploaded to
 <default-bucket>.s3.amazonaws.com/folder/to/my/file/test.txt
 {code}
 
-If you want to overwrite config during the file upload, check this guide next section
+If you want to overwrite config during the file upload, check this guide next section.
+
+h3. Storing file information for later retrieval
+
+If you are uploading some picture to S3, you'll probably need to store information on how to get that file again later.
+The *S3File* object returned will give all information you'll need. Now, depends on what information you want to store. Follow S3Object docs (link above) and get whatever you want.
+
+A common approach would be storing the bucket, path and file (key). With these parameters you can rebuild the URL to reach the file, or even build another S3Object to delete it. Some next version of this plugin will allow s3file deletion. 
