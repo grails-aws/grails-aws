@@ -18,7 +18,7 @@ class AwsGrailsPlugin {
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/error.gsp",
-            "grails-app/controller/aws/s3/S3TestController.groovy",
+            "grails-app/controllers/**/*Controller.groovy",
             "grails-app/conf/Config.groovy",
             "grails-app/conf/DataSource.groovy",
             "grails-app/conf/UrlMappings.groovy"
@@ -47,14 +47,15 @@ class AwsGrailsPlugin {
 		
     }
 
-    def doWithDynamicMethods = { ctx ->
-	
+    def doWithDynamicMethods = { ctx ->		
+		
 		//inject helper methods on classes
 		def injector = new MetaClassInjector()
 		injector.injectIntegerMethods()
-	
+			
 		//SES handling
 		for (controller in application.controllerClasses) {
+
             controller.metaClass.sesMail = { Closure config ->
                 				
 				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
@@ -64,7 +65,6 @@ class AwsGrailsPlugin {
 				ses.send(config)
             }
         }
-		
 		
         //S3 handling
 		File.metaClass.s3upload = { Closure s3Config ->
@@ -78,7 +78,6 @@ class AwsGrailsPlugin {
 			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
 			s3FileUpload.upload(delegate, s3Config)
 		}
-		
     }
 
     def doWithApplicationContext = { applicationContext ->
@@ -86,7 +85,7 @@ class AwsGrailsPlugin {
     }
 
     def onChange = { event ->
-
+		
     }
 
     def onConfigChange = { event ->
@@ -100,6 +99,6 @@ class AwsGrailsPlugin {
 			//store the current hash
 			awsConfigHash = newConfigHash
 		}
-
     }
+
 }
