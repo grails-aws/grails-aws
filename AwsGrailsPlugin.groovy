@@ -1,4 +1,5 @@
 import grails.plugin.aws.s3.S3FileUpload
+import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
@@ -55,6 +56,19 @@ class AwsGrailsPlugin {
 		def injector = new MetaClassInjector()
 		injector.injectIntegerMethods()
 	
+		//SES handling
+		for (controller in application.controllerClasses) {
+            controller.metaClass.sesMail = { Closure config ->
+                
+				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+				def defaultFrom = ConfigurationHolder.config?.grails?.plugin?.aws?.ses?.from
+
+				def ses = new SendSesMail(defaultCredentials, defaultFrom)
+				ses.send(config)
+            }
+        }
+		
+		
         //S3 handling
 		File.metaClass.s3upload = { Closure s3Config ->
 			

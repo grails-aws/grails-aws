@@ -7,6 +7,8 @@ import com.amazonaws.services.simpleemail.model.Destination
 import com.amazonaws.services.simpleemail.model.SendEmailResult
 import com.amazonaws.services.simpleemail.model.SendEmailRequest
 
+import grails.plugin.aws.GrailsAWSCredentialsWrapper
+
 includeTargets << grailsScript("Init")
 includeTargets << new File("${awsPluginDir}/scripts/ReadAwsCredentials.groovy")
 
