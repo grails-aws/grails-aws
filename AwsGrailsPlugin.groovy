@@ -17,8 +17,9 @@ class AwsGrailsPlugin {
 
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
-            "grails-app/views/error.gsp",
+            "grails-app/views/**/*.gsp",
             "grails-app/controllers/**/*Controller.groovy",
+            "grails-app/services/**/*Service.groovy",
             "grails-app/conf/Config.groovy",
             "grails-app/conf/DataSource.groovy",
             "grails-app/conf/UrlMappings.groovy"
@@ -54,16 +55,23 @@ class AwsGrailsPlugin {
 		injector.injectIntegerMethods()
 			
 		//SES handling
+		def sesMail = { Closure config ->
+            				
+			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
+
+			def ses = new SendSesMail(defaultCredentials, defaultFrom)
+			ses.send(config)
+		}
+        
+		//controllers
 		for (controller in application.controllerClasses) {
+			controller.metaClass.sesMail = sesMail
+        }
 
-            controller.metaClass.sesMail = { Closure config ->
-                				
-				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
-				def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
-
-				def ses = new SendSesMail(defaultCredentials, defaultFrom)
-				ses.send(config)
-            }
+		//services
+		for (service in application.serviceClasses) {
+			service.metaClass.sesMail = sesMail
         }
 		
         //S3 handling

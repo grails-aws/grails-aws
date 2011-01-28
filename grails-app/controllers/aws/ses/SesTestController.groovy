@@ -1,6 +1,8 @@
 package aws.ses
 
 class SesTestController {
+	
+	def sesTestService
 
     def sendPlainTextMail = { 
 	
@@ -9,6 +11,13 @@ class SesTestController {
 			subject "test plain text mail"
 			body "sendPlainTextMail (${new Date().format('dd/MM/yyyy HH:mm')})"
 		}
+		
+		render "E-mail sent: ${mailId}"
+	}
+
+    def sendPlainTextMailFromService = { 
+	
+		def mailId = sesTestService.sendTestMail()
 		
 		render "E-mail sent: ${mailId}"
 	}
