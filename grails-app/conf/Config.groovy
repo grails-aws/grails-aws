@@ -46,7 +46,7 @@ grails {
 			}
 	
 			ses {
-				//ses config
+				from   = "lucastex@gmail.com"
 			}
 	
 			sns {
