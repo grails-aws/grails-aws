@@ -1,0 +1,21 @@
+{warning}
+Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emais that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
+{warning}
+
+Sending e-mails from your application is easy, and you can do it from your services or controllers just calling the *sesMail* closure that is injected on these artifacts.
+
+{code}
+class SesTestController {
+	
+    def sendPlainTextMail = { 
+	
+		def mailId = sesMail {
+			to "test-email@gmail.com"
+			subject "test plain text mail"
+			body "sendPlainTextMail (${new Date().format('dd/MM/yyyy HH:mm')})"
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}
+}
+{code}

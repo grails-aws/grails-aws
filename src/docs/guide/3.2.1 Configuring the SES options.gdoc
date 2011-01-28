@@ -1,0 +1,19 @@
+The only option you may want to set on your Config.groovy will be the default *from* e-mail address that will be used in your e-mails. As said before, this address have to be verified with AWS (check Gant scripts section to see how to do it).
+
+To configure it, you'll do the following inside the *grails.plugin.aws* section of your application Config.
+
+{code}
+grails {
+   plugin {
+      aws {
+         
+         ses {
+            from = "my-verified-email@gmail.com"
+         }
+
+      }
+   }
+}
+{code}
+
+Of course, you can override this parameter in every call to the plugin, setting the 'from' parameter.
