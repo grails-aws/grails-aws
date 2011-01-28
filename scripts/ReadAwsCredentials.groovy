@@ -6,8 +6,9 @@ import com.amazonaws.auth.PropertiesCredentials
 includeTargets << grailsScript("_GrailsPackage")
 
 target (readAwsCredentials: "Reads user AWS Credentials from Config.groovy") {
+
+	depends(compile, createConfig)
 	
-	def config = new ConfigSlurper().parse(new File('grails-app/conf/Config.groovy').toURL())
 	def accessKey  = config.grails?.plugin?.aws?.credentials?.accessKey
 	def secretKey  = config.grails?.plugin?.aws?.credentials?.secretKey
 	def properties = config.grails?.plugin?.aws?.credentials?.properties
