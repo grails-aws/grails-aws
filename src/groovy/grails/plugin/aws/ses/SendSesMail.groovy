@@ -12,6 +12,8 @@ import com.amazonaws.services.simpleemail.model.SendEmailResult
 import com.amazonaws.services.simpleemail.model.SendEmailRequest
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 
+import org.codehaus.groovy.grails.web.util.StreamCharBuffer
+
 class SendSesMail {
 	
 	def from
@@ -47,6 +49,7 @@ class SendSesMail {
 
 	//html
 	void html(String _html) { this.html = _html }
+	void html(StreamCharBuffer _html) { this.html = _html.toString() }
 	
 	//subject
 	void subject(String _subject) { this.subject = _subject }

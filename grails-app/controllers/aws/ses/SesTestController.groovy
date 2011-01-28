@@ -82,5 +82,16 @@ class SesTestController {
 		
 		render "E-mail sent: ${mailId}"
 	}
+
+	def sendHtmlMailFromTemplate = { 
+			
+		def mailId = sesMail {
+			to "lucastex@gmail.com"
+			subject "test html mail"
+			html g.render(template: "/email-templates/template", model: [name: "Lucas", now: new Date()])
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}    
     
 }
