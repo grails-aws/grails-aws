@@ -1,0 +1,53 @@
+You can send html emails the same way you'd do with text e-mails, just instead of calling the *body* method, you have to pass the content to the *html* method:
+
+{code}
+sesMail {
+   to "email@gmailcom"
+   subject "testing html emails"
+   html "<html><body><h3>HTML email</h3><strong>Strong text</strong></body></html>"
+}
+{code}
+
+h3. Using GSP templates to generate html emails
+
+I bet you don't want to write all the HTML in your closure, so, you can design your e-mail in a grails template and use it to define the email content:
+
+{code}
+sesMail {
+   to "email@gmailcom"
+   subject "testing html emails"
+   html g.render(template: "/email-templates/template", model: [name: "Lucas", now: new Date()])
+}
+{code}
+
+This will render the */email-templates/_template.gsp* passing the model map to the rendering engine. For example, let's imagine this file has the following content:
+
+{code}
+<html>
+   <body>
+      <h2>Testing e-mail templates</h2>
+      <ul>
+         <li>Name: ${name}</li>
+         <li>Now: ${now.format('dd/MM/yyyy HH:mm')}</li>
+      </ul>
+   </body>
+</html>
+{code}
+
+This will send the html e-mail with the content below rendered:
+
+{code}
+<html>
+   <body>
+      <h2>Testing e-mail templates</h2>
+      <ul>
+         <li>Name: Lucas</li>
+         <li>Now: 28/01/2010 18:02</li>
+      </ul>
+   </body>
+</html>
+{code}
+
+{warning}
+You can use both methods *html* and *body* to send e-mails with both content in it. This is usually the best approach, since user may not allowed his email client to render html emails. So, it is up to you.
+{warning}
