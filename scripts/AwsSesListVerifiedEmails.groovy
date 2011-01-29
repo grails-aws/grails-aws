@@ -2,7 +2,7 @@ import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 
 includeTargets << grailsScript("Init")
-includeTargets << new File("${awsPluginDir}/scripts/ReadAwsCredentials.groovy")
+includeTargets << new File("${awsPluginDir}/scripts/_ReadAwsCredentials.groovy")
 
 target(main: "List all e-mails that this account is verified to use") {
 	

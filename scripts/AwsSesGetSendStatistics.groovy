@@ -3,7 +3,7 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 import com.amazonaws.services.simpleemail.model.GetSendQuotaResult
 
 includeTargets << grailsScript("Init")
-includeTargets << new File("${awsPluginDir}/scripts/ReadAwsCredentials.groovy")
+includeTargets << new File("${awsPluginDir}/scripts/_ReadAwsCredentials.groovy")
 
 target(main: "Queries about the sending statistics in AWS SES") {
 
