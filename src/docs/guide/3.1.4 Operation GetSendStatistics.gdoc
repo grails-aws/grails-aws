@@ -1,6 +1,6 @@
-Gives you the e-mail statistics for your user.
+_(from aws docs)_
 
-Will tell you the amount of sent mails, bounced, spammed and etc.
+Returns the user's sending statistics (the amount of sent mails, bounced, spammed and etc). The output is a list of items, for the last two weeks of sending activity. Each item in the list contains statistics for a 15-minute interval.
 
 {code}
 grails aws-ses-get-send-statistics
