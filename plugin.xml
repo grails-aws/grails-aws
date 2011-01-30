@@ -14,5 +14,22 @@
     <resource>aws.ses.SesTestService</resource>
   </resources>
   <dependencies />
-  <behavior />
+  <behavior>
+    <method name='propertyMissing' artefact='Controller' type='java.lang.Integer'>
+      <description />
+      <argument type='java.lang.Object' />
+    </method>
+    <method name='sesMail' artefact='Controller' type='aws.s3.S3TestController'>
+      <description />
+      <argument type='groovy.lang.Closure' />
+    </method>
+    <method name='sesMail' artefact='Controller' type='aws.ses.SesTestController'>
+      <description />
+      <argument type='groovy.lang.Closure' />
+    </method>
+    <method name='sesMail' artefact='Service' type='aws.ses.SesTestService'>
+      <description />
+      <argument type='groovy.lang.Closure' />
+    </method>
+  </behavior>
 </plugin>
