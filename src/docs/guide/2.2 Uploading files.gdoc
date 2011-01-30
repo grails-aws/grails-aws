@@ -23,8 +23,6 @@ def s3file = ... //upload the file
 def etag = s3file.getETag()
 {code}
 
-Check the examples below:
-
 h3. Simple File upload
 
 {code}
