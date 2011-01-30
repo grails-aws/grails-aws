@@ -19,6 +19,16 @@ Amazon don't provide anything useful to do with this *id* yet, but I imagine tha
 
 h3. Closure parameters
 
+h4. AWS Credentials
+
+As the S3 file upload support, you can override AWS credentials settings for sending mails. This is rare and unusual, but if you really need, do the same as in S3.
+
+{code}
+credentials "new-access-key", "new-secret-key"
+{code}
+
+Just remember, if this new AWS credentials belong to another AWS account, this account will have to be subscribed to SES service and have verified e-mails to send.
+
 h4. Defining the sender
 
 As seen in the other topic, you can set this default address in the application Config, but if you want to explicitly set the address in each email you send, just override the *from* method:

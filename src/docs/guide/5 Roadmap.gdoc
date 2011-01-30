@@ -1,6 +1,5 @@
 h3. Amazon S3
 
-   * Create public links for private resources with a pre-defined time to expire
    * Ability to remove files from S3
    * Bucket management
 
@@ -15,12 +14,6 @@ h3. Amazon SNS
 h3. Amazon SQS
 
    * Basic integration with Amazon SQS
-
-h3. Amazon SES
-
-   * Ability to send e-mails using the Amazon SES service
-   * Scripts for adding emails senders
-   * Scripts to check SES usage
 
 h3. Amazon Beanstalk
 

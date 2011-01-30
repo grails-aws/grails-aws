@@ -1,3 +1,8 @@
+* 1.1.4.1 release* Jan 30 2010
+
+** Available at: http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096
+
+
 * *0.2 release* Jan 18 2010
 ** issue 6 Define bucket region when creating buckets that does not exists
 ** issue 5 Use groovy doc to plugins documentation instead github readme
