@@ -35,7 +35,7 @@ grails {
 	
 				//accessKey = "access-key"
 				//secretKey = "secret-key"
-				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"
+				properties = "/Users/lucastex/Desktop/AwsCredentials.properties"
 		
 			}
 	
@@ -46,7 +46,8 @@ grails {
 			}
 	
 			ses {
-				from   = "lucastex@gmail.com"
+				from    = "lucastex@gmail.com"
+				enabled = true
 			}
 	
 			sns {
