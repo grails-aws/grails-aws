@@ -46,8 +46,9 @@ grails {
 			}
 	
 			ses {
-				from    = "lucastex@gmail.com"
-				enabled = true
+				//catchall = "fulano@gmail.com"
+				from     = "lucastex@gmail.com"
+				enabled  = true
 			}
 	
 			sns {

@@ -62,8 +62,9 @@ class AwsGrailsPlugin {
 				
 				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
 				def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
+				def catchall = ConfigurationHolder.config.grails.plugin.aws.ses.catchall ?: null
 
-				def ses = new SendSesMail(defaultCredentials, defaultFrom)
+				def ses = new SendSesMail(defaultCredentials, defaultFrom, catchall)
 				ses.send(config)
 			} else {
 				println "[AWS SES] E-mail sending disabled on this environment"

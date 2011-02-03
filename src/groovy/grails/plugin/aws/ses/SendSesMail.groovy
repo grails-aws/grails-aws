@@ -21,15 +21,17 @@ class SendSesMail {
 	def cc  = []
 	def bcc = []
 	
-	def body    = ""
-	def html    = ""
-	def subject = ""
+	def body     = ""
+	def html     = ""
+	def subject  = ""
+	def catchall
 	
 	def credentials
 	
-	public SendSesMail(AWSCredentials defaultCredentials, String defaultFrom) {
+	public SendSesMail(AWSCredentials defaultCredentials, String defaultFrom, String catchall) {
 		this.from = defaultFrom
-		credentials = defaultCredentials
+		this.credentials = defaultCredentials
+		this.catchall = catchall
 	}
 	
 	//from
@@ -71,10 +73,17 @@ class SendSesMail {
 		}
 		
 		def destination = new Destination()
-		destination.toAddresses  = to  ?: null
-		destination.ccAddresses  = cc  ?: null
-		destination.bccAddresses = bcc ?: null
-						
+		if (catchall) {
+			
+			destination.withToAddresses(catchall)
+			
+		} else {
+			
+			destination.toAddresses  = to  ?: null
+			destination.ccAddresses  = cc  ?: null
+			destination.bccAddresses = bcc ?: null		
+		}
+								
 		def mailBody = new Body()
 		mailBody.html = html ? new Content(html) : null
 		mailBody.text = body ? new Content(body) : null
