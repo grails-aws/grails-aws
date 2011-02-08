@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3 Amazon Simple Email Service (AWS SES)</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    Amazon Simple E-mail Service (SES for now), it is a Sending E-mail Service provided by amazon, with a real low cost for users. The plugin interacts with it, so you can send e-mails using SES infrastructure without extra code in your app.<p class="paragraph"/>If you just want to send e-mails using your non-SES infrastructure, this plugin won't help you, I recommend you to use the great <strong class="bold">Grails Mail Plugin</strong> (http://grails.org/plugin/mail).<p class="paragraph"/>Unfortunately, SES does not provide a simple SMTP server address to connect and use, otherwise we could just configure the Grails Mail Plugin to use it. Instead of this, AWS provides a http web service for it.<p class="paragraph"/>But, if you really want to use Mail Plugin, you can configure AWS SES with a SMTP Bridge to connect to your SMTP server, but only if you're running Postfix or Sendmail locally. For doing this, check AWS SES Developer Guide.<p class="paragraph"/><blockquote class="warning">
+You have to be subscribed to SES, if you are not yet, do it before using the plugin.
+</blockquote><p class="paragraph"/>.h3 Interacting with SES<p class="paragraph"/>Grails AWS Plugin adds two types of interacting with AWS Simple Email Service.
+    </body>
+</html>
