@@ -1,4 +1,4 @@
-<plugin name='aws' version='1.1.4.1' grailsVersion='1.3.0 &gt; *'>
+<plugin name='aws' version='1.1.5.1' grailsVersion='1.3.0 &gt; *'>
   <author>Lucas Teixeira</author>
   <authorEmail>lucastex@gmail.com</authorEmail>
   <title>Grails AWS Plugin</title>
@@ -15,7 +15,7 @@
   </resources>
   <dependencies />
   <behavior>
-    <method name='propertyMissing' artefact='Controller' type='java.lang.Integer'>
+    <method name='propertyMissing' artefact='Codec' type='java.lang.Integer'>
       <description />
       <argument type='java.lang.Object' />
     </method>
