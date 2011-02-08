@@ -98,7 +98,7 @@ class S3TestController {
 	
 	def uploadAndGetTorrent = {
 	
-		def fileToUpload = "/Users/lucastex/Desktop/gc.log"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadPrivate.pdf"
 		def bucketName = "bucket-${System.currentTimeMillis()}"
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			bucket bucketName

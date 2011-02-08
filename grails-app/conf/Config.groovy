@@ -35,12 +35,12 @@ grails {
 	
 				//accessKey = "access-key"
 				//secretKey = "secret-key"
-				properties = "/Users/lucastex/Desktop/AwsCredentials.properties"
+				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"
 		
 			}
 	
 			s3 {
-				bucket = "grails-aws-test-bucket"
+				bucket = "grails-aws-test-bucket-1151"
 				rrs    = true
 				acl    = "public"
 			}
