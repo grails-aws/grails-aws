@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.2.3 Overwriting bucket to file upload</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    You can call the <strong class="bold">bucket</strong> method and define witch different bucket (from default) will be used. This bucket will be created if does not exist.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+	bucket <span class="java&#45;quote">"other&#45;bucket"</span>
+&#125;</pre></div><p class="paragraph"/>This file will be uploaded to<p class="paragraph"/><div class="code"><pre>other&#45;bucket.s3.amazonaws.com/test.txt</pre></div><p class="paragraph"/>Remember, when plugin created a non pre-existent bucket, it will be created in the default <strong class="bold">US</strong> region. If you like to set a different location, just pass a second string parameter containing the region string. For example, to set this bucket creation in Europe region:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+	bucket <span class="java&#45;quote">"bucket&#45;not&#45;yet&#45;created&#45;in&#45;europe"</span>, <span class="java&#45;quote">"EU"</span>
+&#125;</pre></div>
+    </body>
+</html>

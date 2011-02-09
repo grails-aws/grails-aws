@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.2 Uploading files</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    As described in the beggining, the plugin adds a s3upload(...) method to <strong class="bold">File</strong> class, so you'll just need to call this method passing a closure with overwritten config options and other ones, if you do not want to overwrite, just leave this and the plugin will catch from the Config.groovy default options.<p class="paragraph"/>This plugin uses jets3t (http://jets3t.s3.amazonaws.com/index.html) to handle file upload, and detects the file contentType using jmimemagic (http://sourceforge.net/projects/jmimemagic/).<p class="paragraph"/>Check the examples below:<p class="paragraph"/><h3>Simple File upload</h3><p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+	path <span class="java&#45;quote">"folder/to/my/file/"</span>
+&#125;</pre></div><p class="paragraph"/>This way your test.txt file will be uploaded to<p class="paragraph"/><div class="code"><pre>&#60;<span class="java&#45;keyword">default</span>&#45;bucket&#62;.s3.amazonaws.com/folder/to/my/file/test.txt</pre></div><p class="paragraph"/>If you want to overwrite config during the file upload, check this guide next section
+    </body>
+</html>
