@@ -3,7 +3,7 @@ When you upload a file to S3 with a "private" acl, means that the file won't be 
 For example:
 
 {code}
-def s3file = new File("test.txt") {
+def s3file = new File("test.txt").s3upload {
    bucket "secret-files"
    acl "private"
 }
@@ -12,7 +12,7 @@ def s3file = new File("test.txt") {
 This will make the file above (http://secret-files.s3.amazonaws.com/test.txt) inaccessible using its URL. If you need to allow someone to get the file in a short period of time, you can ask the plugin to generate a public URL for it. The object will remain private, but you can use the returned URL to access the file in a short period of time. For example:
 
 {code}
-def s3file = new File("test.txt") {
+def s3file = new File("test.txt").s3upload {
    bucket "secret-files"
    acl "private"
 }

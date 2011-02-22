@@ -3,7 +3,7 @@ It is possible to generate torrent URLs for S3 hosted files with the plugin.
 After uploading some file, just call the *torrent()* method on it and you'll get the torrent URL for it.
 
 {code}
-def s3file = new File("test.txt") {
+def s3file = new File("test.txt").s3upload {
    bucket "secret-files"
    acl "private"
 }
