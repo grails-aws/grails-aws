@@ -15,6 +15,9 @@ class AwsGrailsPlugin {
     // the other plugins this plugin depends on
     def dependsOn = [:]
 
+    def loadAfter = ['services', 'controllers']
+    def observe = ['services', 'controllers']
+
     // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/**/*.gsp",
@@ -24,6 +27,11 @@ class AwsGrailsPlugin {
             "grails-app/conf/DataSource.groovy",
             "grails-app/conf/UrlMappings.groovy"
     ]
+
+    def watchedResources = [
+    	"grails-app/services/**/*Service.groovy",
+    	"grails-app/controllers/**/*Controller.groovy"
+	]
 
     def author = "Lucas Teixeira"
     def authorEmail = "lucastex@gmail.com"
@@ -49,50 +57,8 @@ class AwsGrailsPlugin {
     }
 
     def doWithDynamicMethods = { ctx ->		
-		
-		//inject helper methods on classes
-		def injector = new MetaClassInjector()
-		injector.injectIntegerMethods()
-			
-		//SES handling
-		def sesMail = { Closure config ->
-			
-			def enabled = ConfigurationHolder.config.grails.plugin.aws.ses.enabled == true
-			if (enabled) {
-				
-				def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
-				def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
-				def catchall = ConfigurationHolder.config.grails.plugin.aws.ses.catchall ?: null
-
-				def ses = new SendSesMail(defaultCredentials, defaultFrom, catchall)
-				ses.send(config)
-			} else {
-				println "[AWS SES] E-mail sending disabled on this environment"
-			}
-		}
-        
-		//controllers
-		for (controller in application.controllerClasses) {
-			controller.metaClass.sesMail = sesMail
-        }
-
-		//services
-		for (service in application.serviceClasses) {
-			service.metaClass.sesMail = sesMail
-        }
-		
-        //S3 handling
-		File.metaClass.s3upload = { Closure s3Config ->
-			
-			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
-			
-			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
-			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
-			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
-									
-			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
-			s3FileUpload.upload(delegate, s3Config)
-		}
+	
+		injectMetaclassMethods(application)
     }
 
     def doWithApplicationContext = { applicationContext ->
@@ -100,7 +66,13 @@ class AwsGrailsPlugin {
     }
 
     def onChange = { event ->
-		
+	
+		if (event.source) {
+			
+			injectMetaclassMethods(application)
+
+		}
+			
     }
 
     def onConfigChange = { event ->
@@ -115,5 +87,53 @@ class AwsGrailsPlugin {
 			awsConfigHash = newConfigHash
 		}
     }
+
+	//SES handling
+	def sesMail = { Closure config ->
+		
+		def enabled = ConfigurationHolder.config.grails.plugin.aws.ses.enabled == true
+		if (enabled) {
+			
+			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			def defaultFrom = ConfigurationHolder.config.grails.plugin.aws.ses.from ?: null
+			def catchall = ConfigurationHolder.config.grails.plugin.aws.ses.catchall ?: null
+
+			def ses = new SendSesMail(defaultCredentials, defaultFrom, catchall)
+			ses.send(config)
+		} else {
+			println "[AWS SES] E-mail sending disabled on this environment"
+		}
+	}
+	
+	def injectMetaclassMethods = { application ->
+		
+		//inject helper methods on classes
+		def injector = new MetaClassInjector()
+		injector.injectIntegerMethods()
+		
+		//controllers
+		for (controller in application.controllerClasses) {
+			controller.metaClass.sesMail = sesMail
+        }
+
+		//services
+		for (service in application.serviceClasses) {
+			service.metaClass.sesMail = sesMail
+        }
+		
+		//S3 handling
+		File.metaClass.s3upload = { Closure s3Config ->
+			
+			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			
+			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
+			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
+			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
+									
+			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
+			s3FileUpload.upload(delegate, s3Config)
+		}
+		
+	}
 
 }
