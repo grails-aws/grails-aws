@@ -1,4 +1,4 @@
-<plugin name='aws' version='1.1.5.1' grailsVersion='1.3.0 &gt; *'>
+<plugin name='aws' version='1.1.7.1' grailsVersion='1.2.0 &gt; *'>
   <author>Lucas Teixeira</author>
   <authorEmail>lucastex@gmail.com</authorEmail>
   <title>Grails AWS Plugin</title>
@@ -14,22 +14,5 @@
     <resource>aws.ses.SesTestService</resource>
   </resources>
   <dependencies />
-  <behavior>
-    <method name='propertyMissing' artefact='Codec' type='java.lang.Integer'>
-      <description />
-      <argument type='java.lang.Object' />
-    </method>
-    <method name='sesMail' artefact='Controller' type='aws.s3.S3TestController'>
-      <description />
-      <argument type='groovy.lang.Closure' />
-    </method>
-    <method name='sesMail' artefact='Controller' type='aws.ses.SesTestController'>
-      <description />
-      <argument type='groovy.lang.Closure' />
-    </method>
-    <method name='sesMail' artefact='Service' type='aws.ses.SesTestService'>
-      <description />
-      <argument type='groovy.lang.Closure' />
-    </method>
-  </behavior>
+  <behavior />
 </plugin>
