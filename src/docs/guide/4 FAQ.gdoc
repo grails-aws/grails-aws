@@ -18,4 +18,4 @@ A) Unfortunately, SES does not provide a simple SMTP server address to connect a
 
 *Q) Can I use the Grails Mail plugin to connect to Amazon SES Email service?*
 
-A) As described above, SES does not offer you a SMTP address, but If you really want to use Mail Plugin, you can configure AWS SES with a SMTP Bridge to connect to your SMTP server, but only if you're running Postfix or Sendmail locally. For doing this, check AWS SES Developer Guide. 
+A) As described above, SES does not offer you a SMTP address, but If you really want to use Mail Plugin, you can configure AWS SES with a SMTP Bridge to connect to your SMTP server, but only if you're running Postfix or Sendmail locally. There is a great post that shows how to do this: [http://www.facebook.com/profile.php?id=571306453|http://www.facebook.com/profile.php?id=571306453]
