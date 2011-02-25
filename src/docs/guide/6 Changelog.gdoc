@@ -1,8 +1,11 @@
+* *1.1.7.1 release* Feb 25 2010
+** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17188|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17188]
+
 * *1.1.5.1 release* Feb 08 2010
-** Release notes: http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17127
+** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17127|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17127]
 
 * *1.1.4.1 release* Jan 30 2010
-** Release notes: http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096
+** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096]
 
 * *0.2 release* Jan 18 2010
 ** issue 6 Define bucket region when creating buckets that does not exists
