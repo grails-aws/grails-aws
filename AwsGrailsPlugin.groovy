@@ -7,7 +7,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class AwsGrailsPlugin {
 	
     // the plugin version
-    def version = "1.1.6.1"
+    def version = "1.1.7.1"
 
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.2.0 > *"
