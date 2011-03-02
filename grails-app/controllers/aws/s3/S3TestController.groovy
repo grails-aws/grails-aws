@@ -2,6 +2,10 @@ package aws.s3
 
 class S3TestController {
 	
+	def index = {
+		
+	}
+	
     def uploadWithDefaultProperties = {
 	
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
@@ -109,4 +113,14 @@ class S3TestController {
 		          URL: http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
 		          Torrent URL: ${uploadedFile.torrent()}"""
 	}      
+	
+	def uploadFromInputStream = {
+		
+		def file = request.getFile('photo')
+		def uploadedFile = file.inputStream.s3upload("file-name-${System.currentTimeMillis()}.jpg", file.size) {
+			bucket "file-upload-from-inputstream"
+		}
+		
+		render uploadedFile.source.toString()
+	}
 }

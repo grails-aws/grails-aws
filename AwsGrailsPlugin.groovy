@@ -131,7 +131,20 @@ class AwsGrailsPlugin {
 			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
 									
 			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
-			s3FileUpload.upload(delegate, s3Config)
+			s3FileUpload.fileUpload(delegate, s3Config)
+		}
+		
+		//S3 handling on Inputstream objects
+		InputStream.metaClass.s3upload = { String name, Long size, Closure s3Config ->
+			
+			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			
+			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
+			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
+			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
+									
+			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
+			s3FileUpload.inputStreamUpload(delegate, name, size, s3Config)
 		}
 		
 	}

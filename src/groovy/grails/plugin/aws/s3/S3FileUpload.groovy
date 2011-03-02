@@ -23,6 +23,7 @@ class S3FileUpload {
 	File file
 	boolean rrs = false
 	Map metadata = [:]
+	InputStream inputStream
 
 	public S3FileUpload() {}
 	public S3FileUpload(com.amazonaws.auth.AWSCredentials defaultCredentials, String _bucketName, String _acl, Boolean _rrs) {
@@ -68,9 +69,39 @@ class S3FileUpload {
 	void rrs(_rrs) {
 		this.rrs = _rrs
 	}
+	
+	//upload method for inputstreams
+	def inputStreamUpload(InputStream is, String name, long size, Closure cls) {
+		
+		this.inputStream = is
+		
+		if (cls) {
+			cls.delegate = this
+			cls()
+		}
+		
+		//bucket validation
+		validateBucket()
+		
+		//s3 service
+		def s3Service = new RestS3Service(jetCredentials)
+		
+		//s3 object
+		def s3Object = buildS3Object(new S3Object(), name)
+		s3Object.setDataInputStream(this.inputStream)
+		s3Object.setContentLength(size)
+		
+		//bucket
+		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
+		
+		//upload
+		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
+		uploadedObject.bucketName = bucketObject.name
+		return new S3File(uploadedObject)
+	}
 
-	//upload method
-	def upload(File _file, Closure cls) {
+	//upload method for file
+	def fileUpload(File _file, Closure cls) {
 		
 		this.file = _file
 		
@@ -80,14 +111,35 @@ class S3FileUpload {
 		}
 		
 		//bucket validation
+		validateBucket()
+		
+		//s3 service
+		def s3Service = new RestS3Service(jetCredentials)		
+		
+		//s3 object
+		def s3Object = buildS3Object(new S3Object(file))
+		
+		//bucket
+		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
+		
+		//upload
+		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
+		uploadedObject.bucketName = bucketObject.name
+		return new S3File(uploadedObject)
+	}
+	
+	//bucket validation
+	def validateBucket() {
+
 		if (!bucketName) {
 			throw new GrailsAWSException("Invalid upload attemp, do not forget to set your bucket")
 		}
-
-		def s3Service = new RestS3Service(jetCredentials)		
+	}
+	
+	//build s3 object
+	def buildS3Object(S3Object s3Object, String name = null) {
 		
 		//acl
-		def s3Object = new S3Object(file)
 		if (acl == "public")
 			s3Object.setAcl(AccessControlList.REST_CANNED_PUBLIC_READ)
 		if (acl == "private")
@@ -104,8 +156,11 @@ class S3FileUpload {
 			if (!_path.endsWith("/")) {
 				_path = "${_path}/"
 			}
-			_path = "${_path}${file.getName()}"
+			_path = "${_path}${(name ? name : file.name)}"
 			s3Object.setKey(_path)
+			
+		} else {
+			s3Object.setKey(name ? name : file.name)
 		}
 		
 		//metadata
@@ -116,9 +171,6 @@ class S3FileUpload {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
 		
-		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
-		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
-		uploadedObject.bucketName = bucketObject.name
-		return new S3File(uploadedObject)
+		return s3Object
 	}
 }
