@@ -1,6 +1,3 @@
 h1. Grails AWS Plugin
 
 Docs: http://blanq.github.com/grails-aws
-
-*TODO*
-Integrate typica (http://code.google.com/p/typica/wiki/TypicaSampleCode) for Amazon SQS
