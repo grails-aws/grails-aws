@@ -4,8 +4,8 @@ The effect is exactly like in a regular folder. For example, doing the upload be
 
 {code}
 def uploadedFile = new File("/tmp/profile-picture.jpg").s3upload {
-	bucket "my-aws-app"
-	path "pictures/user/profile/"
+    bucket "my-aws-app"
+    path "pictures/user/profile/"
 }
 {code}
 

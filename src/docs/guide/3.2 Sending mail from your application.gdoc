@@ -6,16 +6,16 @@ Sending e-mails from your application is easy, and you can do it from your servi
 
 {code}
 class SesTestController {
-	
+    
     def sendPlainTextMail = { 
-	
-		def mailId = sesMail {
-			to "test-email@gmail.com"
-			subject "test plain text mail"
-			body "sendPlainTextMail (${new Date().format('dd/MM/yyyy HH:mm')})"
-		}
-		
-		render "E-mail sent: ${mailId}"
-	}
+    
+        def mailId = sesMail {
+            to "test-email@gmail.com"
+            subject "test plain text mail"
+            body "sendPlainTextMail (${new Date().format('dd/MM/yyyy HH:mm')})"
+        }
+        
+        render "E-mail sent: ${mailId}"
+    }
 }
 {code}

@@ -2,6 +2,6 @@ The permissions that will be granted on this file, you can use the same values s
 
 {code}
 def uploadedFile = new File("/tmp/test.txt").s3upload {
-	acl "private"
+    acl "private"
 }
 {code}

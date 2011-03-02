@@ -2,10 +2,10 @@ To send e-mails, just call the *sesMail* closure as seen before
 
 {code}
 def mailId = sesMail {
-	from "origin@gmail.com"
-	to "test-email@gmail.com"
-	subject "test plain text mail"
-	body "this is the e-mail content, sent at: (${new Date().format('dd/MM/yyyy HH:mm')})"
+    from "origin@gmail.com"
+    to "test-email@gmail.com"
+    subject "test plain text mail"
+    body "this is the e-mail content, sent at: (${new Date().format('dd/MM/yyyy HH:mm')})"
 }
 {code}
 

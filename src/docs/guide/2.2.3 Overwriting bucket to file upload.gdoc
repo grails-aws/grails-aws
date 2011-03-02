@@ -2,7 +2,7 @@ You can call the *bucket* method and define witch different bucket (from default
 
 {code}
 def uploadedFile = new File("/tmp/test.txt").s3upload {
-	bucket "other-bucket"
+    bucket "other-bucket"
 }
 {code}
 
@@ -16,6 +16,6 @@ Remember, when plugin created a non pre-existent bucket, it will be created in t
 
 {code}
 def uploadedFile = new File("/tmp/test.txt").s3upload {
-	bucket "bucket-not-yet-created-in-europe", "EU"
+    bucket "bucket-not-yet-created-in-europe", "EU"
 }
 {code}

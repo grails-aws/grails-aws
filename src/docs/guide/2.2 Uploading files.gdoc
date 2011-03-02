@@ -4,7 +4,7 @@ h3. Simple File upload from a File object
 
 {code}
 def s3file = new File("/tmp/test.txt").s3upload {
-	path "folder/to/my/file/"
+    path "folder/to/my/file/"
 }
 {code}
 
@@ -23,8 +23,8 @@ When user uploads files to your application using a *multipart/form-data* form, 
 
 {code}
 <g:uploadForm action="uploadFromInputStream">
-	<input type="file" name="photo">
-	<input type="submit" value="upload">
+    <input type="file" name="photo">
+    <input type="submit" value="upload">
 </g:uploadForm>
 {code}
 
@@ -33,7 +33,7 @@ you could have your *uploadFromInputStream* action implemented this way:
 {code}
 def file = request.getFile('photo')
 def uploadedFile = file.inputStream.s3upload(file.originalFilename, file.size) {
-	bucket "file-upload-from-inputstream"
+    bucket "file-upload-from-inputstream"
 }
 {code}
 
@@ -54,12 +54,12 @@ package grails.plugin.aws.s3
 import org.jets3t.service.model.S3Object
 
 class S3File {
-	
-	@Delegate S3Object source
-	
-	public S3File(S3Object _source) {
-		this.source = _source
-	}	
+    
+    @Delegate S3Object source
+    
+    public S3File(S3Object _source) {
+        this.source = _source
+    }    
 }
 {code}
 
