@@ -62,7 +62,7 @@ grails {
 
 h3. RRS - Reduced Redundancy Storage
 
-RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/
+RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: [http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/|http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/]
 
 This is disabled by default, if you like to set RRS enabled for all uploads, use this config key:
 

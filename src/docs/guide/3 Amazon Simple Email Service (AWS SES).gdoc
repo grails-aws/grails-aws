@@ -1,6 +1,6 @@
 Amazon Simple E-mail Service (SES for now), it is a Sending E-mail Service provided by amazon, with a real low cost for users. The plugin interacts with it, so you can send e-mails using SES infrastructure without extra code in your app.
 
-If you just want to send e-mails using your non-SES infrastructure, this plugin won't help you, I recommend you to use the great *Grails Mail Plugin* (http://grails.org/plugin/mail). 
+If you just want to send e-mails using your non-SES infrastructure, this plugin won't help you, I recommend you to use the great *Grails Mail Plugin* ([http://grails.org/plugin/mail|http://grails.org/plugin/mail]). 
 
 Unfortunately, SES does not provide a simple SMTP server address to connect and use, otherwise we could just configure the Grails Mail Plugin to use it. Instead of this, AWS provides a http web service for it. 
 
