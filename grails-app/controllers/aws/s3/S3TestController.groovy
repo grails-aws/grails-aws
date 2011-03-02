@@ -1,6 +1,8 @@
 package aws.s3
 
 class S3TestController {
+
+	def aws
 	
 	def index = {
 		
@@ -38,7 +40,7 @@ class S3TestController {
 		def uploadedFile = new File(fileToUpload).s3upload {
 			bucket "bucket-in-eu-region", "EU"
 		}
-		
+				
 		render uploadedFile.source.toString()
 	}
 	
@@ -122,5 +124,17 @@ class S3TestController {
 		}
 		
 		render uploadedFile.source.toString()
+	}
+	
+	def deleteUploadedFile = {
+		
+		def bucket = params.bucket
+		def file = params.file
+		def path = params.path
+		
+		aws.s3().on(bucket).delete(file, path)
+		
+		render "Deleted file ${file} (path '${path}') of bucket ${bucket}"
+		
 	}
 }

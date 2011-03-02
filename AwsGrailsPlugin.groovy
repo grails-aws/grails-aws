@@ -54,6 +54,8 @@ class AwsGrailsPlugin {
 		//initializes the config hash
 		awsConfigHash = ConfigurationHolder.getConfig().grails?.plugin?.aws?.hashCode()
 		
+		//awsTool bean
+		aws(grails.plugin.aws.AwsGenericTools)
     }
 
     def doWithDynamicMethods = { ctx ->		
