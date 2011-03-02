@@ -1,13 +1,16 @@
-* *1.1.7.1 release* Feb 25 2010
+* *1.1.7.2 release* Mar 02 2011
+** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17211|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17211]
+
+* *1.1.7.1 release* Feb 25 2011
 ** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17188|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17188]
 
-* *1.1.5.1 release* Feb 08 2010
+* *1.1.5.1 release* Feb 08 2011
 ** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17127|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17127]
 
-* *1.1.4.1 release* Jan 30 2010
+* *1.1.4.1 release* Jan 30 2011
 ** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17096]
 
-* *0.2 release* Jan 18 2010
+* *0.2 release* Jan 18 2011
 ** issue 6 Define bucket region when creating buckets that does not exists
 ** issue 5 Use groovy doc to plugins documentation instead github readme
 ** issue 4 Use encrypted credentials
@@ -15,6 +18,6 @@
 ** issue 2 Ability to set path (virtual folder) to files
 ** issue 1 Set file content-type before upload 
 
-* *0.1 release* Jan 13 2010
+* *0.1 release* Jan 13 2011
 ** Upload to AWS S3
 ** Plugin configuration in Config.groovy
