@@ -37,9 +37,14 @@ class AwsGrailsPlugin {
     def authorEmail = "lucastex@gmail.com"
     def title = "Grails AWS Plugin"
     def description = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
-
-    // URL to the plugin's documentation
     def documentation = "http://blanq.github.com/grails-aws"
+
+	//maven-publisher plugin
+	def license = "APACHE"
+	def organization = [ name: "Blanq", url: "http://www.blanq.com.br/" ]
+	def developers = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
+	def issueManagement = [ system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
+	def scm = [ url: "https://github.com/blanq/grails-aws" ]
 
 	//hash for plugin config closure, will use it to validate when config changes
 	//will reload plugin config only if it changes not other changes
