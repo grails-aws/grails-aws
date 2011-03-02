@@ -1,0 +1,34 @@
+You can delete files from Amazon S3 just knowing the bucket name and full path for it (just file name or path + file name)
+
+It is damn simple, like the examples below
+
+You'll first need to define the *aws* bean that is provided by the plugin:
+
+{code}
+class MyController { 
+
+    def aws
+
+    def myAction = {
+        (...)
+    }
+}
+{code} 
+
+After that, you will use the *aws* bean and call the *s3()* method. This will return a helper for S3 Service. After that, you set the target bucket and then call the *delete* method.
+
+h3. Deleting files stored on the root of some bucket (without path):
+
+To delete the "photo.jpg" file stored under "my-app-bucket-photos" bucket (http://my-app-bucket-photos.s3.amazonaws.com/photo.jpg)
+
+{code}
+aws.s3().on("my-app-bucket-photos").delete("photo.jpg")
+{code}
+
+h3. Deleting files stored in some path of one bucket:
+
+To delete the "avatar.jpg" file stored under "my-app-bucket-avatars" bucket and path "/users/lucastex/" (http://my-app-bucket-avatars.s3.amazonaws.com/users/lucastex/avatar.jpg)
+
+{code}
+aws.s3().on("my-app-bucket-avatars").delete("avatar.jpg", "/users/lucastex/")
+{code}
