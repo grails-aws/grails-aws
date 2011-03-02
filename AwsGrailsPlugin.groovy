@@ -39,7 +39,7 @@ class AwsGrailsPlugin {
     def description = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
 
     // URL to the plugin's documentation
-    def documentation = "http://opensource.blanq.com.br/grails-aws"
+    def documentation = "http://blanq.github.com/grails-aws"
 
 	//hash for plugin config closure, will use it to validate when config changes
 	//will reload plugin config only if it changes not other changes
