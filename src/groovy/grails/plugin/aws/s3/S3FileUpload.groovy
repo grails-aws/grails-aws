@@ -165,7 +165,9 @@ class S3FileUpload {
 		}
 		
 		//metadata
-		s3Object.addAllMetadata(metadata)
+		metadata.each { metaKey, metaValue ->
+			s3Object.addMetadata(metaKey, metaValue.toString())	
+		}
 				
 		//rrs
 		if (rrs) {
