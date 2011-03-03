@@ -3,7 +3,6 @@ package grails.plugin.aws.s3
 //jets3t
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.utils.Mimetypes
-import org.jets3t.service.utils.ServiceUtils
 import org.jets3t.service.acl.AccessControlList
 import org.jets3t.service.security.AWSCredentials
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
@@ -73,7 +72,7 @@ class S3FileUpload {
 	}
 	
 	//upload method for inputstreams
-	def inputStreamUpload(InputStream is, String name, long size, Closure cls) {
+	def inputStreamUpload(InputStream is, String name, Closure cls) {
 		
 		this.inputStream = is
 		
@@ -91,8 +90,6 @@ class S3FileUpload {
 		//s3 object
 		def s3Object = buildS3Object(new S3Object(), name)
 		s3Object.setDataInputStream(this.inputStream)
-		//s3Object.setContentLength(size)
-		//s3Object.setMd5Hash(ServiceUtils.computeMD5Hash(inputStream)) 
 		s3Object.setContentType(Mimetypes.getInstance().getMimetype(name))
 		
 		//bucket

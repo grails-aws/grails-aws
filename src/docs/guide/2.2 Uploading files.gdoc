@@ -32,13 +32,13 @@ you could have your *uploadFromInputStream* action implemented this way:
 
 {code}
 def file = request.getFile('photo')
-def uploadedFile = file.inputStream.s3upload(file.originalFilename, file.size) {
+def uploadedFile = file.inputStream.s3upload(file.originalFilename) {
     bucket "file-upload-from-inputstream"
 }
 {code}
 
 {warning}
-Uploading from InputStream requires 2 extra parameters, the filename and its size.
+Uploading from InputStream requires one extra parameters, the filename that this inputstream will have.
 {warning}
 
 Note that when you use *File*.s3upload you just pass the closure that configures it. When using from one inputStream, you *SHOULD* have to specify the name that file will have and the file size. The above example show exactly how to do it with the correct info from the uploaded file.
