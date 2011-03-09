@@ -119,7 +119,17 @@ class S3TestController {
 	def uploadFromInputStream = {
 		
 		def file = request.getFile('photo')
-		def uploadedFile = file.inputStream.s3upload("file-name-${System.currentTimeMillis()}.jpg", file.size) {
+		def uploadedFile = file.inputStream.s3upload("file-name-${System.currentTimeMillis()}.jpg") {
+			bucket "file-upload-from-inputstream"
+		}
+		
+		render uploadedFile.source.toString()
+	}
+
+	def uploadFromByteArrayInputStream = {
+		
+		def file = new File("/Users/blanq01/Desktop/test.jpg")
+		def uploadedFile = new ByteArrayInputStream(file.bytes).s3upload("file-name-${System.currentTimeMillis()}.jpg") {
 			bucket "file-upload-from-inputstream"
 		}
 		
