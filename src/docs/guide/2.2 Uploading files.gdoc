@@ -18,8 +18,7 @@ If you want to overwrite config during the file upload, check this guide next se
 
 h3. Uploading files directly from its InputStream
 
-This is useful when you don't have the file stored in your filesystem, and don't want to have.
-When user uploads files to your application using a *multipart/form-data* form, you can upload it directly to s3. Imagine it have an upload form like this:
+This is useful when you don't have the file stored in your filesystem. When user uploads files to your application using a *multipart/form-data* form, you can upload it directly to s3. Imagine it have an upload form like this:
 
 {code}
 <g:uploadForm action="uploadFromInputStream">
