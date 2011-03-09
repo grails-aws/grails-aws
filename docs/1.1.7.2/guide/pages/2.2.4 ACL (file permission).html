@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.2.4 ACL (file permission)</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    The permissions that will be granted on this file, you can use the same values shown in "General Plugin Config" topic on this guide.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;</pre></div>
+    </body>
+</html>
