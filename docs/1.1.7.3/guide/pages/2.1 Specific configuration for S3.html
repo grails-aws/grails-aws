@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.1 Specific configuration for S3</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    In your config.groovy, inside <strong class="bold">grails.plugin.aws</strong> closure, you can set some extra configurations for S3 usage.
+This properties will be used when no respective config is defined when uploading file.<p class="paragraph"/>For example, you can define a default bucket for file uploads. Everytime you attemp to upload a file without explicitly setting the bucket name, this default will be used.<p class="paragraph"/>Check now, all default config possibilities you can set.<p class="paragraph"/><h3>Bucket name</h3><p class="paragraph"/>To set a default bucket, that will be used to all file upload use the config below<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            bucket = <span class="java&#45;quote">"grails&#45;plugin&#45;test"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>During the first upload on this bucket, it will be created if does not exist.<p class="paragraph"/><h3>ACL (file permission)</h3><p class="paragraph"/>The permissions that will be granted on this file, you can use:
+<ul class="star">
+<li><strong class="bold">public:</strong> Allow public access to everyone that attemps to read this file</li>
+<li><strong class="bold">private:</strong> Sets private access to this file, only your account will read/write on it</li>
+<li><strong class="bold">public_read_write:</strong> This will make this file wide open to any AWS account, read and write</li>
+<li><strong class="bold">authenticated_read:</strong> Using this acl string, only logged AWS accounts will have permissions to read the file</li>
+</ul><p class="paragraph"/>To configure public access as default to all file uploads, use this:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">public</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>If you like to set private access to your files, you should config this way:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><h3>RRS - Reduced Redundancy Storage</h3><p class="paragraph"/>RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: <a href="http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/" target="blank">http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/</a><p class="paragraph"/>This is disabled by default, if you like to set RRS enabled for all uploads, use this config key:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            rrs = <span class="java&#45;keyword">true</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>
+    </body>
+</html>
