@@ -1,4 +1,7 @@
 * *1.1.7.2 release* Mar 02 2011
+** Release notes: - BUG that woudn't allow uploading from @InputStream@s when using an @ByteArrayInputStream@
+
+* *1.1.7.2 release* Mar 02 2011
 ** Release notes: [http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17211|http://jira.codehaus.org/secure/ReleaseNote.jspa?projectId=11450&version=17211]
 
 * *1.1.7.1 release* Feb 25 2011
