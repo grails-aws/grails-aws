@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2 Amazon Simple Storage Service (AWS S3)</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <h1><a name="2 Amazon Simple Storage Service (AWS S3)">2 Amazon Simple Storage Service (AWS S3)</a></h1><h2><a name="2.1 Specific configuration for S3">2.1 Specific configuration for S3</a></h2>In your config.groovy, inside <strong class="bold">grails.plugin.aws</strong> closure, you can set some extra configurations for S3 usage.
+This properties will be used when no respective config is defined when uploading file.<p class="paragraph"/>For example, you can define a default bucket for file uploads. Everytime you attemp to upload a file without explicitly setting the bucket name, this default will be used.<p class="paragraph"/>Check now, all default config possibilities you can set.<p class="paragraph"/><h3>Bucket name</h3><p class="paragraph"/>To set a default bucket, that will be used to all file upload use the config below<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            bucket = <span class="java&#45;quote">"grails&#45;plugin&#45;test"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>During the first upload on this bucket, it will be created if does not exist.<p class="paragraph"/><h3>ACL (file permission)</h3><p class="paragraph"/>The permissions that will be granted on this file, you can use:
+<ul class="star">
+<li><strong class="bold">public:</strong> Allow public access to everyone that attemps to read this file</li>
+<li><strong class="bold">private:</strong> Sets private access to this file, only your account will read/write on it</li>
+<li><strong class="bold">public_read_write:</strong> This will make this file wide open to any AWS account, read and write</li>
+<li><strong class="bold">authenticated_read:</strong> Using this acl string, only logged AWS accounts will have permissions to read the file</li>
+</ul><p class="paragraph"/>To configure public access as default to all file uploads, use this:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">public</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>If you like to set private access to your files, you should config this way:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><h3>RRS - Reduced Redundancy Storage</h3><p class="paragraph"/>RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: <a href="http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/" target="blank">http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/</a><p class="paragraph"/>This is disabled by default, if you like to set RRS enabled for all uploads, use this config key:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            rrs = <span class="java&#45;keyword">true</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><h2><a name="2.2 Uploading files">2.2 Uploading files</a></h2>The plugin adds support for uploading files to Amazon S3, by adding a s3upload(...) method to <strong class="bold">File</strong> and <strong class="bold">InputStream</strong> classes, so you'll just need to call this method passing a closure with overwritten config options, but if you do not want to overwrite it, just leave this and the plugin will catch from the Config.groovy default options.<p class="paragraph"/><h3>Simple File upload from a File object</h3><p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    path <span class="java&#45;quote">"folder/to/my/file/"</span>
+&#125;</pre></div><p class="paragraph"/>This way your test.txt file will be uploaded to<p class="paragraph"/><div class="code"><pre>&#60;<span class="java&#45;keyword">default</span>&#45;bucket&#62;.s3.amazonaws.com/folder/to/my/file/test.txt</pre></div><p class="paragraph"/>If you want to overwrite config during the file upload, check this guide next section.<p class="paragraph"/><h3>Uploading files directly from its InputStream</h3><p class="paragraph"/>This is useful when you don't have the file stored in your filesystem. When user uploads files to your application using a <strong class="bold">multipart/form-data</strong> form, you can upload it directly to s3. Imagine it have an upload form like this:<p class="paragraph"/><div class="code"><pre>&#60;g:uploadForm action=<span class="java&#45;quote">"uploadFromInputStream"</span>&#62;
+    &#60;input type=<span class="java&#45;quote">"file"</span> name=<span class="java&#45;quote">"photo"</span>&#62;
+    &#60;input type=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"upload"</span>&#62;
+&#60;/g:uploadForm&#62;</pre></div><p class="paragraph"/>you could have your <strong class="bold">uploadFromInputStream</strong> action implemented this way:<p class="paragraph"/><div class="code"><pre>def file = request.getFile('photo')
+def uploadedFile = file.inputStream.s3upload(file.originalFilename) &#123;
+    bucket <span class="java&#45;quote">"file&#45;upload&#45;from&#45;inputstream"</span>
+&#125;</pre></div><p class="paragraph"/><blockquote class="warning">
+Uploading from InputStream requires one extra parameters, the filename that this object will have in S3, usually the 'originalFileName'.
+</blockquote><p class="paragraph"/>Note that when you use <strong class="bold">File</strong>.s3upload you just pass the closure that configures it. When using from one inputStream, you <strong class="bold">SHOULD</strong> have to specify the name that file will have and the file size. The above example show exactly how to do it with the correct info from the uploaded file.<p class="paragraph"/><h3>Storing uploaded information for later use</h3><p class="paragraph"/>If you are uploading some picture to S3, you'll probably need to store information on how to get that file again later.<p class="paragraph"/>The <strong class="bold">s3upload</strong> operation returns an instance of <strong class="bold">grails.plugin.aws.s3.S3File</strong>. As this plugin uses jets3t (<a href="http://jets3t.s3.amazonaws.com/index.html" target="blank">http://jets3t.s3.amazonaws.com/index.html</a>) to handle file upload, the S3File is just a wrapper for a <strong class="bold">delegated</strong> jets3t S3Object instance as you can see below:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> grails.plugin.aws.s3
+<span class="java&#45;keyword">import</span> org.jets3t.service.model.S3Object<p class="paragraph"/>class S3File &#123;<p class="paragraph"/>    @Delegate S3Object source<p class="paragraph"/>    <span class="java&#45;keyword">public</span> S3File(S3Object _source) &#123;
+        <span class="java&#45;keyword">this</span>.source = _source
+    &#125;    
+&#125;</pre></div><p class="paragraph"/>So, you can call any S3Object method on S3File instance. S3Object API is available here: <a href="http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html" target="blank">http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html</a>, for example, to retrieve the ETag hash for the S3File uploaded you would just call:<p class="paragraph"/><div class="code"><pre>def s3file = &#8230; //upload the file
+def etag = s3file.getETag()</pre></div><p class="paragraph"/>The <strong class="bold">S3File</strong> object returned will give all information you'll need. Now, depends on what information you want to store. Follow S3Object docs (link above) and get whatever you want.<p class="paragraph"/>A common approach would be storing the bucket, path and file (key). With these parameters you can rebuild the URL to reach the file, or even delete the file. <h2><a name="2.2.1 Setting file virual path">2.2.1 Setting file virual path</a></h2>S3 does not support paths or buckets inside other buckets, to solve this and keep your files organized, you can use the path method inside the config closure. Doing this, the plugin will set a metadata into this file telling AWS that this file is virtually in a folder that does not exist.<p class="paragraph"/>The effect is exactly like in a regular folder. For example, doing the upload below:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/profile&#45;picture.jpg"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"my&#45;aws&#45;app"</span>
+    path <span class="java&#45;quote">"pictures/user/profile/"</span>
+&#125;</pre></div><p class="paragraph"/>The file will be stored and available in the following url:<p class="paragraph"/><div class="code"><pre>http://my&#45;aws&#45;app.s3.amazonaws.com/pictures/user/profile/profile&#45;picture.jpg</pre></div><p class="paragraph"/>And using the AWS S3 console, the files will visually be inside folders either.
+Some third-party apps is already using this feature to show "folders".<h2><a name="2.2.2 Overwriting AWS credentials">2.2.2 Overwriting AWS credentials</a></h2>Just call the <strong class="bold">credentials</strong> method inside the upload closure, and this credentials will be used (for this upload only). Example:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    credentials <span class="java&#45;quote">"my&#45;other&#45;access&#45;key"</span>, <span class="java&#45;quote">"my&#45;other&#45;secret&#45;key"</span>
+&#125;</pre></div>
+<h2><a name="2.2.3 Overwriting bucket to file upload">2.2.3 Overwriting bucket to file upload</a></h2>You can call the <strong class="bold">bucket</strong> method and define witch different bucket (from default) will be used. This bucket will be created if does not exist.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"other&#45;bucket"</span>
+&#125;</pre></div><p class="paragraph"/>This file will be uploaded to<p class="paragraph"/><div class="code"><pre>other&#45;bucket.s3.amazonaws.com/test.txt</pre></div><p class="paragraph"/>Remember, when plugin created a non pre-existent bucket, it will be created in the default <strong class="bold">US</strong> region. If you like to set a different location, just pass a second string parameter containing the region string. For example, to set this bucket creation in Europe region:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"bucket&#45;not&#45;yet&#45;created&#45;in&#45;europe"</span>, <span class="java&#45;quote">"EU"</span>
+&#125;</pre></div><h2><a name="2.2.4 ACL (file permission)">2.2.4 ACL (file permission)</a></h2>The permissions that will be granted on this file, you can use the same values shown in "General Plugin Config" topic on this guide.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;</pre></div><h2><a name="2.2.5 RRS - Reduced Redundancy Storage">2.2.5 RRS - Reduced Redundancy Storage</a></h2>If some specifically file you like to use a different RRS setting, call the rrs method in the closure, passing true or false, as you wish<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    rrs <span class="java&#45;keyword">false</span>
+&#125;</pre></div><h2><a name="2.2.6 Setting File Metadata">2.2.6 Setting File Metadata</a></h2>AWS S3 files can store user metadata, doing this is simple as setting a metadata map to file upload<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    metadata &#91;user&#45;id: 123, username: 'johndoe', registered&#45;date: <span class="java&#45;keyword">new</span> Date().format('dd/MM/yyyy')&#93;
+&#125;</pre></div><h2><a name="2.2.7 Creating public URLs for private files">2.2.7 Creating public URLs for private files</a></h2>When you upload a file to S3 with a "private" acl, means that the file won't be accessed directly using the URL, but only with your amazon credentials.<p class="paragraph"/>For example:<p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"test.txt"</span>).s3upload &#123;
+   bucket <span class="java&#45;quote">"secret&#45;files"</span>
+   acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;</pre></div><p class="paragraph"/>This will make the file above (http://secret-files.s3.amazonaws.com/test.txt) inaccessible using its URL. If you need to allow someone to get the file in a short period of time, you can ask the plugin to generate a public URL for it. The object will remain private, but you can use the returned URL to access the file in a short period of time. For example:<p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"test.txt"</span>).s3upload &#123;
+   bucket <span class="java&#45;quote">"secret&#45;files"</span>
+   acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;<p class="paragraph"/>def publicUrl = s3file.publicUrlFor()</pre></div><p class="paragraph"/>So, the value on the <strong class="bold">publicUrl</strong> is the URL for accessing the file. By default the URL will be valid for <strong class="bold">1 hour</strong>. Every requests on it will return the uploaded object. After one hour, next requests on it will return an error: "Access Denied for Object".<p class="paragraph"/><h3>Defining when public URL will expire</h3><p class="paragraph"/>You can set the expires date for the public URL, passing an argument to <strong class="bold">publicUrlFor</strong> method.<p class="paragraph"/><div class="code"><pre>s3file.publicUrlFor(3.hours) //will be available <span class="java&#45;keyword">for</span> 3 hours
+s3file.publicUrlFor(10.years) //available <span class="java&#45;keyword">for</span> 10 years
+s3file.publicUrlFor(1.second) //you won't get <span class="java&#45;keyword">this</span> one on time</pre></div><p class="paragraph"/>You can any of these methods:<p class="paragraph"/><div class="code"><pre>1.second or 2.seconds 
+1.minute or 2.minutes
+1.hour or 2.hours
+1.day or 2.days
+1.month or 2.months
+1.year or 2.years</pre></div><p class="paragraph"/>This properties are injected on Integer class, so, enjoy the magic. <h2><a name="2.2.8 Creating torrent for S3 hosted files">2.2.8 Creating torrent for S3 hosted files</a></h2>It is possible to generate torrent URLs for S3 hosted files with the plugin.<p class="paragraph"/>After uploading some file, just call the <strong class="bold">torrent()</strong> method on it and you'll get the torrent URL for it.<p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"test.txt"</span>).s3upload &#123;
+   bucket <span class="java&#45;quote">"secret&#45;files"</span>
+   acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;<p class="paragraph"/>def torrentUrl = s3file.torrent()</pre></div><p class="paragraph"/>From the AWS docs:<p class="paragraph"/> <em class="italic"><strong class="bold">There is no extra charge for use of BitTorrent with S3</strong>. Data transfer via the BitTorrent protocol is metered at the same rate as client/server delivery. To be precise, whenever a downloading BitTorrent client requests a “piece” of an object from the S3 “seeder”, charges accrue just as if an anonymous request for that piece had been made using the REST or SOAP protocol. These charges will appear on your S3 bill and usage reports in the same way. <strong class="bold">The difference is that if a lot of clients are requesting the same object simultaneously via BitTorrent, then the amount of data S3 must serve to satisfy those clients will be lower than with client/server delivery</strong>. This is because the BitTorrent clients are simultaneously uploading and downloading amongst themselves. The data transfer savings achieved from use of BitTorrent can vary widely depending on how popular your object is. Less popular objects require heavier use of the “seeder” to serve clients, and thus the difference between BitTorrent distribution costs and client/server distribution costs may be small for such objects. In particular, if only one client is ever downloading a particular object at a time, the cost of BitTorrent delivery will be the same as direct download.</em> <h2><a name="2.3 Deleting files">2.3 Deleting files</a></h2>You can delete files from Amazon S3 just knowing the bucket name and full path for it (just file name or path + file name)<p class="paragraph"/>It is damn simple, like the examples below<p class="paragraph"/>You'll first need to define the <strong class="bold">aws</strong> bean that is provided by the plugin:<p class="paragraph"/><div class="code"><pre>class MyController &#123;<p class="paragraph"/>    def aws<p class="paragraph"/>    def myAction = &#123;
+        (...)
+    &#125;
+&#125;</pre></div><p class="paragraph"/>After that, you will use the <strong class="bold">aws</strong> bean and call the <strong class="bold">s3()</strong> method. This will return a helper for S3 Service. After that, you set the target bucket and then call the <strong class="bold">delete</strong> method.<p class="paragraph"/><h3>Deleting files stored on the root of some bucket (without path):</h3><p class="paragraph"/>To delete the "photo.jpg" file stored under "my-app-bucket-photos" bucket (http://my-app-bucket-photos.s3.amazonaws.com/photo.jpg)<p class="paragraph"/><div class="code"><pre>aws.s3().on(<span class="java&#45;quote">"my&#45;app&#45;bucket&#45;photos"</span>).delete(<span class="java&#45;quote">"photo.jpg"</span>)</pre></div><p class="paragraph"/><h3>Deleting files stored in some path of one bucket:</h3><p class="paragraph"/>To delete the "avatar.jpg" file stored under "my-app-bucket-avatars" bucket and path "/users/lucastex/" (http://my-app-bucket-avatars.s3.amazonaws.com/users/lucastex/avatar.jpg)<p class="paragraph"/><div class="code"><pre>aws.s3().on(<span class="java&#45;quote">"my&#45;app&#45;bucket&#45;avatars"</span>).delete(<span class="java&#45;quote">"avatar.jpg"</span>, <span class="java&#45;quote">"/users/lucastex/"</span>)</pre></div>
+    </body>
+</html>

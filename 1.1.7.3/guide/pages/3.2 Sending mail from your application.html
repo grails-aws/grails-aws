@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3.2 Sending mail from your application</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    <blockquote class="warning">
+Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emais that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
+</blockquote><p class="paragraph"/>Sending e-mails from your application is easy, and you can do it from your services or controllers just calling the <strong class="bold">sesMail</strong> closure that is injected on these artifacts.<p class="paragraph"/><div class="code"><pre>class SesTestController &#123;<p class="paragraph"/>    def sendPlainTextMail = &#123;<p class="paragraph"/>        def mailId = sesMail &#123;
+            to <span class="java&#45;quote">"test&#45;email@gmail.com"</span>
+            subject <span class="java&#45;quote">"test plain text mail"</span>
+            body <span class="java&#45;quote">"sendPlainTextMail ($&#123;<span class="java&#45;keyword">new</span> Date().format('dd/MM/yyyy HH:mm')&#125;)"</span>
+        &#125;<p class="paragraph"/>        render <span class="java&#45;quote">"E&#45;mail sent: $&#123;mailId&#125;"</span>
+    &#125;
+&#125;</pre></div>
+    </body>
+</html>
