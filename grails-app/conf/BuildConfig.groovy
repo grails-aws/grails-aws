@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
     }
 
 	dependencies {
-        compile 'net.java.dev.jets3t:jets3t:0.8.0'
+        compile 'net.java.dev.jets3t:jets3t:0.8.1'
         compile 'javax.mail:mail:1.4.1'
         compile 'commons-httpclient:commons-httpclient:3.1'
         compile 'commons-logging:commons-logging:1.1.1'
