@@ -1,4 +1,4 @@
-* *1.1.7.2 release* Mar 02 2011
+* *1.1.7.3 release* Mar 02 2011
 ** Release notes: - BUG that woudn't allow uploading from @InputStream@s when using an @ByteArrayInputStream@
 
 * *1.1.7.2 release* Mar 02 2011
