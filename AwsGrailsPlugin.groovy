@@ -1,6 +1,7 @@
 import org.apache.log4j.Logger
 import grails.spring.BeanBuilder
 import grails.plugin.aws.AWSGenericTools
+import grails.plugin.aws.s3.AWSS3Tools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
@@ -52,8 +53,6 @@ class AwsGrailsPlugin {
 
 	def doWithSpring = { 
 
-		aws(AWSGenericTools)
-
 		credentialsHolder(AWSCredentialsHolder) {
 			accessKey  = configurationReader.read("grails.plugin.aws.credentials.accessKey")
 			secretKey  = configurationReader.read("grails.plugin.aws.credentials.secretKey")
@@ -64,6 +63,14 @@ class AwsGrailsPlugin {
 			credentialsHolder = ref('credentialsHolder')
 			from              = configurationReader.read("grails.plugin.aws.ses.from")
 			catchall          = configurationReader.read("grails.plugin.aws.ses.catchall")
+		}
+		
+		awsS3(AWSS3Tools) {
+			credentialsHolder = ref('credentialsHolder')
+		}
+		
+		aws(AWSGenericTools) {
+			awsS3 = ref('awsS3')
 		}
 	}
 
@@ -80,6 +87,7 @@ class AwsGrailsPlugin {
 		def sendSesMailBean      = event.ctx.getBean('sendSesMail')
 		sendSesMailBean.from     = configurationReader.read("grails.plugin.aws.ses.from")
 		sendSesMailBean.catchall = configurationReader.read("grails.plugin.aws.ses.catchall")
+		
 	}
 
 	def onChange = { event ->
