@@ -31,7 +31,7 @@ class AwsGrailsPlugin {
 	def organization    = [  name: "Blanq", url: "http://github.com/blanq" ]
 	def developers      = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
 	def scm             = [  url: "https://github.com/blanq/grails-aws" ]
-	def issueManagement = [  system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
+	def issueManagement = [  system: "JIRA", url: "http://jira.grails.org/browse/GPAWS" ]
 	
     def onChange                 = AwsPluginSupport.onChange
 	def doWithSpring             = AwsPluginSupport.doWithSpring
