@@ -1,5 +1,6 @@
 package grails.plugin.aws.s3
 
+import org.apache.log4j.Logger
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.utils.Mimetypes
 import org.jets3t.service.acl.AccessControlList
@@ -19,102 +20,90 @@ class S3FileUpload {
 	//configured by user
 	String path
 	Map    metadata = [:]
+	
+	//log
+	private static def log = Logger.getLogger(S3FileUpload.class)
 		
 	//set bucket
 	void bucket(_bucketName) {
-		this.bucket = _bucketName
+		bucket = _bucketName
+		log.debug "setting bucket name to '${bucket}'"
 	}
 	
 	//set bucket with location
 	void bucket(_bucketName, _bucketLocation) {
 		this.bucket = _bucketName
 		this.bucketLocation = _bucketLocation
+		log.debug "setting bucket name to '${bucket}' and its location to '${bucketLocation}'"
 	}
 
 	//set file path
 	void path(_path) {
 		this.path = _path
+		log.debug "setting path name to '${path}'"
 	}
 
 	//file metadata
 	void metadata(_metadata) {
 		this.metadata = _metadata
+		log.debug "setting metadata name to '${metadata}'"
 	}
 
 	//file's acl
 	void acl(_acl) {
 		this.acl = _acl
+		log.debug "setting acl name to '${acl}'"
 	}
 
 	//if will or not use rrs
 	void rrs(_rrs) {
 		this.rrs = _rrs
+		log.debug "setting rrs name to '${rrs}'"
 	}
 	
 	//upload method for inputstreams
 	def inputStreamUpload(InputStream inputStream, String name, Closure cls) {
 		
-		if (cls) {
-			cls.delegate = this
-			cls()
-		}
-		
-		//bucket validation
-		validateBucket()
-		
-		//s3 service
-		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		log.debug "attemping to upload file from inputStream"
+		setClosureData(cls)
+		validateBucketName()
 		
 		//s3 object
 		def s3Object = buildS3Object(new S3Object(), name)
 		s3Object.setDataInputStream(inputStream)
 		s3Object.setContentType(Mimetypes.getInstance().getMimetype(name))
 		
+		//s3 service
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		
 		//bucket
 		def bucketObject = s3Service.getOrCreateBucket(bucket, bucketLocation)
 		
 		//upload
-		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
-		uploadedObject.bucketName = bucketObject.name
-		return new S3File(uploadedObject)
+		return new S3File(s3Service.putObject(bucketObject, s3Object))
 	}
-
-	//upload method for file
+	
 	def fileUpload(File _file, Closure cls) {
 			
-		if (cls) {
-			cls.delegate = this
-			cls()
-		}
-		
-		//bucket validation
-		validateBucket()
+		log.debug "attemping to upload file from plain file object"
+		setClosureData(cls)
+		validateBucketName()
 		
 		//s3 service
 		def s3Service = new RestS3Service(jetCredentials)		
 		
 		//s3 object
-		def s3Object = buildS3Object(new S3Object(file))
+		def s3Object = buildS3Object(new S3Object(file, file.name))
 		
 		//bucket
 		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
 		
 		//upload
-		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
-		uploadedObject.bucketName = bucketObject.name
-		return new S3File(uploadedObject)
+		return new S3File(s3Service.putObject(bucketObject, s3Object))
 	}
-	
-	//bucket validation
-	def validateBucket() {
-
-		if (!bucketName) {
-			throw new GrailsAWSException("Invalid upload attemp, do not forget to set your bucket")
-		}
-	}
-	
+		
 	//build s3 object
-	def buildS3Object(S3Object s3Object, String name = null) {
+	def buildS3Object(S3Object s3Object, String name) {
 		
 		//acl
 		if (acl == "public")
@@ -126,30 +115,41 @@ class S3FileUpload {
 		if (acl == "authenticated_read")
 			s3Object.setAcl(AccessControlList.REST_CANNED_AUTHENTICATED_READ)
 		
-		//path
-		//if (this.path) {
-		//	
-		//	def _path = this.path
-		//	if (!_path.endsWith("/")) {
-		//		_path = "${_path}/"
-		//	}
-		//	_path = "${_path}${(name ? name : file.name)}"
-		//	s3Object.setKey(_path)
-		//	
-		//} else {
-		//	s3Object.setKey(name ? name : file.name)
-		//}
+		s3Object.setKey(buildObjectKey(path, name))
+		s3Object.bucketName = bucket
 		
-		//metadata
 		metadata.each { metaKey, metaValue ->
 			s3Object.addMetadata(metaKey, metaValue.toString())	
 		}
 				
-		//rrs
 		if (rrs) {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
 		
 		return s3Object
+	}
+	
+	def buildObjectKey(path, name) {
+		if (path) {
+			if (!path.endsWith("/")) {
+				path = path.concat("/")
+			}
+			path = path.concat(name)
+			return path
+		}
+		return name
+	}
+	
+	def setClosureData(Closure cls) {
+		if (cls) {
+			cls.delegate = this
+			cls()
+		}
+	}
+	
+	def validateBucketName() {
+		if (!bucket) {
+			throw new GrailsAWSException("Invalid upload attemp, do not forget to set your bucket")
+		}
 	}
 }

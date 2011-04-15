@@ -42,7 +42,7 @@ class AwsGrailsPlugin {
 	
 	def configurationReader = new ConfigReader(ConfigurationHolder.config)
 
-	private static Logger log = Logger.getLogger(AwsGrailsPlugin.class)
+	private static def log = Logger.getLogger(AwsGrailsPlugin.class)
 
     def doWithWebDescriptor = { xml ->
     }
@@ -69,7 +69,7 @@ class AwsGrailsPlugin {
 			credentialsHolder = ref('credentialsHolder')
 			acl               = configurationReader.read("grails.plugin.aws.s3.acl", "public")
 			bucket            = configurationReader.read("grails.plugin.aws.s3.bucket")
-			bucketLocation    = configurationReader.read("grails.plugin.aws.s3.bucketLocation", null)
+			bucketLocation    = configurationReader.read("grails.plugin.aws.s3.bucketLocation")
 			rrs               = Boolean.valueOf(configurationReader.read("grails.plugin.aws.s3.rrs", "true"))
 		}
 		
