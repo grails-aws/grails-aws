@@ -28,7 +28,7 @@ class SendSesMail {
 	//injected
 	def from
 	def catchall
-	def credentials
+	def credentialsHolder
 	
 	private static Logger log = Logger.getLogger(SendSesMail.class)
 		
@@ -110,6 +110,7 @@ class SendSesMail {
 	
 	//method to send the message to this destination, using this from
 	def sendMail(_from, _destination, _message) {
+		def credentials  = credentialsHolder.buildAwsSdkCredentials()
 		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)		
 		def emailResult  = sesService.sendEmail(emailRequest)

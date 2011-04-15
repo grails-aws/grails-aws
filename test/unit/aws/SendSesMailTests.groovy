@@ -27,9 +27,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		assertEquals "default-from-email@server.com", sender.from
     }
@@ -40,10 +40,10 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.catchall    = "catch-all@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.catchall          = "catch-all@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		assertEquals "default-from-email@server.com", sender.from
 		assertEquals "catch-all@server.com", sender.catchall
@@ -55,9 +55,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.from("new-from@server.com")
 		assertEquals "new-from@server.com", sender.from
@@ -69,9 +69,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.to("new-to@server.com")
 		assertEquals 1, sender.to.size()
@@ -84,9 +84,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.to("new-to-1@server.com", "new-to-2@server.com")
 		assertEquals 2, sender.to.size()
@@ -100,9 +100,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.cc("new-cc@server.com")
 		assertEquals 1, sender.cc.size()
@@ -115,9 +115,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.cc("new-cc-1@server.com", "new-cc-2@server.com")
 		assertEquals 2, sender.cc.size()
@@ -132,8 +132,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.bcc("new-bcc@server.com")
 		assertEquals 1, sender.bcc.size()
@@ -146,9 +146,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.bcc("new-bcc-1@server.com", "new-bcc-2@server.com")
 		assertEquals 2, sender.bcc.size()
@@ -162,9 +162,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.body("This is the mail body!")
 		assertEquals "This is the mail body!", sender.body
@@ -176,9 +176,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.html("This is the html mail body!")
 		assertEquals "This is the html mail body!", sender.html
@@ -193,9 +193,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		def buffer = new StreamCharBuffer()
 		buffer.writer << "Testing mail body from StreamCharBuffer"
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.html(buffer)
 		assertEquals "Testing mail body from StreamCharBuffer", sender.html
@@ -207,9 +207,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.subject("E-mail subject")
 		assertEquals "E-mail subject", sender.subject
@@ -221,9 +221,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.setClosureData {
 			from    "new-from@server.com"
@@ -247,8 +247,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.credentialsHolder = credentialsHolder
 		
 		shouldFail {
 			sender.send {
@@ -266,8 +266,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
@@ -284,9 +284,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 		    to      "new-to@server.com"
@@ -302,9 +302,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
@@ -325,9 +325,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
@@ -348,9 +348,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
@@ -373,9 +373,9 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
@@ -406,10 +406,10 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
-		def sender         = new SendSesMail()
-		sender.from        = "default-from-email@server.com"
-		sender.catchall    = "catchall@server.com"
-		sender.credentials = credentialsHolder.buildAwsSdkCredentials()
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.catchall          = "catchall@server.com"
+		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
 			from    "new-from@server.com"
