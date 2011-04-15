@@ -13,7 +13,8 @@ class S3TestController {
 		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-1.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { }
 		
-		render uploadedFile.source.toString()
+		render """${uploadedFile.source.toString()} <br /><br />${uploadedFile.url()}"""
+		
 	}
 
     def uploadWithDefaultPropertiesAndNoClosure = {

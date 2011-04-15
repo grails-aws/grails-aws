@@ -13,7 +13,7 @@ class S3File {
 	
 	public S3File(S3Object _source) {
 		this.source = _source
-		credentialsHolder = AH.application.mainContext.credentialsHolder
+		credentialsHolder = AH.application?.mainContext?.credentialsHolder
 	}
 	
 	public String publicUrlFor(expiryDate = 1.hour) {
@@ -22,9 +22,12 @@ class S3File {
 	}
 	
 	public String torrent() {
-		
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())			
 		return s3Service.createTorrentUrl(source.bucketName, source.key)
+	}
+	
+	public String url() {
+		return "http://${source.bucketName}.s3.amazonaws.com/${source.key}"
 	}
 		
 }

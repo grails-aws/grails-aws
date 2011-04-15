@@ -1,0 +1,26 @@
+If you are uploading some document to S3, you'll probably need to store information on how to get that file again later.
+
+The *s3upload* operation returns an instance of *grails.plugin.aws.s3.S3File*. As this plugin uses jets3t ([http://jets3t.s3.amazonaws.com/index.html|http://jets3t.s3.amazonaws.com/index.html]) to handle file upload, the S3File is just a wrapper for a *delegated* jets3t S3Object instance as you can see below:
+
+{code}
+package grails.plugin.aws.s3
+import org.jets3t.service.model.S3Object
+
+class S3File {
+    
+    @Delegate S3Object source
+    
+    public S3File(S3Object _source) {
+        this.source = _source
+    }    
+}
+{code}
+
+So, you can call any S3Object method on S3File instance. S3Object API is available here: [http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html|http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html], for example, to retrieve the ETag hash for the S3File uploaded you would just call:
+
+{code}
+def s3file = ... //upload the file
+def etag = s3file.getETag()
+{code}
+
+The *S3File* object returned will give all information you'll need. Now, depends on what information you want to store. Follow S3Object docs (link above) and get whatever you want.
