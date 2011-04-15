@@ -19,17 +19,19 @@ class AwsGrailsPlugin {
     	"grails-app/services/**/*Service.groovy",
     	"grails-app/controllers/**/*Controller.groovy"
 	]
-    def author = "Lucas Teixeira"
-    def authorEmail = "lucastex@gmail.com"
-    def title = "Grails AWS Plugin"
-    def description = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
-    def documentation = "http://blanq.github.com/grails-aws"
 
-	def license = "APACHE"
-	def organization = [ name: "Blanq", url: "http://www.blanq.com.br/" ]
-	def developers = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
-	def issueManagement = [ system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
-	def scm = [ url: "https://github.com/blanq/grails-aws" ]
+
+    def title         = "Grails AWS Plugin"
+    def description   = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
+    def documentation = "http://blanq.github.com/grails-aws"
+	def author        = "Lucas Teixeira"
+    def authorEmail   = "lucastex@gmail.com"    
+
+	def license         = "APACHE"
+	def organization    = [  name: "Blanq", url: "http://github.com/blanq" ]
+	def developers      = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
+	def scm             = [  url: "https://github.com/blanq/grails-aws" ]
+	def issueManagement = [  system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
 	
     def onChange                 = AwsPluginSupport.onChange
 	def doWithSpring             = AwsPluginSupport.doWithSpring
