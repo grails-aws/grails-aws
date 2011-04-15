@@ -18,7 +18,6 @@ import org.codehaus.groovy.grails.web.util.StreamCharBuffer
 
 class SendSesMail {
 	
-	def from
 	def to  = []
 	def cc  = []
 	def bcc = []
@@ -26,18 +25,14 @@ class SendSesMail {
 	def body     = ""
 	def html     = ""
 	def subject  = ""
-	def catchall
 	
+	//injected
+	def from
+	def catchall
 	def credentials
 	
 	private static Logger log = Logger.getLogger(SendSesMail.class)
-	
-	public SendSesMail(String defaultFrom, String catchall = null) {
-		this.from = defaultFrom
-		this.catchall = catchall
-		getLog().debug "Creating SES Mail sender with defaultFrom=${defaultFrom}/catchall=${catchall}"
-	}
-	
+		
 	//from
 	void from(String _from) { this.from = _from }
 	
