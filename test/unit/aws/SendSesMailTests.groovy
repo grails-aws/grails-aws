@@ -1,6 +1,7 @@
 package aws
 
 import grails.test.GrailsUnitTestCase
+import grails.plugin.aws.util.MockLogger
 import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.AWSCredentialsHolder
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
@@ -11,8 +12,6 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
     protected void setUp() {
         super.setUp()
-		AWSCredentialsHolder.metaClass.getLog = { -> new grails.plugin.aws.util.MockLogger() }
-		SendSesMail.metaClass.getLog = { -> new grails.plugin.aws.util.MockLogger() }
 		SendSesMail.metaClass.sendMail = { from, destination, message ->
 			println "sending mail..."
 			return DEFAULT_MAIL_ID
@@ -25,11 +24,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
     void testBuildSimpleSenderWithoutCatchAll() {
 
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -38,11 +39,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
     void testBuildSimpleSenderWithCatchAll() {
 
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.catchall          = "catch-all@server.com"
 		sender.credentialsHolder = credentialsHolder
@@ -53,11 +56,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetFrom() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -67,11 +72,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetTo() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -82,11 +89,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetMultipleTo() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -98,11 +107,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetCc() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -113,11 +124,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetMultipleCc() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -129,11 +142,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetBcc() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -144,11 +159,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetMultipleBcc() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -160,11 +177,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
 	void testSetBody() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -174,11 +193,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetHtml() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -188,7 +209,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void testSetHtmlFromStreamCharBuffer() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
@@ -196,6 +218,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		buffer.writer << "Testing mail body from StreamCharBuffer"
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -205,11 +228,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
 	void testSetSubject() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -219,11 +244,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
 	void test_SetClosureData() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -245,11 +272,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_CheckValidFromAddress_FailWithoutFrom() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.credentialsHolder = credentialsHolder
 		
 		shouldFail {
@@ -264,11 +293,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_CheckValidFromAddress_OkWithFromInClosure() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.credentialsHolder = credentialsHolder
 		
 		sender.send {
@@ -282,11 +313,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_CheckValidFromAddress_OkWithFromInSetter() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -300,11 +333,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
 	void test_BuildTextMailMessage() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -323,11 +358,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_BuildHtmlMailMessage() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -346,11 +383,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_BuildTextAndHtmlMailMessage() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -371,11 +410,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 	
 	void test_BuildDestinationWithoutCatchAll() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.credentialsHolder = credentialsHolder
 		
@@ -404,11 +445,13 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	void test_BuildDestinationWithCatchAll() {
 		
-		def credentialsHolder = new AWSCredentialsHolder()
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"		
 
 		def sender               = new SendSesMail()
+		sender.log               = new MockLogger()
 		sender.from              = "default-from-email@server.com"
 		sender.catchall          = "catchall@server.com"
 		sender.credentialsHolder = credentialsHolder

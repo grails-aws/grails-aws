@@ -12,7 +12,7 @@ class AWSCredentialsHolder {
 	def secretKey
 	def properties
 	
-	private static Logger log = Logger.getLogger(AWSCredentialsHolder.class)
+	private static def log = Logger.getLogger(AWSCredentialsHolder.class)
 	
 	def buildAwsSdkCredentials() {
 		
@@ -20,9 +20,9 @@ class AWSCredentialsHolder {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
-			getLog().debug "building AWS SDK credentials (from a property file)"
+			log.debug "building AWS SDK credentials (from a property file)"
 		} else {
-			getLog().debug "building AWS SDK credentials from plain credentials"
+			log.debug "building AWS SDK credentials from plain credentials"
 		}
 		
 		if (!accessKey || !secretKey) { 
@@ -38,9 +38,9 @@ class AWSCredentialsHolder {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
-			getLog().debug "building JetS3t AWS credentials (from a property file)"
+			log.debug "building JetS3t AWS credentials (from a property file)"
 		} else {
-			getLog().debug "building JetS3t AWS credentials from plain credentials"
+			log.debug "building JetS3t AWS credentials from plain credentials"
 		}
 		
 		if (!accessKey || !secretKey) { 

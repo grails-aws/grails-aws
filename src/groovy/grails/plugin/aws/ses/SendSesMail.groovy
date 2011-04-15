@@ -30,7 +30,7 @@ class SendSesMail {
 	def catchall
 	def credentialsHolder
 	
-	private static Logger log = Logger.getLogger(SendSesMail.class)
+	private static def log = Logger.getLogger(SendSesMail.class)
 		
 	//from
 	void from(String _from) { 

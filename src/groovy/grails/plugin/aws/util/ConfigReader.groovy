@@ -6,7 +6,7 @@ class ConfigReader {
 	
 	def config
 	
-	private static Logger log = Logger.getLogger(ConfigReader.class)
+	private static def log = Logger.getLogger(ConfigReader.class)
 	
 	public ConfigReader(ConfigObject configObject) {
 		config = configObject.toProperties()
@@ -14,7 +14,7 @@ class ConfigReader {
 	
 	public def read(key, defaultValue = null) {
 		def value = config[key] ?: defaultValue 
-		getLog().debug "returning value (${value}) for key (${key})"
+		log.debug "returning value (${value}) for key (${key})"
 		return value 
 	}
 }
