@@ -7,13 +7,15 @@ import org.codehaus.groovy.grails.web.util.StreamCharBuffer
 
 class SendSesMailTests extends GrailsUnitTestCase {
 	
+	static final def DEFAULT_MAIL_ID = 63718397162749L
+	
     protected void setUp() {
         super.setUp()
 		AWSCredentialsHolder.metaClass.getLog = { -> new grails.plugin.aws.util.MockLogger() }
 		SendSesMail.metaClass.getLog = { -> new grails.plugin.aws.util.MockLogger() }
 		SendSesMail.metaClass.sendMail = { from, destination, message ->
 			println "sending mail..."
-			return 63718397162749L
+			return DEFAULT_MAIL_ID
 		}
     }
 
