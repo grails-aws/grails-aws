@@ -33,34 +33,61 @@ class SendSesMail {
 	private static Logger log = Logger.getLogger(SendSesMail.class)
 		
 	//from
-	void from(String _from) { this.from = _from }
+	void from(String _from) { 
+		this.from = _from
+		log.debug "Setting from address to ${this.from}"
+	}
 	
 	//to
-	void to(String ... _to) { this.to?.addAll(_to) }
+	void to(String ... _to) { 
+		this.to?.addAll(_to)
+		log.debug "Setting 'to' addresses to ${this.to}"
+	}
 	
 	//cc
-	void cc(String ... _cc) { this.cc?.addAll(_cc) }
+	void cc(String ... _cc) { 
+		this.cc?.addAll(_cc)
+		log.debug "Setting 'cc' addresses to ${this.cc}"
+	}
 
 	//bcc
-	void bcc(String ... _bcc) { this.bcc?.addAll(_bcc) }
+	void bcc(String ... _bcc) {
+		this.bcc?.addAll(_bcc)
+		log.debug "Setting 'bcc' addresses to ${this.bcc}"
+	}
 	
 	//body
-	void body(String _body) { this.body = _body }
+	void body(String _body) { 
+		this.body = _body
+		log.debug "Setting body message"
+	}
 
 	//html
-	void html(String _html) { this.html = _html }
-	void html(StreamCharBuffer _html) { this.html = _html.toString() }
+	void html(String _html) { 
+		this.html = _html
+		log.debug "Setting html message"
+	}
+	void html(StreamCharBuffer _html) { 
+		this.html = _html.toString()
+		log.debug "Setting html message from StreamCharBuffer"
+	}
 	
 	//subject
-	void subject(String _subject) { this.subject = _subject }
+	void subject(String _subject) { 
+		this.subject = _subject
+		log.debug "Setting message subject to ${this.subject}"
+	}
 	
 	//send the mail message
 	def send(Closure cls) {
+		log.debug "attemping to send mail..."
 		setClosureData(cls)
 		checkValidFromAddress()
 		def destination = buildDestination()
 		def message = buildMessage()
-		return sendMail(from, destination, message)
+		def messageId = sendMail(from, destination, message)
+		log.debug "Mail message sent with id ${messageId}"
+		return messageId 
 	}
 	
 	//check if the 'from' address supplied is valid
