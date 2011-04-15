@@ -1,5 +1,7 @@
 package grails.plugin.aws.ses
 
+import org.apache.log4j.Logger
+
 import grails.plugin.aws.GrailsAWSException
 import grails.plugin.aws.GrailsAWSCredentialsWrapper
 
@@ -28,10 +30,12 @@ class SendSesMail {
 	
 	def credentials
 	
-	public SendSesMail(AWSCredentials defaultCredentials, String defaultFrom, String catchall) {
+	private static Logger log = Logger.getLogger(SendSesMail.class)
+	
+	public SendSesMail(String defaultFrom, String catchall = null) {
 		this.from = defaultFrom
-		this.credentials = defaultCredentials
 		this.catchall = catchall
+		getLog().debug "Creating SES Mail sender with defaultFrom=${defaultFrom}/catchall=${catchall}"
 	}
 	
 	//from
@@ -55,35 +59,50 @@ class SendSesMail {
 	
 	//subject
 	void subject(String _subject) { this.subject = _subject }
-
-	//credentials
-	void credentials(String _credentials) { this.credentials = _credentials }
 	
+	//send the mail message
 	def send(Closure cls) {
-		
+		setClosureData(cls)
+		checkValidFromAddress()
+		def destination = buildDestination()
+		def message = buildMessage()
+		return sendMail(from, destination, message)
+	}
+	
+	//check if the 'from' address supplied is valid
+	def checkValidFromAddress() {
+		if (!from) { 
+			throw new GrailsAWSException("[SES] You cannot send e-mail without specifing 'from'.")
+		}
+	}
+	
+	//method that overwrite and set parameter
+	//passed in the send method closure
+	def setClosureData(cls) {
 		if (cls) {
 			cls.delegate = this
 			cls()
 		}
-		
-		def sesService = new AmazonSimpleEmailServiceClient(credentials)
-		
-		if (!from) {
-			throw new GrailsAWSException("[SES] You cannot send e-mail without specifing 'from'.")
-		}
+	}
+	
+	//method to build a AWS Destination object
+	def buildDestination() {
 		
 		def destination = new Destination()
-		if (catchall) {
-			
+		if (catchall) {	
 			destination.withToAddresses(catchall)
-			
 		} else {
-			
-			destination.toAddresses  = to  ?: null
-			destination.ccAddresses  = cc  ?: null
-			destination.bccAddresses = bcc ?: null		
+			destination.toAddresses  = to  ?: []
+			destination.ccAddresses  = cc  ?: []
+			destination.bccAddresses = bcc ?: []		
 		}
-								
+		
+		return destination
+	}
+	
+	//method to build a AWS Message object
+	def buildMessage() {
+		
 		def mailBody = new Body()
 		mailBody.html = html ? new Content(html) : null
 		mailBody.text = body ? new Content(body) : null
@@ -92,8 +111,14 @@ class SendSesMail {
 		message.subject = subject ? new Content(subject) : null
 		message.body = mailBody
 		
-		def emailRequest = new SendEmailRequest(from, destination, message)		
-		def emailResult = sesService.sendEmail(emailRequest)
+		return message
+	}
+	
+	//method to send the message to this destination, using this from
+	def sendMail(_from, _destination, _message) {
+		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
+		def emailRequest = new SendEmailRequest(_from, _destination, _message)		
+		def emailResult  = sesService.sendEmail(emailRequest)
 		return emailResult.messageId
 	}
 }
