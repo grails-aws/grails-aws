@@ -1,3 +1,4 @@
+import org.apache.log4j.Logger
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
@@ -5,20 +6,12 @@ import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class AwsGrailsPlugin {
-	
-    // the plugin version
+
     def version = "1.1.7.3"
-
-    // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.0 > *"
-
-    // the other plugins this plugin depends on
     def dependsOn = [:]
-
     def loadAfter = ['services', 'controllers']
     def observe = ['services', 'controllers']
-
-    // resources that are excluded from plugin packaging
     def pluginExcludes = [
             "grails-app/views/**/*.gsp",
             "grails-app/controllers/**/*Controller.groovy",
@@ -27,28 +20,25 @@ class AwsGrailsPlugin {
             "grails-app/conf/DataSource.groovy",
             "grails-app/conf/UrlMappings.groovy"
     ]
-
     def watchedResources = [
     	"grails-app/services/**/*Service.groovy",
     	"grails-app/controllers/**/*Controller.groovy"
 	]
-
     def author = "Lucas Teixeira"
     def authorEmail = "lucastex@gmail.com"
     def title = "Grails AWS Plugin"
     def description = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
     def documentation = "http://blanq.github.com/grails-aws"
 
-	//maven-publisher plugin
 	def license = "APACHE"
 	def organization = [ name: "Blanq", url: "http://www.blanq.com.br/" ]
 	def developers = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
 	def issueManagement = [ system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
 	def scm = [ url: "https://github.com/blanq/grails-aws" ]
 
-	//hash for plugin config closure, will use it to validate when config changes
-	//will reload plugin config only if it changes not other changes
     def awsConfigHash = null
+
+	private static Logger log = Logger.getLogger(AWSCredentialsHolder.class)
 
     def doWithWebDescriptor = { xml ->
 
