@@ -23,6 +23,24 @@ grails {
 
 During the first upload on this bucket, it will be created if does not exist.
 
+h3. Bucket location
+
+When creating buckets, you can define the default bucket location using the @bucketLocation@ config as shown below
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            bucketLocation = "EU"
+         }
+      }
+   }
+}
+{code}
+
+In this case, bucket will be created in AWS Europe Region.
+
 h3. ACL (file permission)
 
 The permissions that will be granted on this file, you can use:
