@@ -38,7 +38,7 @@ class AwsGrailsPlugin {
 
     def awsConfigHash = null
 
-	private static Logger log = Logger.getLogger(AWSCredentialsHolder.class)
+	private static Logger log = Logger.getLogger(AwsGrailsPlugin.class)
 
     def doWithWebDescriptor = { xml ->
 
