@@ -10,7 +10,7 @@ class S3TestController {
 	
     def uploadWithDefaultProperties = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-1.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { }
 		
 		render uploadedFile.source.toString()
@@ -18,7 +18,7 @@ class S3TestController {
 
     def uploadWithDefaultPropertiesAndNoClosure = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/uploadWithDefaultPropertiesAndNoClosure.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-2.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload()
 		
 		render uploadedFile.source.toString()
@@ -26,7 +26,7 @@ class S3TestController {
 
     def uploadWithOtherBucket = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-3.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload {
 			bucket "new-bucket-in-default-region"
 		}
@@ -36,7 +36,7 @@ class S3TestController {
 	
 	def uploadWithOtherBucketInOtherRegion = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-4.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload {
 			bucket "bucket-in-eu-region", "EU"
 		}
@@ -46,7 +46,7 @@ class S3TestController {
 	
 	def uploadWithPath = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithDefaultProperties.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-5.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			path "path/created"
 		}
@@ -56,7 +56,7 @@ class S3TestController {
 
 	def uploadWithMetadata = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithMetadata.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-6.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			metadata param1: 'value1', param2: 'value2'
 		}
@@ -64,11 +64,11 @@ class S3TestController {
 		render uploadedFile.source.toString()
 	}    
 
-	def uploadWithRRS = {
+	def uploadWithoutRRS = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadWithRSS.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-7.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { 
-			rrs true
+			rrs false
 		}
 		
 		render uploadedFile.source.toString()
@@ -76,7 +76,7 @@ class S3TestController {
 	
 	def uploadPrivate = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadPrivate.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-8.jpg"
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			acl "private"
 		}
@@ -87,7 +87,7 @@ class S3TestController {
 	def uploadPrivateWithPublicUrl = {
 	
 		def bucketName = "bucket-${System.currentTimeMillis()}"
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadPrivate.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-9.jpg"
 		
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			bucket bucketName
@@ -104,7 +104,7 @@ class S3TestController {
 	
 	def uploadAndGetTorrent = {
 	
-		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/simpleUploadPrivate.pdf"
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-10.jpg"
 		def bucketName = "bucket-${System.currentTimeMillis()}"
 		def uploadedFile = new File(fileToUpload).s3upload { 
 			bucket bucketName
@@ -128,7 +128,8 @@ class S3TestController {
 
 	def uploadFromByteArrayInputStream = {
 		
-		def file = new File("/Users/blanq01/Desktop/test.jpg")
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-11.jpg"
+		def file = new File(fileToUpload)
 		def uploadedFile = new ByteArrayInputStream(file.bytes).s3upload("file-name-${System.currentTimeMillis()}.jpg") {
 			bucket "file-upload-from-inputstream"
 		}

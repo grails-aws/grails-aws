@@ -83,21 +83,21 @@ class S3FileUpload {
 		return new S3File(s3Service.putObject(bucketObject, s3Object))
 	}
 	
-	def fileUpload(File _file, Closure cls) {
+	def fileUpload(File file, Closure cls) {
 			
 		log.debug "attemping to upload file from plain file object"
 		setClosureData(cls)
 		validateBucketName()
 		
-		//s3 service
-		def s3Service = new RestS3Service(jetCredentials)		
-		
 		//s3 object
-		def s3Object = buildS3Object(new S3Object(file, file.name))
+		def s3Object = buildS3Object(new S3Object(file), file.name)
 		
+		//s3 service
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+
 		//bucket
-		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
-		
+		def bucketObject = s3Service.getOrCreateBucket(bucket, bucketLocation)
+						
 		//upload
 		return new S3File(s3Service.putObject(bucketObject, s3Object))
 	}

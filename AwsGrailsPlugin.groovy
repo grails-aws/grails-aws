@@ -87,14 +87,20 @@ class AwsGrailsPlugin {
 		
 		configurationReader  = new ConfigReader(ConfigurationHolder.config)
 
-		def credentialsHolderBean        = event.ctx.getBean('credentialsHolder')
-		credentialsHolderBean.accessKey  = configurationReader.read("grails.plugin.aws.credentials.accessKey")
-		credentialsHolderBean.secretKey  = configurationReader.read("grails.plugin.aws.credentials.secretKey")
-		credentialsHolderBean.properties = configurationReader.read("grails.plugin.aws.credentials.properties")	
+		def credentialsHolderBean          = event.ctx.getBean('credentialsHolder')
+		credentialsHolderBean.accessKey    = configurationReader.read("grails.plugin.aws.credentials.accessKey")
+		credentialsHolderBean.secretKey    = configurationReader.read("grails.plugin.aws.credentials.secretKey")
+		credentialsHolderBean.properties   = configurationReader.read("grails.plugin.aws.credentials.properties")	
 		
-		def sendSesMailBean      = event.ctx.getBean('sendSesMail')
-		sendSesMailBean.from     = configurationReader.read("grails.plugin.aws.ses.from")
-		sendSesMailBean.catchall = configurationReader.read("grails.plugin.aws.ses.catchall")
+		def sendSesMailBean                = event.ctx.getBean('sendSesMail')
+		sendSesMailBean.from               = configurationReader.read("grails.plugin.aws.ses.from")
+		sendSesMailBean.catchall           = configurationReader.read("grails.plugin.aws.ses.catchall")
+		
+		def s3FileUploadBean               = event.ctx.getBean('s3FileUpload')	
+		s3FileUploadBean.acl               = configurationReader.read("grails.plugin.aws.s3.acl", "public")
+		s3FileUploadBean.bucket            = configurationReader.read("grails.plugin.aws.s3.bucket")
+		s3FileUploadBean.bucketLocation    = configurationReader.read("grails.plugin.aws.s3.bucketLocation")
+		s3FileUploadBean.rrs               = Boolean.valueOf(configurationReader.read("grails.plugin.aws.s3.rrs", "true"))
 		
 	}
 
@@ -114,32 +120,18 @@ class AwsGrailsPlugin {
 		def injector = new MetaClassInjector()
 		injector.injectIntegerMethods()
 				
-		//S3 handling
+		//S3
 		File.metaClass.s3upload = { Closure s3Config ->
-			
-			def defaultCredentials = null //GrailsAWSCredentialsWrapper.defaultCredentials()
-			
-			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
-			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
-			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
-									
-			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
-			s3FileUpload.fileUpload(delegate, s3Config)
+			def s3FileUploadBean = applicationContext.getBean('s3FileUpload')
+			s3FileUploadBean.fileUpload(delegate, s3Config)
 		}
 		
 		//S3 handling on Inputstream objects
 		InputStream.metaClass.s3upload = { String name, Closure s3Config ->
-			
-			def defaultCredentials = null //GrailsAWSCredentialsWrapper.defaultCredentials()
-			
-			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
-			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
-			def defaultRrs = ConfigurationHolder.config.grails.plugin.aws.s3.rrs ?: null
-									
-			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
-			s3FileUpload.inputStreamUpload(delegate, name, s3Config)
+			def s3FileUploadBean = applicationContext.getBean('s3FileUpload')
+			s3FileUploadBean.inputStreamUpload(delegate, name, s3Config)
 		}
-				
+
 		//sesmail
 		def targetClasses = []
 		targetClasses.addAll(grailsApplication.controllerClasses)

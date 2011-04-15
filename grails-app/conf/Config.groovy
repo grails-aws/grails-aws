@@ -34,13 +34,13 @@ grails {
 				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"		
 			}
 			s3 {
-				bucket = "grails-aws-test-bucket-1151"
+				bucket = "grails-aws-test-bucket-20110515"
 				rrs    = true
 				acl    = "public"
 			}
 			ses {
 				from     = "lucastex@gmail.com"
-				enabled  = true
+				//enabled  = false
 			}
 		}
 	}
