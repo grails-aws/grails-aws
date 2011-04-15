@@ -1,53 +1,33 @@
 package grails.plugin.aws.s3
 
-//jets3t
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.utils.Mimetypes
 import org.jets3t.service.acl.AccessControlList
-import org.jets3t.service.security.AWSCredentials
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 
-//aws sdk
-import com.amazonaws.auth.AWSCredentials
-
-//plugin
 import grails.plugin.aws.GrailsAWSException
 
 class S3FileUpload {
 	
+	//injected
+	def acl
+	def rrs
+	def bucket
+	def bucketLocation
+	def credentialsHolder
+	
+	//configured by user
 	String path
-	String bucketName
-	String bucketLocation
-	String acl = "public"
-	org.jets3t.service.security.AWSCredentials jetCredentials
-	
-	File file
-	boolean rrs = false
-	Map metadata = [:]
-	InputStream inputStream
-
-	public S3FileUpload() {}
-	public S3FileUpload(com.amazonaws.auth.AWSCredentials defaultCredentials, String _bucketName, String _acl, Boolean _rrs) {
-		credentials(defaultCredentials.getAWSAccessKeyId(), defaultCredentials.getAWSSecretKey())
-		bucket(_bucketName)
-		acl(_acl)
-		rrs(_rrs)
-	}
-	
-	
-	//set credentials
-	void credentials(_access, _secret) {
-		jetCredentials = new org.jets3t.service.security.AWSCredentials(_access, _secret)
-	}
-	
+	Map    metadata = [:]
+		
 	//set bucket
 	void bucket(_bucketName) {
-		this.bucketName = _bucketName
+		this.bucket = _bucketName
 	}
 	
 	//set bucket with location
 	void bucket(_bucketName, _bucketLocation) {
-		this.bucketName = _bucketName
+		this.bucket = _bucketName
 		this.bucketLocation = _bucketLocation
 	}
 
@@ -72,9 +52,7 @@ class S3FileUpload {
 	}
 	
 	//upload method for inputstreams
-	def inputStreamUpload(InputStream is, String name, Closure cls) {
-		
-		this.inputStream = is
+	def inputStreamUpload(InputStream inputStream, String name, Closure cls) {
 		
 		if (cls) {
 			cls.delegate = this
@@ -85,15 +63,15 @@ class S3FileUpload {
 		validateBucket()
 		
 		//s3 service
-		def s3Service = new RestS3Service(jetCredentials)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		
 		//s3 object
 		def s3Object = buildS3Object(new S3Object(), name)
-		s3Object.setDataInputStream(this.inputStream)
+		s3Object.setDataInputStream(inputStream)
 		s3Object.setContentType(Mimetypes.getInstance().getMimetype(name))
 		
 		//bucket
-		def bucketObject = s3Service.getOrCreateBucket(bucketName, bucketLocation)
+		def bucketObject = s3Service.getOrCreateBucket(bucket, bucketLocation)
 		
 		//upload
 		def uploadedObject = s3Service.putObject(bucketObject, s3Object)
@@ -103,9 +81,7 @@ class S3FileUpload {
 
 	//upload method for file
 	def fileUpload(File _file, Closure cls) {
-		
-		this.file = _file
-		
+			
 		if (cls) {
 			cls.delegate = this
 			cls()
@@ -151,18 +127,18 @@ class S3FileUpload {
 			s3Object.setAcl(AccessControlList.REST_CANNED_AUTHENTICATED_READ)
 		
 		//path
-		if (this.path) {
-			
-			def _path = this.path
-			if (!_path.endsWith("/")) {
-				_path = "${_path}/"
-			}
-			_path = "${_path}${(name ? name : file.name)}"
-			s3Object.setKey(_path)
-			
-		} else {
-			s3Object.setKey(name ? name : file.name)
-		}
+		//if (this.path) {
+		//	
+		//	def _path = this.path
+		//	if (!_path.endsWith("/")) {
+		//		_path = "${_path}/"
+		//	}
+		//	_path = "${_path}${(name ? name : file.name)}"
+		//	s3Object.setKey(_path)
+		//	
+		//} else {
+		//	s3Object.setKey(name ? name : file.name)
+		//}
 		
 		//metadata
 		metadata.each { metaKey, metaValue ->

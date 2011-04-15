@@ -7,7 +7,6 @@ import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.AWSCredentialsHolder
-import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class AwsGrailsPlugin {
@@ -65,6 +64,15 @@ class AwsGrailsPlugin {
 			catchall          = configurationReader.read("grails.plugin.aws.ses.catchall")
 		}
 		
+		s3FileUpload(S3FileUpload) { bean ->
+			bean.singleton = false
+			credentialsHolder = ref('credentialsHolder')
+			acl               = configurationReader.read("grails.plugin.aws.s3.acl", "public")
+			bucket            = configurationReader.read("grails.plugin.aws.s3.bucket")
+			bucketLocation    = configurationReader.read("grails.plugin.aws.s3.bucketLocation", null)
+			rrs               = Boolean.valueOf(configurationReader.read("grails.plugin.aws.s3.rrs", "true"))
+		}
+		
 		awsS3(AWSS3Tools) {
 			credentialsHolder = ref('credentialsHolder')
 		}
@@ -109,7 +117,7 @@ class AwsGrailsPlugin {
 		//S3 handling
 		File.metaClass.s3upload = { Closure s3Config ->
 			
-			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			def defaultCredentials = null //GrailsAWSCredentialsWrapper.defaultCredentials()
 			
 			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
 			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
@@ -122,7 +130,7 @@ class AwsGrailsPlugin {
 		//S3 handling on Inputstream objects
 		InputStream.metaClass.s3upload = { String name, Closure s3Config ->
 			
-			def defaultCredentials = GrailsAWSCredentialsWrapper.defaultCredentials()
+			def defaultCredentials = null //GrailsAWSCredentialsWrapper.defaultCredentials()
 			
 			def defaultBucket = ConfigurationHolder.config.grails.plugin.aws.s3.bucket ?: null
 			def defaultAcl = ConfigurationHolder.config.grails.plugin.aws.s3.acl ?: null
