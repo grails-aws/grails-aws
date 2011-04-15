@@ -3,7 +3,6 @@ package grails.plugin.aws.ses
 import org.apache.log4j.Logger
 
 import grails.plugin.aws.GrailsAWSException
-import grails.plugin.aws.GrailsAWSCredentialsWrapper
 
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.services.simpleemail.model.Body
