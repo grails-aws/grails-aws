@@ -16,12 +16,9 @@ class AwsPluginSupport {
 	private static def log = Logger.getLogger(AwsPluginSupport.class)
 	def static configurationReader = new ConfigReader(ConfigurationHolder.config)
 
-	static doWithWebDescriptor = { xml ->
-	}
-	
-	static doWithApplicationContext = { applicationContext ->
-    }
-    
+	static doWithWebDescriptor = {}
+	static doWithApplicationContext = {}
+	    
 	static doWithSpring = { 
 
 		credentialsHolder(AWSCredentialsHolder) {
@@ -63,7 +60,7 @@ class AwsPluginSupport {
 		credentialsHolderBean.secretKey    = AwsPluginSupport.configurationReader.read("grails.plugin.aws.credentials.secretKey")
 		credentialsHolderBean.properties   = AwsPluginSupport.configurationReader.read("grails.plugin.aws.credentials.properties")	
 		
-		def sendSesMailBean                = AwsPluginSupport.event.ctx.getBean('sendSesMail')
+		def sendSesMailBean                = event.ctx.getBean('sendSesMail')
 		sendSesMailBean.from               = AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.from")
 		sendSesMailBean.catchall           = AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.catchall")
 		
@@ -76,50 +73,15 @@ class AwsPluginSupport {
 
 	static onChange = { event ->
 		if (event.source) {
-			AwsPluginSupport.injectMetaclassMethods(application, event.ctx)
+			MetaClassInjector.injectIntegerMethods()
+			MetaClassInjector.injectS3UploadMethods()
+			MetaClassInjector.injectSesMethods(application, event.ctx)
 		}
 	}
 
-	static doWithDynamicMethods = { applicationContext ->		
-		AwsPluginSupport.injectMetaclassMethods(application, applicationContext)
-	}
-	
-	def static injectMetaclassMethods = { grailsApplication, applicationContext ->
-		
-		//inject helper methods on classes
-		def injector = new MetaClassInjector()
-		injector.injectIntegerMethods()
-		
-		//S3
-		File.metaClass.s3upload = { Closure s3Config ->
-			def s3FileUploadBean = applicationContext.getBean('s3FileUpload')
-			s3FileUploadBean.fileUpload(delegate, s3Config)
-		}
-		
-		//S3 handling on Inputstream objects
-		InputStream.metaClass.s3upload = { String name, Closure s3Config ->
-			def s3FileUploadBean = applicationContext.getBean('s3FileUpload')
-			s3FileUploadBean.inputStreamUpload(delegate, name, s3Config)
-		}
-
-		//sesmail
-		def targetClasses = []
-		targetClasses.addAll(grailsApplication.controllerClasses)
-		targetClasses.addAll(grailsApplication.serviceClasses)
-		
-		targetClasses.each { clazz ->
-			
-			clazz.metaClass.sesMail = { Closure sendConfigClosure ->
-				
-				def enabled = Boolean.valueOf(AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
-				if (!enabled) {
-					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
-					return
-				}
-				
-				def sesBean = applicationContext.getBean('sendSesMail')
-				sesBean.send(sendConfigClosure)
-			}
-		}
-	}
+	static doWithDynamicMethods = { applicationContext ->
+		MetaClassInjector.injectIntegerMethods()
+		MetaClassInjector.injectS3UploadMethods()
+		MetaClassInjector.injectSesMethods(application, applicationContext)
+	}	
 }
