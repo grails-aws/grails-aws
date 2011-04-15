@@ -1,8 +1,11 @@
 import org.apache.log4j.Logger
+import grails.spring.BeanBuilder
+import grails.plugin.aws.AwsGenericTools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.util.ConfigReader
+import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.GrailsAWSCredentialsWrapper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
@@ -36,89 +39,60 @@ class AwsGrailsPlugin {
 	def developers = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
 	def issueManagement = [ system: "JIRA", url: "http://jira.codehaus.org/browse/GRAILSPLUGINS" ]
 	def scm = [ url: "https://github.com/blanq/grails-aws" ]
-
-    def awsConfigHash = null
+	
+	def configurationReader = new ConfigReader(ConfigurationHolder.config)
 
 	private static Logger log = Logger.getLogger(AwsGrailsPlugin.class)
 
     def doWithWebDescriptor = { xml ->
-
-    }
-
-    def doWithSpring = {
-
-		//initializes the config hash
-		awsConfigHash = ConfigurationHolder.getConfig().grails?.plugin?.aws?.hashCode()
-		
-		//awsTool bean
-		aws(grails.plugin.aws.AwsGenericTools)
-		
-		def cr = new ConfigReader(ConfigurationHolder.config)
-		credentialsHolder(grails.plugin.aws.AWSCredentialsHolder) {
-			accessKey  = cr.read("grails.plugin.aws.credentials.accessKey")
-			secretKey  = cr.read("grails.plugin.aws.credentials.secretKey")
-			properties = cr.read("grails.plugin.aws.credentials.properties")
-		}
-		sendSesMail(grails.plugin.aws.ses.SendSesMail) {
-			credentialsHolder = ref('credentialsHolder')
-			from              = cr.read("grails.plugin.aws.ses.from")
-			catchall          = cr.read("grails.plugin.aws.ses.catchall")
-		}
-    }
-
-    def doWithDynamicMethods = { ctx ->		
-	
-		injectMetaclassMethods(application)
-		
-		def targetClasses = []
-		targetClasses.addAll(application.controllerClasses)
-		targetClasses.addAll(application.serviceClasses)
-		
-		targetClasses.each { clazz ->
-			
-			clazz.metaClass.sesMail = { Closure sendConfigClosure ->
-				
-				def cr = new ConfigReader(ConfigurationHolder.config)
-				def enabled = Boolean.valueOf(cr.read("grails.plugin.aws.ses.enabled", "true"))
-				if (!enabled) {
-					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
-					return
-				}
-				
-				def sesBean = ctx.getBean('sendSesMail')
-				sesBean.send(sendConfigClosure)
-			}
-		}
     }
 
     def doWithApplicationContext = { applicationContext ->
-
     }
 
-    def onChange = { event ->
+	def doWithSpring = { 
+
+		aws(AwsGenericTools)
+
+		credentialsHolder(AWSCredentialsHolder) {
+			accessKey  = configurationReader.read("grails.plugin.aws.credentials.accessKey")
+			secretKey  = configurationReader.read("grails.plugin.aws.credentials.secretKey")
+			properties = configurationReader.read("grails.plugin.aws.credentials.properties")
+		}
 	
+		sendSesMail(SendSesMail) {
+			credentialsHolder = ref('credentialsHolder')
+			from              = configurationReader.read("grails.plugin.aws.ses.from")
+			catchall          = configurationReader.read("grails.plugin.aws.ses.catchall")
+		}
+	}
+
+
+	def onConfigChange = { event ->
+		
+		configurationReader  = new ConfigReader(ConfigurationHolder.config)
+
+		def credentialsHolderBean        = event.ctx.getBean('credentialsHolder')
+		credentialsHolderBean.accessKey  = configurationReader.read("grails.plugin.aws.credentials.accessKey")
+		credentialsHolderBean.secretKey  = configurationReader.read("grails.plugin.aws.credentials.secretKey")
+		credentialsHolderBean.properties = configurationReader.read("grails.plugin.aws.credentials.properties")	
+		
+		def sendSesMailBean      = event.ctx.getBean('sendSesMail')
+		sendSesMailBean.from     = configurationReader.read("grails.plugin.aws.ses.from")
+		sendSesMailBean.catchall = configurationReader.read("grails.plugin.aws.ses.catchall")
+	}
+
+	def onChange = { event ->
 		if (event.source) {
-			
-			injectMetaclassMethods(application)
-
+			injectMetaclassMethods(application, event.ctx)
 		}
-			
-    }
+	}
 
-    def onConfigChange = { event ->
+	def doWithDynamicMethods = { applicationContext ->		
+		injectMetaclassMethods(application, applicationContext)
+	}
 	
-		def newConfigHash = event.source.grails?.plugin?.aws?.hashCode()
-		if (awsConfigHash != newConfigHash) {
-
-			//reload credentials
-			GrailsAWSCredentialsWrapper.reload()
-
-			//store the current hash
-			awsConfigHash = newConfigHash
-		}
-    }
-	
-	def injectMetaclassMethods = { application ->
+	def injectMetaclassMethods = { grailsApplication, applicationContext ->
 		
 		//inject helper methods on classes
 		def injector = new MetaClassInjector()
@@ -149,7 +123,25 @@ class AwsGrailsPlugin {
 			def s3FileUpload = new S3FileUpload(defaultCredentials, defaultBucket, defaultAcl, defaultRrs)
 			s3FileUpload.inputStreamUpload(delegate, name, s3Config)
 		}
+				
+		//sesmail
+		def targetClasses = []
+		targetClasses.addAll(grailsApplication.controllerClasses)
+		targetClasses.addAll(grailsApplication.serviceClasses)
 		
+		targetClasses.each { clazz ->
+			
+			clazz.metaClass.sesMail = { Closure sendConfigClosure ->
+				
+				def enabled = Boolean.valueOf(configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
+				if (!enabled) {
+					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
+					return
+				}
+				
+				def sesBean = applicationContext.getBean('sendSesMail')
+				sesBean.send(sendConfigClosure)
+			}
+		}
 	}
-
 }

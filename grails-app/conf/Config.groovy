@@ -25,42 +25,22 @@ grails.doc.authors = 'Lucas Teixeira'
 grails.doc.license = 'Apache License'
 grails.doc.title = 'Grails AWS Plugin'
 
-grails {
-	
+grails {	
 	plugin {
-	
 		aws {
-	
 			credentials {
-	
 				//accessKey = "access-key"
 				//secretKey = "secret-key"
-				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"
-		
+				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"		
 			}
-	
 			s3 {
 				bucket = "grails-aws-test-bucket-1151"
 				rrs    = true
 				acl    = "public"
 			}
-	
 			ses {
-				//catchall = "fulano@gmail.com"
 				from     = "lucastex@gmail.com"
 				enabled  = true
-			}
-	
-			sns {
-				//sns config
-			}
-	
-			sqs {
-				//sqs config
-			}
-	
-			beanstalk {
-				//beanstalk config
 			}
 		}
 	}

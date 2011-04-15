@@ -15,12 +15,14 @@ class SesTestController {
 		render "E-mail sent: ${mailId}"
 	}
 
+
     def sendPlainTextMailFromService = { 
 	
 		def mailId = sesTestService.sendTestMail()
 		
 		render "E-mail sent: ${mailId}"
 	}
+
 
     def sendPlainTextMultipleTo = { 
 	
@@ -102,5 +104,4 @@ class SesTestController {
 		
 		render "E-mail sent: ${mailId}"
 	}    
-    
 }
