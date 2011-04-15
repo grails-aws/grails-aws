@@ -1,6 +1,6 @@
 import org.apache.log4j.Logger
 import grails.spring.BeanBuilder
-import grails.plugin.aws.AwsGenericTools
+import grails.plugin.aws.AWSGenericTools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.MetaClassInjector
@@ -52,7 +52,7 @@ class AwsGrailsPlugin {
 
 	def doWithSpring = { 
 
-		aws(AwsGenericTools)
+		aws(AWSGenericTools)
 
 		credentialsHolder(AWSCredentialsHolder) {
 			accessKey  = configurationReader.read("grails.plugin.aws.credentials.accessKey")
