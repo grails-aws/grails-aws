@@ -74,14 +74,14 @@ class AwsPluginSupport {
 	static onChange = { event ->
 		if (event.source) {
 			MetaClassInjector.injectIntegerMethods()
-			MetaClassInjector.injectS3UploadMethods()
+			MetaClassInjector.injectS3UploadMethods(applicationContext)
 			MetaClassInjector.injectSesMethods(application, event.ctx)
 		}
 	}
 
 	static doWithDynamicMethods = { applicationContext ->
 		MetaClassInjector.injectIntegerMethods()
-		MetaClassInjector.injectS3UploadMethods()
+		MetaClassInjector.injectS3UploadMethods(applicationContext)
 		MetaClassInjector.injectSesMethods(application, applicationContext)
 	}	
 }

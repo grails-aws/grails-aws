@@ -26,7 +26,7 @@ class MetaClassInjector {
 		}
 	}
 	
-	public static void injectS3UploadMethods() {
+	public static void injectS3UploadMethods(applicationContext) {
 		
 		File.metaClass.s3upload = { Closure s3Config ->
 			def s3FileUploadBean = applicationContext.getBean('s3FileUpload')
