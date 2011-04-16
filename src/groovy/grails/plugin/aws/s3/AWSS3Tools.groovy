@@ -1,5 +1,6 @@
 package grails.plugin.aws.s3
 
+import grails.plugin.aws.s3.S3File
 import org.jets3t.service.S3Service
 import com.amazonaws.auth.AWSCredentials
 import org.jets3t.service.model.S3Bucket
@@ -21,7 +22,15 @@ class AWSS3Tools {
 		def objectKey = buildObjectKey(file, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		s3Service.deleteObject(new S3Bucket(onTarget), objectKey)
-	}	
+	}
+	
+	public S3File get(String file, String path = null) {
+		validateTarget()
+		def objectKey = buildObjectKey(file, path)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		def s3Object = s3Service.getObject(onTarget, objectKey)
+		return new S3File(s3Object)
+	}
 	
 	def validateTarget() {
 		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")

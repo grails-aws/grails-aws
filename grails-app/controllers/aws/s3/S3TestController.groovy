@@ -146,7 +146,21 @@ class S3TestController {
 		
 		aws.s3().on(bucket).delete(file, path)
 		
-		render "Deleted file ${file} (path '${path}') of bucket ${bucket}"
+		render "Deleted file ${file} (path '${path}') of bucket ${bucket}"		
+	}
+	
+	def testUploadPrivateAndDownload = {
+
+		def fileToUpload = "/Users/blanq01/Desktop/grails-aws/cool-12.jpg"
+		def uploadedFile = new File(fileToUpload).s3upload { 
+			acl "private"
+			bucket "private-bucket-aws-plugin"
+		}
 		
+		def fileToDownload = aws.s3().on("private-bucket-aws-plugin").get("cool-12.jpg")
+		
+		response.setContentType("image/jpeg")
+		response.setHeader("Content-disposition", "inline; filename=cool-12.jpg")
+		response.outputStream << fileToDownload.dataInputStream
 	}
 }
