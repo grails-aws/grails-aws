@@ -17,32 +17,36 @@ class AWSS3Tools {
 		return this
 	}
 	
-	public void delete(String file, String path = null) {				
+	//delete the file
+	public void delete(String name, String path = null) {				
 		validateTarget()
-		def objectKey = buildObjectKey(file, path)
+		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		s3Service.deleteObject(new S3Bucket(onTarget), objectKey)
 	}
 	
-	public S3File get(String file, String path = null) {
+	//get the file
+	public S3File get(String name, String path = null) {
 		validateTarget()
-		def objectKey = buildObjectKey(file, path)
+		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		def s3Object = s3Service.getObject(onTarget, objectKey)
 		return new S3File(s3Object)
 	}
 	
+	//check if user defined the bucket
 	def validateTarget() {
 		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")
 	}
 	
-	def buildObjectKey(file, path) {
+	//method to build the correct key for file (composed with name and path)
+	def buildObjectKey(name, path) {
 		
-		def objectKey = file
+		def objectKey = name
 		if (path) {
 			if (!path.endsWith("/"))
 				path = "${path}/"
-			objectKey = "${path}${file}"
+			objectKey = "${path}${name}"
 		}
 		return objectKey
 	}
