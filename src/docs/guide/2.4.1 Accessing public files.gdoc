@@ -1,15 +1,14 @@
-When you have the *grails.plugin.aws.s3.S3File* instance with you, you can build the URL to access the file with the params you've used to upload (file name, path, and bucket). But there is an easy way to do it, calling the @url()@ method on it.
+You can always generate the URL to access your files manually. Specially if you're using your own CNAME for it or if you're using cloudfront in front of S3.
+But, if you still need some easy and tricky way to generate it, you can do the following:
 
 {code}
-def uploadFile = {
-
-	def s3file = new File("/tmp/test.txt").s3upload {
-		path "folder/to/my/file/"
-		bucket "new-bucket"
-	}
-	
-	return [url: s3file.url()]
-}
+def url = aws.s3().on("my-first-bucket").url("photo.jpg")
 {code}
 
-This will make a *url* object available in the view, with the respective URL for this file. 
+This will return an url like this: *http://my-first-bucket.s3.amazonaws.com/photo.jpg*. And if you're using paths for your file:
+
+{code}
+def url = aws.s3().on("my-first-bucket").url("photo.jpg", "userphotos")
+{code}
+
+That will gives you: *http://my-first-bucket.s3.amazonaws.com/userphotos/photo.jpg*

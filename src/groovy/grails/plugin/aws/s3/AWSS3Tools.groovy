@@ -34,6 +34,12 @@ class AWSS3Tools {
 		return new S3File(s3Object)
 	}
 	
+	//build the URL to retrieve the file
+	public String url(String name, String path = null) {
+		def objectKey = buildObjectKey(name, path)
+		return "http://${onTarget}.s3.amazonaws.com/${objectKey}"
+	}
+	
 	//check if user defined the bucket
 	def validateTarget() {
 		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")

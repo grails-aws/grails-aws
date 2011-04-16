@@ -25,9 +25,5 @@ class S3File {
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())			
 		return s3Service.createTorrentUrl(source.bucketName, source.key)
 	}
-	
-	public String url() {
-		return "http://${source.bucketName}.s3.amazonaws.com/${source.key}"
-	}
-		
+			
 }
