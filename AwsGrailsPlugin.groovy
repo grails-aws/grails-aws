@@ -14,7 +14,8 @@ class AwsGrailsPlugin {
             "grails-app/services/**/*Service.groovy",
             "grails-app/conf/Config.groovy",
             "grails-app/conf/DataSource.groovy",
-            "grails-app/conf/UrlMappings.groovy"
+            "grails-app/conf/UrlMappings.groovy",
+            "testScripts/*.groovy"
     ]
 
     def title                    = "Grails AWS Plugin"
