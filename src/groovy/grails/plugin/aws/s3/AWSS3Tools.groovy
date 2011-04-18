@@ -36,6 +36,7 @@ class AWSS3Tools {
 	
 	//build the URL to retrieve the file
 	public String url(String name, String path = null) {
+		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		return "http://${onTarget}.s3.amazonaws.com/${objectKey}"
 	}
