@@ -17,22 +17,22 @@ def s3file = new File("test.txt").s3upload {
    acl "private"
 }
 
-def publicUrl = s3file.publicUrlFor()
+def publicUrl = aws.s3().on("secret-files").publicUrlFor(1.hour, "test.txt")
 {code}
 
-So, the value on the *publicUrl* is the URL for accessing the file. By default the URL will be valid for *1 hour*. Every requests on it will return the uploaded object. After one hour, next requests on it will return an error: "Access Denied for Object".
+So, the value on the *publicUrl* is the URL for accessing the file. In this case, the URL will be valid for *1 hour*. Every requests on it will return the uploaded object. After one hour, next requests on it will return an error: "Access Denied for Object".
 
 h3. Defining when public URL will expire
 
 You can set the expires date for the public URL, passing an argument to *publicUrlFor* method. 
 
 {code}
-s3file.publicUrlFor(3.hours) //will be available for 3 hours
-s3file.publicUrlFor(10.years) //available for 10 years
-s3file.publicUrlFor(1.second) //you won't get this one on time 
+(...).publicUrlFor(3.hours,  "test.txt") //will be available for 3 hours
+(...).publicUrlFor(10.years, "test.txt") //available for 10 years
+(...).publicUrlFor(1.second, "test.txt") //you won't get this one on time 
 {code}
 
-You can any of these methods:
+You can any of these variations:
 
 {code}
 1.second or 2.seconds 

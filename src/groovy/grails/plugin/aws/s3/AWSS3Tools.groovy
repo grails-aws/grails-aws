@@ -49,7 +49,7 @@ class AWSS3Tools {
 	}
 	
 	//creates a signed URL for retrieving private files
-	public String publicUrlFor(String name, String path, expiryDate = 1.hour) {
+	public String publicUrlFor(Date expiryDate, String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
