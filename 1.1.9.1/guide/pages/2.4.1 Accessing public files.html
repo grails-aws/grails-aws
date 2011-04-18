@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.4.1 Accessing public files</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    You can always generate the URL to access your files manually. Specially if you're using your own CNAME for it or if you're using cloudfront in front of S3.
+But, if you still need some easy and tricky way to generate it, you can do the following:<p class="paragraph"/><div class="code"><pre>def url = aws.s3().on(<span class="java&#45;quote">"my&#45;first&#45;bucket"</span>).url(<span class="java&#45;quote">"photo.jpg"</span>)</pre></div><p class="paragraph"/>This will return an url like this: <strong class="bold">http://my-first-bucket.s3.amazonaws.com/photo.jpg</strong>. And if you're using paths for your file:<p class="paragraph"/><div class="code"><pre>def url = aws.s3().on(<span class="java&#45;quote">"my&#45;first&#45;bucket"</span>).url(<span class="java&#45;quote">"photo.jpg"</span>, <span class="java&#45;quote">"userphotos"</span>)</pre></div><p class="paragraph"/>That will gives you: <strong class="bold">http://my-first-bucket.s3.amazonaws.com/userphotos/photo.jpg</strong>
+    </body>
+</html>

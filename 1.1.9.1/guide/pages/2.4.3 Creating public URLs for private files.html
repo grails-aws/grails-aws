@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.4.3 Creating public URLs for private files</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    When you upload a file to S3 with a "private" acl, means that the file won't be accessed directly using the URL, but only with your amazon credentials.<p class="paragraph"/>For example:<p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"test.txt"</span>).s3upload &#123;
+   bucket <span class="java&#45;quote">"secret&#45;files"</span>
+   acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;</pre></div><p class="paragraph"/>This will make the file above (http://secret-files.s3.amazonaws.com/test.txt) inaccessible using its URL. If you need to allow someone to get the file in a short period of time, you can ask the plugin to generate a public URL for it. The object will remain private, but you can use the returned URL to access the file in a short period of time. For example:<p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"test.txt"</span>).s3upload &#123;
+   bucket <span class="java&#45;quote">"secret&#45;files"</span>
+   acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;<p class="paragraph"/>def publicUrl = aws.s3().on(<span class="java&#45;quote">"secret&#45;files"</span>).publicUrlFor(1.hour, <span class="java&#45;quote">"test.txt"</span>)</pre></div><p class="paragraph"/>So, the value on the <strong class="bold">publicUrl</strong> is the URL for accessing the file. In this case, the URL will be valid for <strong class="bold">1 hour</strong>. Every requests on it will return the uploaded object. After one hour, next requests on it will return an error: "Access Denied for Object".<p class="paragraph"/><h3>Defining when public URL will expire</h3><p class="paragraph"/>You can set the expires date for the public URL, passing an argument to <strong class="bold">publicUrlFor</strong> method.<p class="paragraph"/><div class="code"><pre>(...).publicUrlFor(3.hours,  <span class="java&#45;quote">"test.txt"</span>) //will be available <span class="java&#45;keyword">for</span> 3 hours
+(...).publicUrlFor(10.years, <span class="java&#45;quote">"test.txt"</span>) //available <span class="java&#45;keyword">for</span> 10 years
+(...).publicUrlFor(1.second, <span class="java&#45;quote">"test.txt"</span>) //you won't get <span class="java&#45;keyword">this</span> one on time</pre></div><p class="paragraph"/>You can any of these variations:<p class="paragraph"/><div class="code"><pre>1.second or 2.seconds 
+1.minute or 2.minutes
+1.hour or 2.hours
+1.day or 2.days
+1.month or 2.months
+1.year or 2.years</pre></div><p class="paragraph"/>This properties are injected on Integer class, so, enjoy the magic. 
+    </body>
+</html>
