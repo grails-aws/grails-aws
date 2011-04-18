@@ -40,6 +40,14 @@ class AWSS3Tools {
 		return "http://${onTarget}.s3.amazonaws.com/${objectKey}"
 	}
 	
+	//creates a torrent file for seeding S3 hosted files
+	public S3File torrent(String name, String path = null) {
+		validateTarget()
+		def objectKey = buildObjectKey(name, path)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())			
+		return s3Service.createTorrentUrl(onTarget, objectKey)
+	}
+	
 	//check if user defined the bucket
 	def validateTarget() {
 		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")
