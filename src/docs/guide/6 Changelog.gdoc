@@ -1,3 +1,6 @@
+* *1.1.9.1 release* Apr 18 2011
+** Release notes: [http://jira.grails.org/secure/ReleaseNote.jspa?projectId=10054&version=12083|http://jira.grails.org/secure/ReleaseNote.jspa?projectId=10054&version=12083]
+
 * *1.1.7.3 release* Mar 09 2011
 ** Release notes: - BUG that woudn't allow uploading from @InputStream@s when using an @ByteArrayInputStream@
 
