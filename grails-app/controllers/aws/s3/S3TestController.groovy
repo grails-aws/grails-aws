@@ -95,7 +95,7 @@ class S3TestController {
 			acl "private"
 		}
 		
-		def publicUrl = uploadedFile.publicUrlFor(5.minutes)
+		def publicUrl = aws.s3().on(bucketName).publicUrlFor(5.minutes, "cool-9.jpg")
 		
 		render """
 		          ${uploadedFile.source.toString()}<br />
@@ -111,10 +111,12 @@ class S3TestController {
 			bucket bucketName
 		}
 		
+		def torrentUrl = aws.s3().on(bucketName).torrent("cool-10.jpg")
+		
 		render """
 		          ${uploadedFile.source.toString()}<br />
 		          URL: http://${bucketName}.s3.amazonaws.com/${uploadedFile.key}<br/>
-		          Torrent URL: ${uploadedFile.torrent()}"""
+		          Torrent URL: ${torrentUrl}"""
 	}      
 	
 	def uploadFromInputStream = {

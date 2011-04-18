@@ -42,7 +42,7 @@ class AWSS3Tools {
 	}
 	
 	//creates a torrent file for seeding S3 hosted files
-	public S3File torrent(String name, String path = null) {
+	public String torrent(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())			
