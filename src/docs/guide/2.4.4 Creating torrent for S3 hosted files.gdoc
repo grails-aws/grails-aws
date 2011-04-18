@@ -1,6 +1,6 @@
 It is possible to generate torrent URLs for S3 hosted files with the plugin.
 
-After uploading some file, just call the *torrent()* method on it and you'll get the torrent URL for it.
+After uploading some file, just call the *torrent(...)* method on the s3 helper this way.
 
 {code}
 def s3file = new File("test.txt").s3upload {
@@ -8,7 +8,7 @@ def s3file = new File("test.txt").s3upload {
    acl "private"
 }
 
-def torrentUrl = s3file.torrent()
+def torrentUrl = aws.s3().on("secret-files").torrent("test.txt")
 {code}
 
 From the AWS docs:
