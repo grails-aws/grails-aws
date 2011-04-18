@@ -58,7 +58,7 @@ class AWSS3Tools {
 	
 	//check if user defined the bucket
 	def validateTarget() {
-		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")
+		if (!onTarget) throw new GrailsAWSException("You can't manipulate files without setting its bucket")
 	}
 	
 	//method to build the correct key for file (composed with name and path)
