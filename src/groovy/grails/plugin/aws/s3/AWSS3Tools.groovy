@@ -48,6 +48,14 @@ class AWSS3Tools {
 		return s3Service.createTorrentUrl(onTarget, objectKey)
 	}
 	
+	//creates a signed URL for retrieving private files
+	public String publicUrlFor(String name, String path, expiryDate = 1.hour) {
+		validateTarget()
+		def objectKey = buildObjectKey(name, path)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		return s3Service.createSignedGetUrl(onTarget, objectKey, expiryDate)
+	}
+	
 	//check if user defined the bucket
 	def validateTarget() {
 		if (!onTarget) throw new GrailsAWSException("You can't delete one file without setting its bucket")
