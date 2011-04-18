@@ -6,10 +6,8 @@ Unfortunately, SES does not provide a simple SMTP server address to connect and 
 
 But, if you really want to use Mail Plugin, you can configure AWS SES with a SMTP Bridge to connect to your SMTP server, but only if you're running Postfix or Sendmail locally. For doing this, check AWS SES Developer Guide. 
 
-{warning}
-You have to be subscribed to SES, if you are not yet, do it before using the plugin.
-{warning}
+*REMBEMBER:* You have to be subscribed to SES, if you are not yet, do it before using the plugin.
 
-.h3 Interacting with SES
-
-Grails AWS Plugin adds two types of interacting with AWS Simple Email Service.
+{warning}
+Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emais that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
+{warning}

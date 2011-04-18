@@ -1,4 +1,4 @@
-To send e-mails, just call the *sesMail* closure as seen before
+To send e-mails, just call the *sesMail* closure in your controllers or services
 
 {code}
 def mailId = sesMail {

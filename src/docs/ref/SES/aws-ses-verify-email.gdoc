@@ -1,3 +1,5 @@
+h1. aws-ses-verify-email
+
 To let AWS SES send e-mails using your e-mail as 'from' address, you have to authorize it.
 
 To to so, you can run the script:

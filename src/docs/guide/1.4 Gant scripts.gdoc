@@ -11,3 +11,5 @@ grails aws-ses-get-send-statistics
 {code}
 
 All information are printed in your screen, and when you need to interact with parameters, the script will prompt you.
+
+More detailed information on scripts can be found in the left frame of the screen.
