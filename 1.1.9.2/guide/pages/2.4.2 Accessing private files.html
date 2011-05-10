@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.4.2 Accessing private files</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    In some cases, you may need to access the private file directly (and not using the temporary public URL). For example, if you need to directly stream the file to the action's respose, you can do the following:<p class="paragraph"/><div class="code"><pre>def downloadFile = &#123;<p class="paragraph"/>    def bucket = params.bucket
+    def path   = params.path
+    def name   = params.name<p class="paragraph"/>    def fileToDownload = aws.s3().on(bucket).get(name, path)
+    response.setContentType(<span class="java&#45;quote">"image/jpeg"</span>) //the file content type you're serving
+    response.setHeader(<span class="java&#45;quote">"Content&#45;disposition"</span>, <span class="java&#45;quote">"inline; filename='$&#123;name&#125;'"</span>)
+    response.outputStream &#60;&#60; fileToDownload.dataInputStream
+&#125;</pre></div><p class="paragraph"/>This way, your application will download the file, and then serve to user's response outputstream.
+    </body>
+</html>

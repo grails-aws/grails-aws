@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>2.4 Accessing files</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    If you are uploading some document to S3, you'll probably need to store information on how to get that file again later.<p class="paragraph"/>The <strong class="bold">s3upload</strong> operation returns an instance of <strong class="bold">grails.plugin.aws.s3.S3File</strong>. As this plugin uses jets3t (<a href="http://jets3t.s3.amazonaws.com/index.html" target="blank">http://jets3t.s3.amazonaws.com/index.html</a>) to handle file upload, the S3File is just a wrapper for a <strong class="bold">delegated</strong> jets3t S3Object instance as you can see below:<p class="paragraph"/><div class="code"><pre><span class="java&#45;keyword">package</span> grails.plugin.aws.s3
+<span class="java&#45;keyword">import</span> org.jets3t.service.model.S3Object<p class="paragraph"/>class S3File &#123;<p class="paragraph"/>    @Delegate S3Object source<p class="paragraph"/>    <span class="java&#45;keyword">public</span> S3File(S3Object _source) &#123;
+        <span class="java&#45;keyword">this</span>.source = _source
+    &#125;    
+&#125;</pre></div><p class="paragraph"/>So, you can call any S3Object method on S3File instance. S3Object API is available here: <a href="http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html" target="blank">http://jets3t.s3.amazonaws.com/api/org/jets3t/service/model/S3Object.html</a>, for example, to retrieve the ETag hash for the S3File uploaded you would just call:<p class="paragraph"/><div class="code"><pre>def s3file = &#8230; //upload the file
+def etag = s3file.getETag()</pre></div><p class="paragraph"/>The <strong class="bold">S3File</strong> object returned will give all information you'll need. Now, depends on what information you want to store. Follow S3Object docs (link above) and get whatever you want.
+    </body>
+</html>
