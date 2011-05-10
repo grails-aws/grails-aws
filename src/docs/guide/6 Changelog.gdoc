@@ -1,3 +1,6 @@
+* *1.1.9.2 release* May 10 2011
+** Release notes: Fixed bug that was always storing the past sent mail adresses in next mail messages.
+
 * *1.1.9.1 release* Apr 18 2011
 ** Release notes: [http://jira.grails.org/secure/ReleaseNote.jspa?projectId=10054&version=12083|http://jira.grails.org/secure/ReleaseNote.jspa?projectId=10054&version=12083]
 
