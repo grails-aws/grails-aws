@@ -27,14 +27,15 @@ class AwsPluginSupport {
 			properties = AwsPluginSupport.configurationReader.read("grails.plugin.aws.credentials.properties")
 		}
 	
-		sendSesMail(SendSesMail) {
+		sendSesMail(SendSesMail) { bean ->
+			bean.singleton    = false
 			credentialsHolder = ref('credentialsHolder')
 			from              = AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.from")
 			catchall          = AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.catchall")
 		}
 		
 		s3FileUpload(S3FileUpload) { bean ->
-			bean.singleton = false
+			bean.singleton    = false
 			credentialsHolder = ref('credentialsHolder')
 			acl               = AwsPluginSupport.configurationReader.read("grails.plugin.aws.s3.acl", "public")
 			bucket            = AwsPluginSupport.configurationReader.read("grails.plugin.aws.s3.bucket")
