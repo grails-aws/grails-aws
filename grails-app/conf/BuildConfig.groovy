@@ -26,4 +26,10 @@ grails.project.dependency.resolution = {
 			excludes 'stax-api', 'jackson-core-asl', 'commons-httpclient', 'commons-logging'
 		}
      }
+
+	plugins {
+		
+		build  ':release:1.0.0.M1'
+        
+	}
 }
