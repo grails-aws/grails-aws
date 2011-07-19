@@ -24,14 +24,31 @@ class AWSS3Tools {
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		s3Service.deleteObject(new S3Bucket(onTarget), objectKey)
 	}
+
+  /**
+   * Deletes all files that match the current path
+   *
+   * @param path The path in the s3 bucket for which all matching files should be deleted
+   * @author Carsten Block
+   */
+	public void delete(String path) {
+		validateTarget()
+    def s3Bucket = new S3Bucket(onTarget)
+    def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+    def objectKey = buildObjectKey('', path)
+    S3Object[] s3ObjectList = s3Service.listObjects(bucketName, objectKey, null)
+    s3ObjectList?.each {s3Object ->
+      s3Service.deleteObject(s3Bucket, s3Object.getKey())
+    }
+	}
 	
 	//get the file
-	public S3File get(String name, String path = null) {
+	public grails.plugin.aws.s3.S3File get(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		def s3Object = s3Service.getObject(onTarget, objectKey)
-		return new S3File(s3Object)
+		return new grails.plugin.aws.s3.S3File(s3Object)
 	}
 	
 	//build the URL to retrieve the file
