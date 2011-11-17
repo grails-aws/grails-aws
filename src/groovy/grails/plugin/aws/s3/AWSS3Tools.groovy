@@ -25,6 +25,17 @@ class AWSS3Tools {
 		s3Service.deleteObject(new S3Bucket(onTarget), objectKey)
 	}
 	
+	//delete all files in specified path
+	public void deleteAll() {
+		validateTarget()
+		def s3Bucket = new S3Bucket(onTarget)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		def s3ObjectList = s3Service.listObjects(onTarget)
+		s3ObjectList?.each { s3Object ->
+			s3Service.deleteObject(s3Bucket, s3Object.getKey())
+		}
+	}
+	
 	//get the file
 	public S3File get(String name, String path = null) {
 		validateTarget()

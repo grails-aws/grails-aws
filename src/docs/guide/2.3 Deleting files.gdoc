@@ -25,10 +25,18 @@ To delete the "photo.jpg" file stored under "my-app-bucket-photos" bucket (http:
 aws.s3().on("my-app-bucket-photos").delete("photo.jpg")
 {code}
 
-h3. Deleting files stored in some path of one bucket:
+h3. Deleting files stored in some path of one bucket (one at a time):
 
 To delete the "avatar.jpg" file stored under "my-app-bucket-avatars" bucket and path "/users/lucastex/" (http://my-app-bucket-avatars.s3.amazonaws.com/users/lucastex/avatar.jpg)
 
 {code}
 aws.s3().on("my-app-bucket-avatars").delete("avatar.jpg", "/users/lucastex/")
+{code}
+
+h3. Deleting all files inside one bucket
+
+To delete all files stored under "my-app-bucket-avatars" bucket (http://my-app-bucket-avatars.s3.amazonaws.com/*), use the deleteAll() method.
+
+{code}
+aws.s3().on("my-app-bucket-avatars").deleteAll()
 {code}
