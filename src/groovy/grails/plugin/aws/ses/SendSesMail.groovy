@@ -20,6 +20,7 @@ class SendSesMail {
 	def to  = []
 	def cc  = []
 	def bcc = []
+	def replyTo = []
 	
 	def body     = ""
 	def html     = ""
@@ -54,6 +55,12 @@ class SendSesMail {
 	void bcc(String ... _bcc) {
 		this.bcc?.addAll(_bcc)
 		log.debug "Setting 'bcc' addresses to ${this.bcc}"
+	}
+
+	//reply to
+	void replyTo(String ... _replyTo) {
+		this.replyTo?.addAll(_replyTo)
+		log.debug "Setting 'replyTo' addresses to ${this.replyTo}"
 	}
 	
 	//body
@@ -140,6 +147,11 @@ class SendSesMail {
 		def credentials  = credentialsHolder.buildAwsSdkCredentials()
 		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)		
+		
+		if (replyTo && replyTo?.size() > 0) {
+			emailRequest.setReplyToAddresses(replyTo) 
+		}
+		
 		def emailResult  = sesService.sendEmail(emailRequest)
 		return emailResult.messageId
 	}

@@ -15,6 +15,29 @@ class SesTestController {
 		render "E-mail sent: ${mailId}"
 	}
 
+    def sendPlainTextMailWithOneReplyTo = { 
+	
+		def mailId = sesMail {
+			to "lucastex@gmail.com"
+			subject "test plain text mail with one reply-to address"
+			replyTo "test-aws-plugin-1@gmail.com"
+			body "sendPlainTextMailWithOneReplyTo (${new Date().format('dd/MM/yyyy HH:mm')})"
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}
+
+    def sendPlainTextMailWithReplyToList = { 
+	
+		def mailId = sesMail {
+			to "lucastex@gmail.com"
+			subject "test plain text mail with one list of reply-to addresses"
+			replyTo "test-aws-plugin-1@gmail.com", "test-aws-plugin-2@gmail.com"
+			body "sendPlainTextMailWithReplyToList (${new Date().format('dd/MM/yyyy HH:mm')})"
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}
 
     def sendPlainTextMailFromService = { 
 	

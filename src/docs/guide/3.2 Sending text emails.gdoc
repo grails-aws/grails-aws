@@ -90,3 +90,18 @@ And finally, the e-mail body can be set with:
 {code}
 body "This is the text user will receive in the e-mail body"
 {code}
+
+h4. Defining the reply-to address
+
+You can set the reply-to header of your mail message using the *replyTo* closure parameter. And you can pass one string, or a list of e-mails that will be set as 'reply-to' header.
+
+*One e-mail*
+
+{code}
+replyTo "my-other-email@gmail.com"
+{code}
+
+*Multiple e-mails*
+{code}
+replyTo "my-other-email-1@gmail.com", "my-other-email-2@gmail.com", "my-other-email-3@gmail.com"
+{code}
