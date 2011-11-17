@@ -2,15 +2,33 @@ package grails.plugin.aws.ses
 
 import org.apache.log4j.Logger
 
+import java.nio.ByteBuffer
+
+import javax.mail.Message
+import javax.mail.Session
+import javax.mail.Address
+import javax.mail.internet.MimeMessage
+import javax.mail.Message.RecipientType
+import javax.mail.internet.MimeBodyPart
+import javax.mail.internet.MimeMultipart
+import javax.mail.util.ByteArrayDataSource
+import javax.mail.internet.InternetAddress
+
+import javax.activation.DataHandler
+import javax.activation.MimetypesFileTypeMap
+
 import grails.plugin.aws.GrailsAWSException
 
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.services.simpleemail.model.Body
 import com.amazonaws.services.simpleemail.model.Content
 import com.amazonaws.services.simpleemail.model.Message
+import com.amazonaws.services.simpleemail.model.RawMessage
 import com.amazonaws.services.simpleemail.model.Destination
 import com.amazonaws.services.simpleemail.model.SendEmailResult
 import com.amazonaws.services.simpleemail.model.SendEmailRequest
+import com.amazonaws.services.simpleemail.model.SendRawEmailResult
+import com.amazonaws.services.simpleemail.model.SendRawEmailRequest
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
@@ -21,6 +39,7 @@ class SendSesMail {
 	def cc  = []
 	def bcc = []
 	def replyTo = []
+	def attachments = []
 	
 	def body     = ""
 	def html     = ""
@@ -63,6 +82,12 @@ class SendSesMail {
 		log.debug "Setting 'replyTo' addresses to ${this.replyTo}"
 	}
 	
+	//reply to
+	void attach(String ... _attachFile) {
+		this.attachments?.addAll(_attachFile)
+		log.debug "Setting 'attachments' files to ${this.attachments}"
+	}
+	
 	//body
 	void body(String _body) { 
 		this.body = _body
@@ -90,11 +115,16 @@ class SendSesMail {
 		log.debug "attemping to send mail..."
 		setClosureData(cls)
 		checkValidFromAddress()
-		def destination = buildDestination()
-		def message = buildMessage()
-		def messageId = sendMail(from, destination, message)
-		log.debug "Mail message sent with id ${messageId}"
-		return messageId 
+		
+		if (attachments && attachments?.size() > 0) {
+			sendRawMail(from)
+		} else {
+			def destination = buildSimpleDestination()
+			def message = buildSimpleMessage()
+			def messageId = sendSimpleMail(from, destination, message)
+			log.debug "Mail message sent with id ${messageId}"
+			return messageId
+		}
 	}
 	
 	//check if the 'from' address supplied is valid
@@ -114,7 +144,7 @@ class SendSesMail {
 	}
 	
 	//method to build a AWS Destination object
-	def buildDestination() {
+	def buildSimpleDestination() {
 		
 		def destination = new Destination()
 		if (catchall) {	
@@ -129,7 +159,7 @@ class SendSesMail {
 	}
 	
 	//method to build a AWS Message object
-	def buildMessage() {
+	def buildSimpleMessage() {
 		
 		def mailBody = new Body()
 		mailBody.html = html ? new Content(html) : null
@@ -143,7 +173,7 @@ class SendSesMail {
 	}
 	
 	//method to send the message to this destination, using this from
-	def sendMail(_from, _destination, _message) {
+	def sendSimpleMail(_from, _destination, _message) {
 		def credentials  = credentialsHolder.buildAwsSdkCredentials()
 		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)		
@@ -154,5 +184,79 @@ class SendSesMail {
 		
 		def emailResult  = sesService.sendEmail(emailRequest)
 		return emailResult.messageId
+	}
+	
+	def sendRawMail(_from) {
+		
+		def s = Session.getInstance(new Properties(), null)
+	    def msg = new MimeMessage(s)
+
+		//from
+	    msg.setFrom(new InternetAddress(_from))
+	
+		if (catchall) {	
+			msg.addRecipients(javax.mail.Message.RecipientType.TO, new InternetAddress(catchall))
+		} else {
+			to.each  { msg.addRecipients(javax.mail.Message.RecipientType.TO,  new InternetAddress(it)) }
+			cc.each  { msg.addRecipients(javax.mail.Message.RecipientType.CC,  new InternetAddress(it)) }
+			bcc.each { msg.addRecipients(javax.mail.Message.RecipientType.BCC, new InternetAddress(it)) }
+		}
+		
+		//reply-to
+		if (replyTo && replyTo?.size() > 0) {
+			msg.setReplyTo(replyTo.collect { new InternetAddress(it) }) 
+		}
+		
+		//subject
+	    msg.setSubject(subject)
+
+		//multipart message
+	    MimeMultipart mp = new MimeMultipart()
+
+		//body text part
+		if (body) {
+			def part = new MimeBodyPart()
+		    part.setContent(body, "text/plain")
+		    mp.addBodyPart(part)
+		}
+		
+		//body html part
+		if (html) {
+			def part = new MimeBodyPart()
+		    part.setContent(html, "text/html")
+		    mp.addBodyPart(part)
+		}
+		
+		attachments.each { fileNameToAttach ->
+
+			def fileToAttach = new File(fileNameToAttach)
+			if (!fileToAttach.exists()) {
+				throw new GrailsAWSException("[SES] Attachment [${fileToAttach.name}] could not be found in your local storage.")
+			}
+			
+			def attBodyPart = new MimeBodyPart()
+		    def dataSource = new ByteArrayDataSource(fileToAttach.bytes, new MimetypesFileTypeMap().getContentType(fileToAttach))
+		    attBodyPart.setDataHandler(new DataHandler(dataSource))
+		    attBodyPart.setFileName(fileToAttach.name)
+			mp.addBodyPart(attBodyPart)
+		}
+
+	    msg.setContent(mp)
+
+	    def out = new ByteArrayOutputStream()
+	    msg.writeTo(out)
+
+	    def rm = new RawMessage()
+	    rm.setData(ByteBuffer.wrap(out.toString().getBytes()))
+
+		//sending e-mail
+		def credentials  = credentialsHolder.buildAwsSdkCredentials()
+		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
+		def rawEmailRequest = new SendRawEmailRequest()
+		rawEmailRequest.source = _from
+		rawEmailRequest.rawMessage = rm
+
+		def emailResult  = sesService.sendRawEmail(rawEmailRequest)		
+		return emailResult.messageId	
 	}
 }

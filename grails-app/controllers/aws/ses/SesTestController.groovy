@@ -127,4 +127,16 @@ class SesTestController {
 		
 		render "E-mail sent: ${mailId}"
 	}    
+
+	def sendOneAttachmentPlainText = { 
+			
+		def mailId = sesMail {
+			to "lucastex@gmail.com"
+			subject "sendAttachmentPlainText"
+			body "sendAttachmentPlainText"
+			attach "/Users/blanq01/Desktop/file.pdf"
+		}
+		
+		render "E-mail sent: ${mailId}"
+	}    
 }
