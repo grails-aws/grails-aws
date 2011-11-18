@@ -1,0 +1,6 @@
+stacktrace.log
+target/
+target/test-reports/TESTS-TestSuites.xml
+target/*
+CodeNarcReport.html
+cobertura.ser
