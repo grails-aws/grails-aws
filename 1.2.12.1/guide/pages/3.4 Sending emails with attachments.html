@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>3.4 Sending emails with attachments</title>
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen" title="Ref" charset="utf-8"/>
+    </head>
+    <body class="body">
+    You can attach one or more files in your e-mail if you want. Keep in mind that AWS SES charges for the ammount of data you sent attached in your e-mails.<p class="paragraph"/>It is simple, you just need to call the "attach" method in the sesMail closure with the full path to desired files, like below:<p class="paragraph"/><div class="code"><pre>sesMail &#123;
+   to <span class="java&#45;quote">"email@gmailcom"</span>
+   subject <span class="java&#45;quote">"testing emails with one attachment"</span>
+   body <span class="java&#45;quote">"..."</span>
+   attach <span class="java&#45;quote">"/users/website/images/file1.jpg"</span>
+&#125;</pre></div><p class="paragraph"/>You can attach several files separating file paths with commas:<p class="paragraph"/><div class="code"><pre>sesMail &#123;
+   to <span class="java&#45;quote">"email@gmailcom"</span>
+   subject <span class="java&#45;quote">"testing emails with one attachment"</span>
+   body <span class="java&#45;quote">"..."</span>
+   attach <span class="java&#45;quote">"/users/website/images/file1.jpg"</span>, <span class="java&#45;quote">"/users/website/images/file2.jpg"</span>, <span class="java&#45;quote">"/users/website/images/file3.jpg"</span>
+&#125;</pre></div>
+    </body>
+</html>
