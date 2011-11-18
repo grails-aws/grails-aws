@@ -204,7 +204,13 @@ class SendSesMail {
 		
 		//reply-to
 		if (replyTo && replyTo?.size() > 0) {
-			msg.setReplyTo(replyTo.collect { new InternetAddress(it) }) 
+			
+			InternetAddress[] replyToArray = new InternetAddress[replyTo.size()]
+			replyTo.eachWithIndex { email, index ->
+				replyToArray[index] = new InternetAddress(email)
+			}
+			
+			msg.setReplyTo(replyToArray) 
 		}
 		
 		//subject
