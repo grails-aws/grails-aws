@@ -2,7 +2,7 @@ import grails.plugin.aws.meta.AwsPluginSupport
 
 class AwsGrailsPlugin {
 
-    def version                  = "1.1.9.2"
+    def version                  = "1.2.12.1"
     def grailsVersion            = "1.3.0 > *"
     def dependsOn                = [:]
     def loadAfter                = ['services', 'controllers']
