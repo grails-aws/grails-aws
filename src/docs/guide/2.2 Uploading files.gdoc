@@ -1,4 +1,4 @@
-The plugin adds support for uploading files to Amazon S3, by adding a s3upload(...) method to *File* and *InputStream* classes, so you'll just need to call this method passing a closure with overwritten config options, but if you do not want to overwrite it, just leave this and the plugin will catch from the Config.groovy default options. 
+The plugin adds support for uploading files to Amazon S3, by adding a s3upload(...) method to *File* and *InputStream* classes, so you'll just need to call this method passing a closure with overridden config options, but if you do not want to override it, just leave this and the plugin will catch from the Config.groovy default options. 
 
 h3. Simple File upload from a File object
 
@@ -14,7 +14,7 @@ This way your test.txt file will be uploaded to
 <default-bucket>.s3.amazonaws.com/folder/to/my/file/test.txt
 {code}
 
-If you want to overwrite config during the file upload, check this guide next section.
+If you want to override config during the file upload, check this guide next section.
 
 h3. Uploading files directly from its InputStream
 
