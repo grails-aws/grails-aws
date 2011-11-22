@@ -40,6 +40,7 @@ class SendSesMail {
 	def bcc = []
 	def replyTo = []
 	def attachments = []
+    def charset = "UTF-8"
 	
 	def body     = ""
 	def html     = ""
@@ -87,6 +88,12 @@ class SendSesMail {
 		this.attachments?.addAll(_attachFile)
 		log.debug "Setting 'attachments' files to ${this.attachments}"
 	}
+
+    // charset
+    void charset(String charset) {
+        this.charset = charset
+        log.debug "Setting 'charset' files to ${this.charset}"
+    }
 	
 	//body
 	void body(String _body) { 
@@ -162,11 +169,11 @@ class SendSesMail {
 	def buildSimpleMessage() {
 		
 		def mailBody = new Body()
-		mailBody.html = html ? new Content(html) : null
-		mailBody.text = body ? new Content(body) : null
+		mailBody.html = html ? new Content(html).withCharset(charset) : null
+		mailBody.text = body ? new Content(body).withCharset(charset) : null
 		
 		def message = new Message()
-		message.subject = subject ? new Content(subject) : null
+		message.subject = subject ? new Content(subject).withCharset(charset) : null
 		message.body = mailBody
 		
 		return message
@@ -214,7 +221,7 @@ class SendSesMail {
 		}
 		
 		//subject
-	    msg.setSubject(subject)
+	    msg.setSubject(subject, charset)
 
 		//multipart message
 	    MimeMultipart mp = new MimeMultipart()
@@ -222,14 +229,14 @@ class SendSesMail {
 		//body text part
 		if (body) {
 			def part = new MimeBodyPart()
-		    part.setContent(body, "text/plain")
+		    part.setText(body, charset, "plain")
 		    mp.addBodyPart(part)
 		}
 		
 		//body html part
 		if (html) {
 			def part = new MimeBodyPart()
-		    part.setContent(html, "text/html")
+            part.setText(html, charset, "html")
 		    mp.addBodyPart(part)
 		}
 		
