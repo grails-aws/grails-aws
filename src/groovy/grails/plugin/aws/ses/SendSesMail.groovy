@@ -4,6 +4,7 @@ import org.apache.log4j.Logger
 
 import java.nio.ByteBuffer
 
+import javax.mail.Part
 import javax.mail.Message
 import javax.mail.Session
 import javax.mail.Address
@@ -11,6 +12,7 @@ import javax.mail.internet.MimeMessage
 import javax.mail.Message.RecipientType
 import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMultipart
+import javax.activation.FileDataSource
 import javax.mail.util.ByteArrayDataSource
 import javax.mail.internet.InternetAddress
 
@@ -241,9 +243,16 @@ class SendSesMail {
 			}
 			
 			def attBodyPart = new MimeBodyPart()
-		    def dataSource = new ByteArrayDataSource(fileToAttach.bytes, new MimetypesFileTypeMap().getContentType(fileToAttach))
+		    def dataSource = new FileDataSource(fileToAttach)
+
 		    attBodyPart.setDataHandler(new DataHandler(dataSource))
 		    attBodyPart.setFileName(fileToAttach.name)
+			attBodyPart.setHeader("Content-Type", dataSource.getContentType())
+			attBodyPart.setHeader("Content-ID", fileToAttach.getName())
+			attBodyPart.setDisposition(Part.ATTACHMENT);
+		
+		
+		
 			mp.addBodyPart(attBodyPart)
 		}
 
