@@ -72,6 +72,14 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		s3fu.rrs(false)
 		assertFalse s3fu.rrs
     }
+	
+	void testSetUseEncryption() {
+		def s3fu = new S3FileUpload()
+		s3fu.log = new MockLogger()
+		
+		s3fu.useEncryption(true)
+		assertTrue s3fu.useEncryption
+	}
 
 	void testSetClosureData() {
 
@@ -86,6 +94,7 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		    acl      "private"
 		  	rrs      true
 		    metadata metaValues
+			useEncryption	false
 		}
 		
 		assertEquals "test-bucket", s3fu.bucket
@@ -94,6 +103,7 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 	    assertEquals "private", s3fu.acl
 	    assertEquals true, s3fu.rrs
 		assertEquals metaValues, s3fu.metadata
+		assertEquals false, s3fu.useEncryption
 	}
 	
 	void testValidateBucketName_Ok() {
@@ -158,6 +168,7 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 			acl      "private"
 			rrs      true
 			metadata metaValues
+			useEncryption	true
 		}
 		
 		def s3Object  = s3fu.buildS3Object(new S3Object(), "key-name")
@@ -168,5 +179,6 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		metaValues.each { meta, value ->
 			assertEquals  value, s3Object.getModifiableMetadata()[meta]
 		}
+		assertEquals	S3Object.SERVER_SIDE_ENCRYPTION__AES256, s3Object.getServerSideEncryptionAlgorithm()
 	}
 }
