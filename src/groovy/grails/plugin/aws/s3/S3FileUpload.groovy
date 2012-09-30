@@ -16,6 +16,7 @@ class S3FileUpload {
 	def bucket
 	def bucketLocation
 	def credentialsHolder
+	def useEncryption
 	
 	//configured by user
 	String path
@@ -61,6 +62,12 @@ class S3FileUpload {
 		log.debug "setting rrs name to '${rrs}'"
 	}
 	
+	//whether to use server side encryption
+	void useEncryption(_useEncryption) {
+		this.useEncryption = _useEncryption
+		log.debug "setting useEncryption preference to '${useEncryption}'"
+	}
+
 	//upload method for inputstreams
 	def inputStreamUpload(InputStream inputStream, String name, Closure cls) {
 		
@@ -126,6 +133,10 @@ class S3FileUpload {
 			s3Object.setStorageClass(S3Object.STORAGE_CLASS_REDUCED_REDUNDANCY)
 		}
 		
+		if (useEncryption) {
+			s3Object.setServerSideEncryptionAlgorithm(S3Object.SERVER_SIDE_ENCRYPTION__AES256)
+		}
+
 		return s3Object
 	}
 	
