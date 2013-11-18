@@ -1,12 +1,13 @@
 package grails.plugin.aws.util
 
-import org.apache.log4j.Logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class ConfigReader {
 
 	def config
 
-	private static def log = Logger.getLogger(this)
+	private static Logger log = LoggerFactory.getLogger(this)
 
 	ConfigReader(ConfigObject configObject) {
 		config = configObject.toProperties()

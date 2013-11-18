@@ -14,8 +14,9 @@ import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
 
-import org.apache.log4j.Logger
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
 import com.amazonaws.services.simpleemail.model.Body
@@ -43,7 +44,7 @@ class SendSesMail {
 	def catchall
 	def credentialsHolder
 
-	private static def log = Logger.getLogger(this)
+	private static Logger log = LoggerFactory.getLogger(this)
 
 	//from
 	void from(String _from) {

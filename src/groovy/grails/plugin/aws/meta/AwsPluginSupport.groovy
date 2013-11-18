@@ -8,12 +8,13 @@ import grails.plugin.aws.ses.SendSesMail
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
 
-import org.apache.log4j.Logger
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class AwsPluginSupport {
 
-	private static def log = Logger.getLogger(this)
+	private static Logger log = LoggerFactory.getLogger(this)
 	static configurationReader = new ConfigReader(ConfigurationHolder.config)
 
 	static doWithWebDescriptor = {}

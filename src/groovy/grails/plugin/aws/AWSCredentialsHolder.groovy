@@ -1,7 +1,8 @@
 package grails.plugin.aws
 
-import org.apache.log4j.Logger
 import org.jets3t.service.security.AWSCredentials as JetS3tCredentials
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.auth.PropertiesCredentials
@@ -12,7 +13,7 @@ class AWSCredentialsHolder {
 	def secretKey
 	def properties
 
-	private static def log = Logger.getLogger(this)
+	private static Logger log = LoggerFactory.getLogger(this)
 
 	BasicAWSCredentials buildAwsSdkCredentials() {
 

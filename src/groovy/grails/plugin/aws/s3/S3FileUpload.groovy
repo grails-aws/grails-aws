@@ -2,11 +2,12 @@ package grails.plugin.aws.s3
 
 import grails.plugin.aws.GrailsAWSException
 
-import org.apache.log4j.Logger
 import org.jets3t.service.acl.AccessControlList
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
 import org.jets3t.service.model.S3Object
 import org.jets3t.service.utils.Mimetypes
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 class S3FileUpload {
 
@@ -23,7 +24,7 @@ class S3FileUpload {
 	Map    metadata = [:]
 
 	//log
-	private static def log = Logger.getLogger(this)
+	private static Logger log = LoggerFactory.getLogger(this)
 
 	//set bucket
 	void bucket(_bucketName) {
