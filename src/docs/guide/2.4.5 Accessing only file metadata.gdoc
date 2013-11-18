@@ -1,0 +1,16 @@
+If you just want to know some details about an object and you don't need its contents, it's faster to use the getDetails method. This returns only the object's details, also known as its 'HEAD'. Head information includes the object's size, date, and other metadata associated with it such as the Content Type.
+
+{code}
+def downloadFileMetadata = {
+
+    def bucket = params.bucket
+    def path   = params.path
+    def name   = params.name
+
+    def fileDetails = aws.s3().on(bucket).getDetails(name, path)
+    
+    render [md5:fileDetails.getMd5HashAsBase64(),
+            length:fileDetails.getContentLength(),
+            type:fileDetails.getContentType()] as JSON
+}
+{code}

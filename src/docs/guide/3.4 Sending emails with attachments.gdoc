@@ -1,4 +1,4 @@
-You can attach one or more files in your e-mail if you want. Keep in mind that AWS SES charges for the ammount of data you sent attached in your e-mails. 
+You can attach one or more files in your e-mail if you want. Keep in mind that AWS SES charges for the amount of data you sent attached in your e-mails. 
 
 It is simple, you just need to call the "attach" method in the sesMail closure with the full path to desired files, like below:
 
