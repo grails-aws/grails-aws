@@ -1,24 +1,22 @@
 package grails.plugin.aws.s3
 
-import grails.plugin.aws.s3.S3File
-import org.jets3t.service.S3Service
-import com.amazonaws.auth.AWSCredentials
-import org.jets3t.service.model.S3Bucket
 import grails.plugin.aws.GrailsAWSException
+
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
+import org.jets3t.service.model.S3Bucket
 
 class AWSS3Tools {
-	
+
 	def onTarget
 	def credentialsHolder
 
-	public AWSS3Tools on(String _onTarget) {
-		this.onTarget = _onTarget
+	AWSS3Tools on(String _onTarget) {
+		onTarget = _onTarget
 		return this
 	}
 
 	//delete the file
-	public void delete(String name, String path = null) {
+	void delete(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -26,7 +24,7 @@ class AWSS3Tools {
 	}
 
 	//delete all files in specified path
-	public void deleteAll() {
+	void deleteAll() {
 		validateTarget()
 		def s3Bucket = new S3Bucket(onTarget)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -37,7 +35,7 @@ class AWSS3Tools {
 	}
 
 	//get the file
-	public S3File get(String name, String path = null) {
+	S3File get(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -46,7 +44,7 @@ class AWSS3Tools {
 	}
 
 	//get the file details. metadata without the file content
-	public S3File getDetails(String name, String path = null) {
+	S3File getDetails(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -55,14 +53,14 @@ class AWSS3Tools {
 	}
 
 	//build the URL to retrieve the file
-	public String url(String name, String path = null) {
+	String url(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		return "http://${onTarget}.s3.amazonaws.com/${objectKey}"
 	}
 
 	//creates a torrent file for seeding S3 hosted files
-	public String torrent(String name, String path = null) {
+	String torrent(String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -70,7 +68,7 @@ class AWSS3Tools {
 	}
 
 	//creates a signed URL for retrieving private files
-	public String publicUrlFor(Date expiryDate, String name, String path = null) {
+	String publicUrlFor(Date expiryDate, String name, String path = null) {
 		validateTarget()
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
@@ -84,7 +82,7 @@ class AWSS3Tools {
 
 	//method to build the correct key for file (composed with name and path)
 	def buildObjectKey(name, path) {
-		
+
 		def objectKey = name
 		if (path) {
 			if (!path.endsWith("/"))
