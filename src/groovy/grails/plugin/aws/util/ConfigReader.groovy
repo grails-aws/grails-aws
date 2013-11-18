@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 
 class ConfigReader {
 
-	def config
+	private config
 
 	private static Logger log = LoggerFactory.getLogger(this)
 

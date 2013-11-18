@@ -7,17 +7,15 @@ class AwsGrailsPlugin {
     def loadAfter                = ['services', 'controllers']
     def observe                  = ['services', 'controllers']
     def pluginExcludes           = [
-        "grails-app/views/**/*.gsp",
+        "grails-app/views/**",
         "grails-app/controllers/**/*Controller.groovy",
         "grails-app/services/**/*Service.groovy",
-        "grails-app/conf/Config.groovy",
-        "grails-app/conf/DataSource.groovy",
-        "grails-app/conf/UrlMappings.groovy",
+		  "src/docs/**",
         "testScripts/*.groovy"
     ]
 
     def title                    = "Grails AWS Plugin"
-    def description              = "Amazon Web Services (AWS) grails plugin will provide easy access to simpler functions of AWS"
+    def description              = "Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS"
     def documentation            = "http://blanq.github.com/grails-aws"
 
     def license                  = "APACHE"
@@ -29,7 +27,5 @@ class AwsGrailsPlugin {
     def onChange                 = AwsPluginSupport.onChange
     def doWithSpring             = AwsPluginSupport.doWithSpring
     def onConfigChange           = AwsPluginSupport.onConfigChange
-    def doWithWebDescriptor      = AwsPluginSupport.doWithWebDescriptor
     def doWithDynamicMethods     = AwsPluginSupport.doWithDynamicMethods
-    def doWithApplicationContext = AwsPluginSupport.doWithApplicationContext
 }

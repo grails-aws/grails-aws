@@ -16,9 +16,6 @@ class AwsPluginSupport {
 	private static Logger log = LoggerFactory.getLogger(this)
 	private static ConfigReader configurationReader
 
-	static doWithWebDescriptor = {}
-	static doWithApplicationContext = {}
-
 	static doWithSpring = {
 
 		configurationReader = new ConfigReader(application.config)
