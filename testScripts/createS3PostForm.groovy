@@ -28,7 +28,7 @@ def expiration = cal.getTime()
 
 // Generate the form.
 def restrictedForm = S3Service.buildPostForm(
-    bucketName, key, credentialsHolder.buildJetS3tCredentials(), expiration, conditions, 
+    bucketName, key, credentialsHolder.buildJetS3tCredentials(), expiration, conditions,
     inputFields, null, true, false, "Enviar aquivo")
 
 println restrictedForm

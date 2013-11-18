@@ -1,12 +1,12 @@
 package grails.plugin.aws
 
 class GrailsAWSException extends Exception {
-	
-	public GrailsAWSException() {
+
+	GrailsAWSException() {
 		super()
 	}
-	
-	public GrailsAWSException(String message) {
+
+	GrailsAWSException(String message) {
 		super(message)
 	}
 }
