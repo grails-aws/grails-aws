@@ -1,14 +1,23 @@
-#!yaml
-language: java
+language: groovy
 
 jdk:
-- openjdk7
-- oraclejdk7
+- oraclejdk6
+
+env:
+- GRAILS_VERSION=2.3.1
+- GRAILS_VERSION=2.2.4
+- GRAILS_VERSION=2.1.5
+- GRAILS_VERSION=2.0.4
 
 before_install:
-- sudo add-apt-repository -y ppa:groovy-dev/grails
-- sudo apt-get update
-- sudo apt-get -y install grails-ppa
-- sudo apt-get install grails-2.0.4
+- rm -rf ~/.gvm
+- curl -s get.gvmtool.net > ~/install_gvm.sh
+- chmod 775 ~/install_gvm.sh
+- ~/install_gvm.sh
+- echo "gvm_auto_answer=true" > ~/.gvm/etc/config
+- source ~/.gvm/bin/gvm-init.sh
+- gvm install grails $GRAILS_VERSION || true
 
-script: grails test-app
+script: grails clean
+	&& grails upgrade --non-interactive
+	&& grails test-app --non-interactive
