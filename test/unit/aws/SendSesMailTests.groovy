@@ -13,7 +13,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
     protected void setUp() {
         super.setUp()
-		SendSesMail.metaClass.sendMail = { from, destination, message ->
+		SendSesMail.metaClass.sendSimpleMail = { from, destination, message ->
 			println "sending mail..."
 			return DEFAULT_MAIL_ID
 		}
@@ -311,7 +311,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		    body    "e-mail body (plain text)"
 		}
 
-		def message = sender.buildMessage()
+		def message = sender.buildSimpleMessage()
 		assertNotNull message
 		assertEquals  "new subject", message.subject.data
 		assertEquals  "e-mail body (plain text)", message.body.text.data
@@ -334,7 +334,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		    html    "e-mail body (html content)"
 		}
 
-		def message = sender.buildMessage()
+		def message = sender.buildSimpleMessage()
 		assertNotNull message
 		assertEquals  "new subject", message.subject.data
 		assertEquals  "e-mail body (html content)", message.body.html.data
@@ -358,7 +358,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		    html    "e-mail body (html content)"
 		}
 
-		def message = sender.buildMessage()
+		def message = sender.buildSimpleMessage()
 		assertNotNull message
 		assertEquals  "new subject", message.subject.data
 		assertEquals  "e-mail body (html content)", message.body.html.data
@@ -385,7 +385,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		    html    "e-mail body (html content)"
 		}
 
-		def destination = sender.buildDestination()
+		def destination = sender.buildSimpleDestination()
 		assertNotNull destination
 		assertEquals  1, destination.toAddresses.size()
 		assertEquals  2, destination.ccAddresses.size()
@@ -419,7 +419,7 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		    html    "e-mail body (html content)"
 		}
 
-		def destination = sender.buildDestination()
+		def destination = sender.buildSimpleDestination()
 		assertNotNull destination
 		assertEquals  1, destination.toAddresses.size()
 		assertEquals  0, destination.ccAddresses.size()
