@@ -1,18 +1,13 @@
+--- 
+before_install: 
+  - "rm -rf ~/.gvm"
+  - "curl -s get.gvmtool.net > ~/install_gvm.sh"
+  - "chmod 775 ~/install_gvm.sh"
+  - ~/install_gvm.sh
+  - "echo \"gvm_auto_answer=true\" > ~/.gvm/etc/config"
+  - "source ~/.gvm/bin/gvm-init.sh"
+  - "gvm install grails $GRAILS_VERSION || true"
+env: 
+  - GRAILS_VERSION=2.0.4
 language: groovy
-
-jdk:
-- oraclejdk6
-
-env:
-- GRAILS_VERSION=2.0.4
-
-before_install:
-- rm -rf ~/.gvm
-- curl -s get.gvmtool.net > ~/install_gvm.sh
-- chmod 775 ~/install_gvm.sh
-- ~/install_gvm.sh
-- echo "gvm_auto_answer=true" > ~/.gvm/etc/config
-- source ~/.gvm/bin/gvm-init.sh
-- gvm install grails $GRAILS_VERSION || true
-
-script: grails  test-app --non-interactive
+script: "grails  test-app --non-interactive"
