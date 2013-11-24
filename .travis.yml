@@ -4,9 +4,6 @@ jdk:
 - oraclejdk6
 
 env:
-- GRAILS_VERSION=2.3.1
-- GRAILS_VERSION=2.2.4
-- GRAILS_VERSION=2.1.5
 - GRAILS_VERSION=2.0.4
 
 before_install:
@@ -18,6 +15,4 @@ before_install:
 - source ~/.gvm/bin/gvm-init.sh
 - gvm install grails $GRAILS_VERSION || true
 
-script: grails clean
-	&& grails upgrade --non-interactive
-	&& grails test-app --non-interactive
+script: grails  test-app --non-interactive
