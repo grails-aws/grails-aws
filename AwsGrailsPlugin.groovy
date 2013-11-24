@@ -10,18 +10,19 @@ class AwsGrailsPlugin {
         "grails-app/views/**",
         "grails-app/controllers/**/*Controller.groovy",
         "grails-app/services/**/*Service.groovy",
-		  "src/docs/**",
+        "src/docs/**",
         "testScripts/*.groovy"
     ]
 
     def title                    = "Grails AWS Plugin"
     def description              = "Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS"
-    def documentation            = "http://blanq.github.com/grails-aws"
+    def documentation            = "http://grails-aws.github.com/grails-aws"
 
     def license                  = "APACHE"
-    def organization             = [  name: "Blanq", url: "http://github.com/blanq" ]
-    def developers               = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ]]
-    def scm                      = [  url: "https://github.com/blanq/grails-aws" ]
+    def organization             = [  name: "Grails AWS", url: "https://github.com/grails-aws" ]
+    def developers               = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ],
+                                    [ name: "Jay Prall", email: "jay@prall.net" ]]
+    def scm                      = [  url: "https://github.com/grails-aws/grails-aws" ]
     def issueManagement          = [  system: "JIRA", url: "http://jira.grails.org/browse/GPAWS" ]
 
     def onChange                 = AwsPluginSupport.onChange
