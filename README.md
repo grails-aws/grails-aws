@@ -27,6 +27,4 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 ## Documentation
 
-[![http://blanq.github.com/grails-aws]](http://blanq.github.com/grails-aws)
-
-Docs: http://blanq.github.com/grails-aws
+Docs: http://grails-aws.github.com/grails-aws
