@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>4 FAQ 1.2.12.3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/4%20FAQ.html"><strong>4</strong><span>FAQ</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/5%20Roadmap.html"><strong>5</strong><span>Roadmap</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/6%20Changelog.html"><strong>6</strong><span>Changelog</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/7%20Contributions%20and%20reporting%20bugs.html"><strong>7</strong><span>Contributions and reporting bugs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/8%20Contact.html"><strong>8</strong><span>Contact</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html">&lt;&lt; <strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/5%20Roadmap.html"><strong>5</strong><span>Roadmap</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>4 FAQ - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Lucas Teixeira</p>
+
+                    <p><strong>Version:</strong> 1.2.12.3</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h1 id="4 FAQ">4 FAQ</h1>
+<strong class="bold">Q) Why not use amazon-s3 plugin?</strong><p class="paragraph"/>A) Because it is not under massive development anymore, because it depends on quartz plugin, and because I found some itchy bugs on it that really annoys me on my other project using it.<p class="paragraph"/>
+<strong class="bold">Q) Why you don’t submit a patch to it?</strong><p class="paragraph"/>A) Because it is not under massive development anymore (again), and because the idea on this grails-aws plugin, as I said before, is to offer an easier way to use AWS service, and not only S3.<p class="paragraph"/>
+<strong class="bold">Q) I have some aws code that I'm using here, can I attach it on this plugin and send a pull request?</strong><p class="paragraph"/>A) For sure, I'd be thankful if you are willing to do so, but remember the main reason we're developing this plugin, to provide <strong class="bold">EASY</strong> access to AWS functionalities.<p class="paragraph"/><strong class="bold">Q) Can I use this plugin to send e-mails using my current SMTP infrastructure?</strong><p class="paragraph"/>A) Unfortunately, SES does not provide a simple SMTP server address to connect and use, otherwise we could just configure the Grails Mail Plugin to use it. Instead of this, AWS provides a http web service for it.<p class="paragraph"/><strong class="bold">Q) Can I use the Grails Mail plugin to connect to Amazon SES Email service?</strong><p class="paragraph"/>A) As described above, SES does not offer you a SMTP address, if you want to use Mail Plugin, you have two options to do.
+<ul class="star">
+<li><strong class="bold">#1</strong> You can configure AWS SES with a SMTP Bridge to connect to your SMTP server, but only if you're running Postfix or Sendmail locally. There is a great post that shows how to do this: <a href="http://netwiser.blogspot.com/2011/02/setup-amazon-ses-to-relay-email-by.html" target="blank">http://netwiser.blogspot.com/2011/02/setup-amazon-ses-to-relay-email-by.html</a></li>
+<li><strong class="bold">#2</strong> You can configure mail plugin to use the ses protocol as described here <a href="http://roshandawrani.wordpress.com/2011/04/06/grails-using-mail-plugin-with-amazon-email-service/" target="blank">http://roshandawrani.wordpress.com/2011/04/06/grails-using-mail-plugin-with-amazon-email-service/</a></li>
+</ul><p class="paragraph"/>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html">&lt;&lt; <strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/5%20Roadmap.html"><strong>5</strong><span>Roadmap</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">SES</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-get-send-quota.html">aws-ses-get-send-quota</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-get-send-statistics.html">aws-ses-get-send-statistics</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-list-verified-emails.html">aws-ses-list-verified-emails</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-send-ping-mail.html">aws-ses-send-ping-mail</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-verify-email.html">aws-ses-verify-email</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>

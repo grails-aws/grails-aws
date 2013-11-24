@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>1 Introduction to Grails AWS Plugin 1.2.12.3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/4%20FAQ.html"><strong>4</strong><span>FAQ</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/5%20Roadmap.html"><strong>5</strong><span>Roadmap</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/6%20Changelog.html"><strong>6</strong><span>Changelog</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/7%20Contributions%20and%20reporting%20bugs.html"><strong>7</strong><span>Contributions and reporting bugs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/8%20Contact.html"><strong>8</strong><span>Contact</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>1 Introduction to Grails AWS Plugin - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Lucas Teixeira</p>
+
+                    <p><strong>Version:</strong> 1.2.12.3</p>
+
+                    
+                </div>
+
+                
+                <div id="table-of-content">
+                    <h2>Table of Contents</h2>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#1.1%20Installing%20Grails%20AWS%20Plugin"><strong>1.1</strong><span>Installing Grails AWS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#1.2%20Getting%20the%20source%20code"><strong>1.2</strong><span>Getting the source code</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#1.3%20Configuring%20the%20plugin%20in%20your%20application"><strong>1.3</strong><span>Configuring the plugin in your application</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:10px"><a href="#1.3.1%20Setting%20AWS%20Credentials"><strong>1.3.1</strong><span>Setting AWS Credentials</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#1.4%20Gant%20scripts"><strong>1.4</strong><span>Gant scripts</span></a>
+                    </div>
+                    
+                </div>
+                
+
+                
+
+<h1 id="1 Introduction to Grails AWS Plugin">1 Introduction to Grails AWS Plugin</h1>
+Grails AWS plugin intends to provide most of any other reason, an EASY WAY to access and use AWS services.<p class="paragraph"/>Not all services are included in the plugin, you can check this guide to see what you can do and how.
+If you want to contribute with another service that is not implemented yet, check Section <strong class="bold">"Contributions ad Reporting Bugs"</strong> of this guide.
+
+
+<h2 id="1.1 Installing Grails AWS Plugin">1.1 Installing Grails AWS Plugin</h2>
+As other grails plugins you <strong class="bold">can</strong> install it using the <code>install-plugin</code> command like this:<p class="paragraph"/><div class="code"><pre>grails install&#45;plugin aws</pre></div><p class="paragraph"/>But since Grails 1.3.x, it is possible (and I <strong class="bold">really encourage you doing this</strong>) to declare the plugin dependency in the <code>BuildConfig.groovvy</code> file, as shown here:<p class="paragraph"/><div class="code"><pre>grails.project.dependency.resolution = &#123;
+    inherits(<span class="java&#45;quote">"global"</span>) &#123; &#125;
+    log <span class="java&#45;quote">"info"</span>
+    repositories &#123;
+        //your repositories
+    &#125;
+    dependencies &#123;
+        //your regular dependencies
+    &#125;
+    plugins &#123;
+        //here go your plugin dependencies
+        runtime ':aws:1.1.7.3'
+    &#125;
+&#125;</pre></div><p class="paragraph"/>Note the <code>aws</code> as the plugin name, and the <code>1.1.7.3</code> as the plugin version. As the time you're reading this, 1.1.7.3 won't probably be the last version, so change it for the correct version you want to grab, or use <strong class="bold">latest.release</strong> as version to grab the latest one.
+
+
+<h2 id="1.2 Getting the source code">1.2 Getting the source code</h2>
+If you want to get the source code for this plugin, check Blanq Github's repository at <a href="http://github.com/blanq/grails-aws" target="blank">http://github.com/blanq/grails-aws</a>
+
+
+<h2 id="1.3 Configuring the plugin in your application">1.3 Configuring the plugin in your application</h2>
+You'll have to configure the plugin in Config.groovy to set AWS credentials and other properties specifically to each AWS service you may use.
+
+
+<h2 id="1.3.1 Setting AWS Credentials">1.3.1 Setting AWS Credentials</h2>
+<h3>Setting AWS Credentials</h3><p class="paragraph"/>You can set your access-key and secret-key in two different manners as below<p class="paragraph"/><h4>Property-file credentials configuration</h4><p class="paragraph"/>As recommended by Amazon, you can use a .properties file to handle your secret and access keys for this plugin.<p class="paragraph"/>You'll have to create some properties file with the content as show below:<p class="paragraph"/><div class="code"><pre>accessKey = your&#45;access&#45;key
+secretKey = your&#45;secret&#45;key</pre></div><p class="paragraph"/>And then, you will have to tell your application in Config.groovy to read this property file:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         credentials &#123;
+            properties = <span class="java&#45;quote">"/my/path/to/AwsCredentials.properties"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><h4>Plain-text credentials configuration</h4><p class="paragraph"/>If you don't have access to the filesystem in someway, or prefer to set the access and secret key directly in Config.groovy, you can do it this way:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         credentials &#123;
+            accessKey = <span class="java&#45;quote">"your&#45;access&#45;key"</span>
+            secretKey = <span class="java&#45;quote">"your&#45;secret&#45;key"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><blockquote class="warning">
+Remember, if you set a properties file, it will take priority over this way.
+</blockquote><p class="paragraph"/><h4>Using System Properties as credentials</h4><p class="paragraph"/>Sometimes, you still don't have access to filesystem, but don't want to store your credentials wide open in your configuration file, or you want to deploy the same app in more than one place, and use different credentials for each one. So, in these cases, the best approach to solve this, is to pass them as <code>-D</code> params to your application server. It is easy and the plugin will understand this as a plain text credential, but with nothing hardcoded in your app.<p class="paragraph"/>You'll have to start your console passing the accessKey and secretKey as param values. In the dev environment, would be like this:<p class="paragraph"/><div class="code"><pre>grails &#45;DawsAccessKey=xxxxxx &#45;DawsSecretKey=yyyyyy run&#45;app</pre></div><p class="paragraph"/>After this, just setup your credentials as described below:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         credentials &#123;
+            accessKey = <span class="java&#45;object">System</span>.properties&#91;'awsAccessKey'&#93;
+            secretKey = <span class="java&#45;object">System</span>.properties&#91;'awsSecretKey'&#93;
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>We shall thank groovy config files, that allow directly programming into it!
+
+
+<h2 id="1.4 Gant scripts">1.4 Gant scripts</h2>
+Grails AWS Plugin brings some scripts to use in your app, all scripts names follow this rule:<p class="paragraph"/><div class="code"><pre>aws&#45;&#91;service&#93;&#45;&#91;operation&#93;</pre></div><p class="paragraph"/>So, all scripts are prefixed with 'aws', followed by its service code, and then the operation name, almost always the same operation name in the corresponding WSDL. For example, to connect with SES and check your sending email statistics (GetSendStatistics operation), you'll have to execute:<p class="paragraph"/><div class="code"><pre>grails aws&#45;ses&#45;get&#45;send&#45;statistics</pre></div><p class="paragraph"/>All information are printed in your screen, and when you need to interact with parameters, the script will prompt you.<p class="paragraph"/>More detailed information on scripts can be found in the left frame of the screen.
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">SES</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-get-send-quota.html">aws-ses-get-send-quota</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-get-send-statistics.html">aws-ses-get-send-statistics</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-list-verified-emails.html">aws-ses-list-verified-emails</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-send-ping-mail.html">aws-ses-send-ping-mail</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../ref/SES/aws-ses-verify-email.html">aws-ses-verify-email</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>

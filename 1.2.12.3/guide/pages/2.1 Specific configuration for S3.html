@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>2.1 Specific configuration for S3 1.2.12.3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/4%20FAQ.html"><strong>4</strong><span>FAQ</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/5%20Roadmap.html"><strong>5</strong><span>Roadmap</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/6%20Changelog.html"><strong>6</strong><span>Changelog</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/7%20Contributions%20and%20reporting%20bugs.html"><strong>7</strong><span>Contributions and reporting bugs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/8%20Contact.html"><strong>8</strong><span>Contact</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html">&lt;&lt; <strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2.1 Specific configuration for S3 - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Lucas Teixeira</p>
+
+                    <p><strong>Version:</strong> 1.2.12.3</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h2 id="2.1 Specific configuration for S3">2.1 Specific configuration for S3</h2>
+In your config.groovy, inside <strong class="bold">grails.plugin.aws</strong> closure, you can set some extra configurations for S3 usage.
+This properties will be used when no respective config is defined when uploading file.<p class="paragraph"/>For example, you can define a default bucket for file uploads. Everytime you attemp to upload a file without explicitly setting the bucket name, this default will be used.<p class="paragraph"/>Check now, all default config possibilities you can set.<p class="paragraph"/><h3>Bucket name</h3><p class="paragraph"/>To set a default bucket, that will be used to all file upload use the config below<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            bucket = <span class="java&#45;quote">"grails&#45;plugin&#45;test"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>During the first upload on this bucket, it will be created if does not exist.<p class="paragraph"/><h3>Bucket location</h3><p class="paragraph"/>When creating buckets, you can define the default bucket location using the <code>bucketLocation</code> config as shown below<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            bucketLocation = <span class="java&#45;quote">"EU"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>In this case, bucket will be created in AWS Europe Region.<p class="paragraph"/><h3>ACL (file permission)</h3><p class="paragraph"/>The permissions that will be granted on this file, you can use:
+<ul class="star">
+<li><strong class="bold">public:</strong> Allow public access to everyone that attemps to read this file</li>
+<li><strong class="bold">private:</strong> Sets private access to this file, only your account will read/write on it</li>
+<li><strong class="bold">public_read_write:</strong> This will make this file wide open to any AWS account, read and write</li>
+<li><strong class="bold">authenticated_read:</strong> Using this acl string, only logged AWS accounts will have permissions to read the file</li>
+</ul><p class="paragraph"/>To configure public access as default to all file uploads, use this:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">public</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>If you like to set private access to your files, you should config this way:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            acl = <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/><h3>RRS - Reduced Redundancy Storage</h3><p class="paragraph"/>RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: <a href="http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/" target="blank">http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/</a><p class="paragraph"/>This is disabled by default, if you like to set RRS enabled for all uploads, use this config key:<p class="paragraph"/><div class="code"><pre>grails &#123;
+   plugin &#123;
+      aws &#123;
+         s3 &#123;
+            rrs = <span class="java&#45;keyword">true</span>
+         &#125;
+      &#125;
+   &#125;
+&#125;</pre></div><p class="paragraph"/>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html">&lt;&lt; <strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">SES</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-get-send-quota.html">aws-ses-get-send-quota</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-get-send-statistics.html">aws-ses-get-send-statistics</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-list-verified-emails.html">aws-ses-list-verified-emails</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-send-ping-mail.html">aws-ses-send-ping-mail</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-verify-email.html">aws-ses-verify-email</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
