@@ -9,7 +9,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
     void test_BuildAwsSdkCredentialsWithPlainCredentials() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"
 
@@ -26,7 +25,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
                       secretKey = my-properties-secret-key"""
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.properties = tmpFile.toString()
 
 		def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
@@ -42,7 +40,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
                       secretKey = my-properties-secret-key"""
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.accessKey  = "my-plain-access-key"
 		credentialsHolder.secretKey  = "my-plain-secret-key"
 		credentialsHolder.properties = tmpFile.toString()
@@ -56,7 +53,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
     void test_FailToBuildAwsSdkCredentialsWithoutAccessOrSecretInPlainText() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 
 		shouldFail {
@@ -70,7 +66,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		tmpFile << "accessKey = my-properties-access-key"
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.properties = tmpFile.toString()
 
 		shouldFail {
@@ -81,7 +76,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
     void test_BuildJetS3tCredentialsWithPlainCredentials() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"
 
@@ -98,7 +92,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
                       secretKey = my-properties-secret-key"""
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.properties = tmpFile.toString()
 
 		def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
@@ -114,7 +107,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
                       secretKey = my-properties-secret-key"""
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.accessKey  = "my-plain-access-key"
 		credentialsHolder.secretKey  = "my-plain-secret-key"
 		credentialsHolder.properties = tmpFile.toString()
@@ -128,7 +120,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
     void test_FailToBuildJetS3tCredentialsWithoutAccessOrSecretInPlainText() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.log       = new MockLogger()
 		credentialsHolder.accessKey = "my-plain-access-key"
 
 		shouldFail {
@@ -142,7 +133,6 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		tmpFile << "accessKey = my-properties-access-key"
 
 		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.log        = new MockLogger()
 		credentialsHolder.properties = tmpFile.toString()
 
 		shouldFail {

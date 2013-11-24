@@ -8,7 +8,6 @@ class ConfigReaderTests extends GrailsUnitTestCase {
 
 	protected void setUp() {
 		super.setUp()
-		ConfigReader.metaClass.getLog = { -> new MockLogger() }
 	}
 
 	private String testConfig = """
