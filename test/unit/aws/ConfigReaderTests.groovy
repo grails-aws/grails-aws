@@ -34,8 +34,8 @@ class ConfigReaderTests extends GrailsUnitTestCase {
 	void testConfiguration() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+		tmpFile.deleteOnExit()
 		tmpFile << testConfig
-
 		def cr = new ConfigReader(new ConfigSlurper().parse(tmpFile.toURI().toURL()))
 
 		assertEquals "my-access-key",   cr.read("grails.plugin.aws.credentials.accessKey", "different-key-for-default-value")
