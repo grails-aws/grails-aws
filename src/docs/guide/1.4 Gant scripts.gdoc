@@ -1,0 +1,15 @@
+Grails AWS Plugin brings some scripts to use in your app, all scripts names follow this rule:
+
+{code}
+aws-[service]-[operation]
+{code}
+
+So, all scripts are prefixed with 'aws', followed by its service code, and then the operation name, almost always the same operation name in the corresponding WSDL. For example, to connect with SES and check your sending email statistics (GetSendStatistics operation), you'll have to execute:
+
+{code}
+grails aws-ses-get-send-statistics
+{code}
+
+All information are printed in your screen, and when you need to interact with parameters, the script will prompt you.
+
+More detailed information on scripts can be found in the left frame of the screen.

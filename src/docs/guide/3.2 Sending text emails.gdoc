@@ -1,0 +1,107 @@
+To send e-mails, just call the *sesMail* closure in your controllers or services
+
+{code}
+def mailId = sesMail {
+    from "origin@gmail.com"
+    to "test-email@gmail.com"
+    subject "test plain text mail"
+    body "this is the e-mail content, sent at: (${new Date().format('dd/MM/yyyy HH:mm')})"
+}
+{code}
+
+The *sesMail* returns an unique identifier for this e-mail at Amazon infrastructure, as this one:
+
+{code}
+0000012dcde0ea1c-d331d2ec-3972-4a6c-825f-fc980cde3352-000000
+{code}
+
+Amazon don't provide anything useful to do with this *id* yet, but I imagine that in a near future, you'll be able to retrieve if this email was delivered correctly, or if it was spammed or bounced. So, feel free to store it if you want to.
+
+h3. Closure parameters
+
+h4. AWS Credentials
+
+As the S3 file upload support, you can override AWS credentials settings for sending mails. This is rare and unusual, but if you really need, do the same as in S3.
+
+{code}
+credentials "new-access-key", "new-secret-key"
+{code}
+
+Just remember, if this new AWS credentials belong to another AWS account, this account will have to be subscribed to SES service and have verified e-mails to send.
+
+h4. Defining the sender
+
+As seen in the other topic, you can set this default address in the application Config, but if you want to explicitly set the address in each email you send, just override the *from* method:
+
+{code}
+from "my-other-email@gmail.com"
+{code}
+
+h4. Defining recipient e-mails
+
+h5. To
+
+To set the recipient e-mail, use the *to* method.
+
+{code}
+to "user@myapp.com"
+{code}
+
+You can send to multiple addresses doing this:
+
+{code}
+to "user@myapp.com", "user2@myapp.com", "user3@myapp.com"
+{code}
+
+h5. CC and BCC
+
+To set CC and BCC addresses, you can do the same as *to* addresses:
+
+{code}
+cc "copied@myapp.com"
+{code}
+
+{code}
+bcc "you-dont-know-me\@myapp.com"
+{code}
+
+And again, for multiple addresses:
+
+{code}
+ccc "user1\@myapp.com", "user2\@myapp.com", "user3\@myapp.com"
+{code}
+
+{code}
+bcc "user4\@myapp.com", "user5\@myapp.com", "user6\@myapp.com"
+{code}
+
+h4. Setting the e-mail subject
+
+To set the subject, following other parameters convention:
+
+{code}
+subject "Testing the AWS Plugin"
+{code}
+
+h4. E-mail body
+
+And finally, the e-mail body can be set with:
+
+{code}
+body "This is the text user will receive in the e-mail body"
+{code}
+
+h4. Defining the reply-to address
+
+You can set the reply-to header of your mail message using the *replyTo* closure parameter. And you can pass one string, or a list of e-mails that will be set as 'reply-to' header.
+
+*One e-mail*
+
+{code}
+replyTo "my-other-email@gmail.com"
+{code}
+
+*Multiple e-mails*
+{code}
+replyTo "my-other-email-1@gmail.com", "my-other-email-2@gmail.com", "my-other-email-3@gmail.com"
+{code}

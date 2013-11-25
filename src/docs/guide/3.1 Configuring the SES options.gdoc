@@ -1,0 +1,37 @@
+The plugin provides these configurations for SES service.
+
+h3. enabled
+
+The plugin is enabled by default on all environments, you can set 'enabled=false' on some environments to disable email sending. This is useful on testing environments where integration tests runs.
+
+h3. catchall
+
+If you set the 'catch all' address, it will override any other address you set in 'to', 'cc' and 'bcc' properties. 
+This is useful when you have acceptance tests or other environments/uses that you want your mails to be sent, but not to the usual addresses, but to one and only one address.
+
+Any attempt to send emails with this property configured, will send e-mails to the address configured, with no 'cc' and 'bcc' addresses. 
+
+h3. from
+
+The default 'from' address to be used. You can override this parameter in every call to the plugin, setting the 'from' parameter. As said before, this address have to be verified with AWS (check Gant scripts section to see how to do it).
+
+h3. Configuration example
+
+To configure it, you'll do the following inside the *grails.plugin.aws* section of your application Config.
+
+{code}
+grails {
+   plugin {
+      aws {
+         
+         ses {
+            enabled = false
+            catchall = "allmailforme@gmail.com"
+            from = "my-verified-email@gmail.com"
+         }
+
+      }
+   }
+}
+{code}
+

@@ -1,0 +1,7 @@
+h1. aws-ses-get-send-quota
+
+Retrieves for you the current quota for you. Will give you information on how much emails you can send per day, per second, and the number of e-mails you're allowed to send.
+
+{code}
+grails aws-ses-get-send-quota
+{code}

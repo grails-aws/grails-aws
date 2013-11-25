@@ -1,0 +1,98 @@
+In your config.groovy, inside *grails.plugin.aws* closure, you can set some extra configurations for S3 usage.
+This properties will be used when no respective config is defined when uploading file.
+
+For example, you can define a default bucket for file uploads. Everytime you attemp to upload a file without explicitly setting the bucket name, this default will be used.
+
+Check now, all default config possibilities you can set. 
+
+h3. Bucket name
+
+To set a default bucket, that will be used to all file upload use the config below
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            bucket = "grails-plugin-test"
+         }
+      }
+   }
+}
+{code}
+
+During the first upload on this bucket, it will be created if does not exist.
+
+h3. Bucket location
+
+When creating buckets, you can define the default bucket location using the @bucketLocation@ config as shown below
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            bucketLocation = "EU"
+         }
+      }
+   }
+}
+{code}
+
+In this case, bucket will be created in AWS Europe Region.
+
+h3. ACL (file permission)
+
+The permissions that will be granted on this file, you can use:
+
+* *public:* Allow public access to everyone that attemps to read this file
+* *private:* Sets private access to this file, only your account will read/write on it
+* *public_read_write:* This will make this file wide open to any AWS account, read and write
+* *authenticated_read:* Using this acl string, only logged AWS accounts will have permissions to read the file
+
+To configure public access as default to all file uploads, use this:
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            acl = "public"
+         }
+      }
+   }
+}
+{code}
+
+If you like to set private access to your files, you should config this way:
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            acl = "private"
+         }
+      }
+   }
+}
+{code}
+
+h3. RRS - Reduced Redundancy Storage
+
+RRS stored files provides a cheaper storage with 99.99% durability instead of 99.999999999% as the default provided by AWS S3. More information here: [http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/|http://aws.amazon.com/about-aws/whats-new/2010/05/19/announcing-amazon-s3-reduced-redundancy-storage/]
+
+This is disabled by default, if you like to set RRS enabled for all uploads, use this config key:
+
+{code}
+grails {
+   plugin {
+      aws {
+         s3 {
+            rrs = true
+         }
+      }
+   }
+}
+{code}
+

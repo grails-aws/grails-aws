@@ -1,0 +1,15 @@
+h3. Amazon Cloudfront
+
+   * Cloudfront Distribution creation
+
+h3. Amazon SNS
+
+   * Basic integration with Amazon SNS
+
+h3. Amazon SQS
+
+   * Basic integration with Amazon SQS with Typica (http://code.google.com/p/typica/wiki/TypicaSampleCode)
+
+h3. Amazon Beanstalk
+
+   * Scripts for allowing deploy directly to Amazon Beanstalk infrastructure

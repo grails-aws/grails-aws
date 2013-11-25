@@ -1,0 +1,9 @@
+h1. aws-ses-list-verified-emails
+
+This will allow you to see all verified emails with amazon with the configured credentials.
+
+To use:
+
+{code}
+grails aws-ses-list-verified-emails
+{code}

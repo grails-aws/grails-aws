@@ -1,0 +1,13 @@
+h1. aws-ses-send-ping-mail
+
+{warning}
+Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emais that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
+{warning}
+
+This script is a simple utility to test if amazon has verified your email correctly.
+
+It will queue one test email message for SES. You'll be prompted for the FROM email address and the TO email address to send. Remember, you have to verify these emails first.
+
+{code}
+grails aws-ses-send-ping-mail
+{code}

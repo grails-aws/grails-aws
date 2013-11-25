@@ -1,0 +1,14 @@
+You can always generate the URL to access your files manually. Specially if you're using your own CNAME for it or if you're using cloudfront in front of S3.
+But, if you still need some easy and tricky way to generate it, you can do the following:
+
+{code}
+def url = aws.s3().on("my-first-bucket").url("photo.jpg")
+{code}
+
+This will return an url like this: *http://my-first-bucket.s3.amazonaws.com/photo.jpg*. And if you're using paths for your file:
+
+{code}
+def url = aws.s3().on("my-first-bucket").url("photo.jpg", "userphotos")
+{code}
+
+That will gives you: *http://my-first-bucket.s3.amazonaws.com/userphotos/photo.jpg*

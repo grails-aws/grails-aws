@@ -1,0 +1,23 @@
+You can attach one or more files in your e-mail if you want. Keep in mind that AWS SES charges for the amount of data you sent attached in your e-mails. 
+
+It is simple, you just need to call the "attach" method in the sesMail closure with the full path to desired files, like below:
+
+{code}
+sesMail {
+   to "email@gmailcom"
+   subject "testing emails with one attachment"
+   body "..."
+   attach "/users/website/images/file1.jpg"
+}
+{code}
+
+You can attach several files separating file paths with commas:
+
+{code}
+sesMail {
+   to "email@gmailcom"
+   subject "testing emails with one attachment"
+   body "..."
+   attach "/users/website/images/file1.jpg", "/users/website/images/file2.jpg", "/users/website/images/file3.jpg"
+}
+{code}

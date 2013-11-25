@@ -1,0 +1,7 @@
+AWS S3 files can store user metadata, doing this is simple as setting a metadata map to file upload
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+    metadata [user-id: 123, username: 'johndoe', registered-date: new Date().format('dd/MM/yyyy')]
+}
+{code}

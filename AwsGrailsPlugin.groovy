@@ -1,0 +1,32 @@
+import grails.plugin.aws.meta.AwsPluginSupport
+
+class AwsGrailsPlugin {
+
+    def version                  = "1.2.12.3"
+    def grailsVersion            = "1.3.0 > *"
+    def loadAfter                = ['services', 'controllers']
+    def observe                  = ['services', 'controllers']
+    def pluginExcludes           = [
+        "grails-app/views/**",
+        "grails-app/controllers/**/*Controller.groovy",
+        "grails-app/services/**/*Service.groovy",
+        "src/docs/**",
+        "testScripts/*.groovy"
+    ]
+
+    def title                    = "Grails AWS Plugin"
+    def description              = "Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS"
+    def documentation            = "http://grails-aws.github.com/grails-aws"
+
+    def license                  = "APACHE"
+    def organization             = [  name: "Grails AWS", url: "https://github.com/grails-aws" ]
+    def developers               = [[ name: "Lucas Teixeira", email: "lucastex@gmail.com" ],
+                                    [ name: "Jay Prall", email: "jay@prall.net" ]]
+    def scm                      = [  url: "https://github.com/grails-aws/grails-aws" ]
+    def issueManagement          = [  system: "JIRA", url: "http://jira.grails.org/browse/GPAWS" ]
+
+    def onChange                 = AwsPluginSupport.onChange
+    def doWithSpring             = AwsPluginSupport.doWithSpring
+    def onConfigChange           = AwsPluginSupport.onConfigChange
+    def doWithDynamicMethods     = AwsPluginSupport.doWithDynamicMethods
+}

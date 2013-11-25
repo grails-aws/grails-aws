@@ -1,0 +1,7 @@
+If some specifically file you like to use a different RRS setting, call the rrs method in the closure, passing true or false, as you wish
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+    rrs false
+}
+{code}

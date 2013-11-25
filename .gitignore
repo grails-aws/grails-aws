@@ -1,6 +1,4 @@
-stacktrace.log
 target/
-target/test-reports/TESTS-TestSuites.xml
-target/*
-CodeNarcReport.html
-cobertura.ser
+grails-aws-*.zip
+grails-aws-*.zip.sha1
+plugin.xml
