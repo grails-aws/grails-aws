@@ -1,7 +1,6 @@
 package aws
 
 import grails.plugin.aws.util.ConfigReader
-import grails.plugin.aws.util.MockLogger
 import grails.test.GrailsUnitTestCase
 
 class ConfigReaderTests extends GrailsUnitTestCase {

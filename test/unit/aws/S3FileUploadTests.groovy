@@ -1,7 +1,6 @@
 package aws
 
 import grails.plugin.aws.s3.S3FileUpload
-import grails.plugin.aws.util.MockLogger
 import grails.test.GrailsUnitTestCase
 
 import org.jets3t.service.acl.AccessControlList
