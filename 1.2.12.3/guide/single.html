@@ -65,7 +65,7 @@ function addJsClass(el) {
 
                         <div class="project">
                             <h1>Grails AWS Plugin - Reference Documentation</h1>
-                            <p><strong>Authors:</strong> Lucas Teixeira</p>
+                            <p><strong>Authors:</strong> Lucas Teixeira, Jay Prall</p>
                             <p><strong>Version:</strong> 1.2.12.3</p>
                             
                         </div>
@@ -151,7 +151,7 @@ If you want to contribute with another service that is not implemented yet, chec
 
 
 <h2 id="1.1 Installing Grails AWS Plugin">1.1 Installing Grails AWS Plugin</h2>
-As other grails plugins you <strong class="bold">can</strong> install it using the <code>install-plugin</code> command like this:<p class="paragraph"/><div class="code"><pre>grails install&#45;plugin aws</pre></div><p class="paragraph"/>But since Grails 1.3.x, it is possible (and I <strong class="bold">really encourage you doing this</strong>) to declare the plugin dependency in the <code>BuildConfig.groovvy</code> file, as shown here:<p class="paragraph"/><div class="code"><pre>grails.project.dependency.resolution = &#123;
+As other grails plugins you <strong class="bold">can</strong> install it using the <code>install-plugin</code> command like this:<p class="paragraph"/><div class="code"><pre>grails install&#45;plugin aws</pre></div><p class="paragraph"/>But since Grails 1.3.x, it is possible (and I <strong class="bold">really encourage you doing this</strong>) to declare the plugin dependency in the <code>BuildConfig.groovy</code> file, as shown here:<p class="paragraph"/><div class="code"><pre>grails.project.dependency.resolution = &#123;
     inherits(<span class="java&#45;quote">"global"</span>) &#123; &#125;
     log <span class="java&#45;quote">"info"</span>
     repositories &#123;
@@ -162,13 +162,15 @@ As other grails plugins you <strong class="bold">can</strong> install it using t
     &#125;
     plugins &#123;
         //here go your plugin dependencies
-        runtime ':aws:1.1.7.3'
+        runtime ':aws:1.2.12.3'
     &#125;
-&#125;</pre></div><p class="paragraph"/>Note the <code>aws</code> as the plugin name, and the <code>1.1.7.3</code> as the plugin version. As the time you're reading this, 1.1.7.3 won't probably be the last version, so change it for the correct version you want to grab, or use <strong class="bold">latest.release</strong> as version to grab the latest one.
+&#125;</pre></div><p class="paragraph"/>Note the <code>aws</code> as the plugin name, and the <code>1.2.12.3</code> as the plugin version. As the time you're reading this, 1.2.12.3 won't probably be the last version, so change it for the correct version you want to grab, or use <strong class="bold">latest.release</strong> as version to grab the latest one.
+
 
 
 <h2 id="1.2 Getting the source code">1.2 Getting the source code</h2>
-If you want to get the source code for this plugin, check Blanq Github's repository at <a href="http://github.com/blanq/grails-aws" target="blank">http://github.com/blanq/grails-aws</a>
+
+The source code for the plugin is available on Github. <a href="http://github.com/grails-aws/grails-aws" target="blank">http://github.com/grails-aws/grails-aws</a>
 
 
 <h2 id="1.3 Configuring the plugin in your application">1.3 Configuring the plugin in your application</h2>
@@ -499,7 +501,7 @@ You can attach one or more files in your e-mail if you want. Keep in mind that A
 <ul class="star">
 <li><strong class="bold">1.1.9.2 release</strong> May 10 2011</li>
 <ul class="star">
-<li>Release notes: Fixed bug that was always storing the past sent mail adresses in next mail messages.</li>
+<li>Release notes: Fixed bug that was always storing the past sent mail addresses in next mail messages.</li>
 </ul>
 <li><strong class="bold">1.1.9.1 release</strong> Apr 18 2011</li>
 <ul class="star">
