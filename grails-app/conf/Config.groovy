@@ -5,7 +5,7 @@ log4j = {
 	      'net.sf.ehcache.hibernate'
 }
 
-grails.doc.authors = 'Lucas Teixeira'
+grails.doc.authors = 'Lucas Teixeira, Jay Prall'
 grails.doc.license = 'Apache License'
 grails.doc.title = 'Grails AWS Plugin'
 
