@@ -1,3 +1,0 @@
-h1. Grails AWS Plugin
-
-Docs: http://blanq.github.com/grails-aws

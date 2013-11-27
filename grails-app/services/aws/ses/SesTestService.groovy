@@ -2,7 +2,7 @@ package aws.ses
 
 class SesTestService {
 
-    static transactional = true
+    static transactional = false
 
     def sendTestMail() {
 
@@ -11,7 +11,7 @@ class SesTestService {
 			subject "test plain text mail"
 			body "sendPlainTextMailFromService (${new Date().format('dd/MM/yyyy HH:mm')})"
 		}
-		
+
 		return mailId
     }
 }

@@ -1,7 +1,8 @@
 package grails.plugin.aws.util
 
-import java.util.Calendar as CAL
 import static java.util.Calendar.*
+
+import java.util.Calendar as CAL
 
 class DateRangeCreator {
 

@@ -1,0 +1,9 @@
+AWS S3 files can be stored encrypted in S3, and AWS allows you to specify this as a request header.
+To use this, simply set the useEncryption property to 'true' in the file upload closure. The plugin
+will set the header for encryption and the file will be encrypted using AES-256 algorithm by AWS before storing in S3.
+
+{code}
+def uploadedFile = new File("/tmp/test.txt").s3upload {
+    useEncryption true
+}
+{code}

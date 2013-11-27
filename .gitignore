@@ -1,3 +1,7 @@
 grails-app/conf/Config.groovy
-target/*
-stacktrace.log
+/target
+*.log
+grails-aws-*.zip
+grails-aws-*.zip.sha1
+plugin.xml
+web-app

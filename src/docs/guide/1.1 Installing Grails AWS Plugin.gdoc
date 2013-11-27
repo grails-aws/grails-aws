@@ -4,7 +4,7 @@ As other grails plugins you *can* install it using the @install-plugin@ command 
 grails install-plugin aws
 {code}
 
-But since Grails 1.3.x, it is possible (and I *really encourage you doing this*) to declare the plugin dependency in the @BuildConfig.groovvy@ file, as shown here:
+But since Grails 1.3.x, it is possible (and I *really encourage you doing this*) to declare the plugin dependency in the @BuildConfig.groovy@ file, as shown here:
 
 {code}
 grails.project.dependency.resolution = {
@@ -18,9 +18,9 @@ grails.project.dependency.resolution = {
     }
     plugins {
         //here go your plugin dependencies
-        runtime ':aws:1.1.7.3'
+        runtime ':aws:1.2.12.3'
     }
 }
 {code}
 
-Note the @aws@ as the plugin name, and the @1.1.7.3@ as the plugin version. As the time you're reading this, 1.1.7.3 won't probably be the last version, so change it for the correct version you want to grab, or use *latest.release* as version to grab the latest one.
+Note the @aws@ as the plugin name, and the @1.2.12.3@ as the plugin version. As the time you're reading this, 1.2.12.3 won't probably be the last version, so change it for the correct version you want to grab, or use *latest.release* as version to grab the latest one.
