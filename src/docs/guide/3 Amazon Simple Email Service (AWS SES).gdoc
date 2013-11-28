@@ -9,5 +9,5 @@ But, if you really want to use Mail Plugin, you can configure AWS SES with a SMT
 *REMBEMBER:* You have to be subscribed to SES, if you are not yet, do it before using the plugin.
 
 {warning}
-Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emais that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
+Attention: If you only subscribed to Amazon SES and still didn't get access for production using, you'll only be allowed to send e-mails 'from' AND 'to' emails that has been verified with amazon. So, you'll have to use the 'grails aws-ses-verify-email' for both sender and recipient adresses. After getting production access, this won't be needed.                
 {warning}

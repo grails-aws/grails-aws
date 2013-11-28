@@ -13,7 +13,7 @@ target(awsSesSendPingMail: "Send test e-mail, so user can check if e-mail is ver
 	println """************************************************************
 * Attention: If you only subscribed to Amazon SES and      *
 * still didn't get access for production using, you'll     *
-* only be allowed to send e-mails 'from' AND 'to' emais    *
+* only be allowed to send e-mails 'from' AND 'to' emails    *
 * that has been verified with amazon.                      *
 * So, you'll have to use the 'grails aws-ses-verify-email' *
 * for both sender and recipient adresses. After getting    *
