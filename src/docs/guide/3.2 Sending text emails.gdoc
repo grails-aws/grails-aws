@@ -105,3 +105,11 @@ replyTo "my-other-email@gmail.com"
 {code}
 replyTo "my-other-email-1@gmail.com", "my-other-email-2@gmail.com", "my-other-email-3@gmail.com"
 {code}
+
+h4. Setting the e-mail charset
+
+You can modify the email charset using the *charset* closure parameter.  If this isn't specified, the default is UTF-8.
+
+{code}
+charset "charset "ISO-8859-1"
+{code}

@@ -29,15 +29,16 @@ import com.amazonaws.services.simpleemail.model.SendRawEmailRequest
 
 class SendSesMail {
 
-	def to  = []
-	def cc  = []
+	def to	= []
+	def cc	= []
 	def bcc = []
 	def replyTo = []
 	def attachments = []
+	def charset = "UTF-8"
 
-	def body     = ""
-	def html     = ""
-	def subject  = ""
+	def body	 = ""
+	def html	 = ""
+	def subject	 = ""
 
 	//injected
 	def from
@@ -82,6 +83,12 @@ class SendSesMail {
 		log.debug "Setting 'attachments' files to ${attachments}"
 	}
 
+	// charset
+	void charset(String charset) {
+		this.charset = charset
+		log.debug "Setting 'charset' files to ${this.charset}"
+	}
+	
 	//body
 	void body(String _body) {
 		body = _body
@@ -144,8 +151,8 @@ class SendSesMail {
 		if (catchall) {
 			destination.withToAddresses(catchall)
 		} else {
-			destination.toAddresses  = to  ?: []
-			destination.ccAddresses  = cc  ?: []
+			destination.toAddresses	 = to  ?: []
+			destination.ccAddresses	 = cc  ?: []
 			destination.bccAddresses = bcc ?: []
 		}
 
@@ -156,11 +163,11 @@ class SendSesMail {
 	def buildSimpleMessage() {
 
 		def mailBody = new Body()
-		mailBody.html = html ? new Content(html) : null
-		mailBody.text = body ? new Content(body) : null
-
+		mailBody.html = html ? new Content(html).withCharset(charset) : null
+		mailBody.text = body ? new Content(body).withCharset(charset) : null
+		
 		def message = new Message()
-		message.subject = subject ? new Content(subject) : null
+		message.subject = subject ? new Content(subject).withCharset(charset) : null
 		message.body = mailBody
 
 		return message
@@ -168,8 +175,8 @@ class SendSesMail {
 
 	//method to send the message to this destination, using this from
 	def sendSimpleMail(_from, _destination, _message) {
-		def credentials  = credentialsHolder.buildAwsSdkCredentials()
-		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
+		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
+		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)
 
 		if (replyTo) {
@@ -190,8 +197,8 @@ class SendSesMail {
 		if (catchall) {
 			msg.addRecipients(javax.mail.Message.RecipientType.TO, new InternetAddress(catchall))
 		} else {
-			to.each  { msg.addRecipients(javax.mail.Message.RecipientType.TO,  new InternetAddress(it)) }
-			cc.each  { msg.addRecipients(javax.mail.Message.RecipientType.CC,  new InternetAddress(it)) }
+			to.each	 { msg.addRecipients(javax.mail.Message.RecipientType.TO,  new InternetAddress(it)) }
+			cc.each	 { msg.addRecipients(javax.mail.Message.RecipientType.CC,  new InternetAddress(it)) }
 			bcc.each { msg.addRecipients(javax.mail.Message.RecipientType.BCC, new InternetAddress(it)) }
 		}
 
@@ -207,7 +214,7 @@ class SendSesMail {
 		}
 
 		//subject
-		msg.setSubject(subject)
+		msg.setSubject(subject, charset)
 
 		//multipart message
 		MimeMultipart mp = new MimeMultipart()
@@ -215,14 +222,14 @@ class SendSesMail {
 		//body text part
 		if (body) {
 			def part = new MimeBodyPart()
-			part.setContent(body, "text/plain")
+			part.setText(body, charset, "plain")
 			mp.addBodyPart(part)
 		}
 
 		//body html part
 		if (html) {
 			def part = new MimeBodyPart()
-			part.setContent(html, "text/html")
+			part.setText(html, charset, "html")
 			mp.addBodyPart(part)
 		}
 
@@ -254,8 +261,8 @@ class SendSesMail {
 		rm.setData(ByteBuffer.wrap(out.toString().getBytes()))
 
 		//sending e-mail
-		def credentials  = credentialsHolder.buildAwsSdkCredentials()
-		def sesService   = new AmazonSimpleEmailServiceClient(credentials)
+		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
+		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
 		def rawEmailRequest = new SendRawEmailRequest()
 		rawEmailRequest.source = _from
 		rawEmailRequest.rawMessage = rm
