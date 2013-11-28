@@ -16,7 +16,7 @@ class AwsGrailsPlugin {
 
     def title                    = "Grails AWS Plugin"
     def description              = "Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS"
-    def documentation            = "http://grails-aws.github.com/grails-aws"
+    def documentation            = "https://grails-aws.github.com/grails-aws"
 
     def license                  = "APACHE"
     def organization             = [  name: "Grails AWS", url: "https://github.com/grails-aws" ]
