@@ -363,6 +363,57 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  "e-mail body (html content)", message.body.html.data
 		assertEquals  "e-mail body (plain text)", message.body.text.data
 	}
+	
+	void test_BuildSimpleMessageDefaultsCharsetToUTF8() {
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.accessKey = "my-plain-access-key"
+		credentialsHolder.secretKey = "my-plain-secret-key"
+
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
+
+		sender.send {
+			from    "new-from@server.com"
+		    to      "new-to@server.com"
+		    subject "new subject"
+		    body    "e-mail body (plain text)"
+		    html    "e-mail body (html content)"
+		}
+
+		def message = sender.buildSimpleMessage()
+
+		def expectedCharset = 'UTF-8'
+		assert message.subject.charset == expectedCharset
+		assert message.body.html.charset == expectedCharset
+		assert message.body.text.charset == expectedCharset
+	}
+
+	void test_BuildSimpleMessageAllowsCharsetOverride() {
+		def credentialsHolder       = new AWSCredentialsHolder()
+		credentialsHolder.accessKey = "my-plain-access-key"
+		credentialsHolder.secretKey = "my-plain-secret-key"
+
+		def sender               = new SendSesMail()
+		sender.from              = "default-from-email@server.com"
+		sender.credentialsHolder = credentialsHolder
+
+		sender.send {
+			charset "ISO-8859-1"
+			from    "new-from@server.com"
+		    to      "new-to@server.com"
+		    subject "new subject"
+		    body    "e-mail body (plain text)"
+		    html    "e-mail body (html content)"
+		}
+
+		def message = sender.buildSimpleMessage()
+
+		def expectedCharset = 'ISO-8859-1'
+		assert message.subject.charset == expectedCharset
+		assert message.body.html.charset == expectedCharset
+		assert message.body.text.charset == expectedCharset
+	}
 
 	void test_BuildDestinationWithoutCatchAll() {
 
