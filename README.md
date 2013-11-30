@@ -29,9 +29,7 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 Docs: http://grails-aws.github.com/grails-aws
 
-Contributing
-------------
-
+##Contributing
 # Fork it.
 # Create a branch (`git checkout -b my_markup`)
 # Commit your changes (`git commit -am "Added Snarkdown"`)
