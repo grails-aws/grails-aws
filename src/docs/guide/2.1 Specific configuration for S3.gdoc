@@ -1,7 +1,7 @@
 In your config.groovy, inside *grails.plugin.aws* closure, you can set some extra configurations for S3 usage.
 This properties will be used when no respective config is defined when uploading file.
 
-For example, you can define a default bucket for file uploads. Everytime you attemp to upload a file without explicitly setting the bucket name, this default will be used.
+For example, you can define a default bucket for file uploads. Everytime you attempt to upload a file without explicitly setting the bucket name, this default will be used.
 
 Check now, all default config possibilities you can set. 
 
@@ -45,7 +45,7 @@ h3. ACL (file permission)
 
 The permissions that will be granted on this file, you can use:
 
-* *public:* Allow public access to everyone that attemps to read this file
+* *public:* Allow public access to everyone that attempts to read this file
 * *private:* Sets private access to this file, only your account will read/write on it
 * *public_read_write:* This will make this file wide open to any AWS account, read and write
 * *authenticated_read:* Using this acl string, only logged AWS accounts will have permissions to read the file
