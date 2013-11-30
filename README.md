@@ -35,7 +35,7 @@ Docs: http://grails-aws.github.com/grails-aws
 - Create a branch (`git checkout -b my_markup`)
 - Commit your changes (`git commit -am "Added Snarkdown"`)
 - Push to the branch (`git push origin my_markup`)
-- Create an [Issue][1] with a link to your branch
+- Create an [Issue](issues/new) with a link to your branch
 - Enjoy a refreshing Diet Coke and wait
 
 ## TODO
