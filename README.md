@@ -35,8 +35,18 @@ Docs: http://grails-aws.github.com/grails-aws
 - Create a branch (`git checkout -b my_markup`)
 - Commit your changes (`git commit -am "Added Snarkdown"`)
 - Push to the branch (`git push origin my_markup`)
-- Create an [Issue](issues/new) with a link to your branch
+- Create an [Issue](grails-aws/issues/new) with a link to your branch
 - Enjoy a refreshing Diet Coke and wait
+
+
+## Changelog
+
+1.2.12.3 - September 30 2012
+* Add support for S3 Server Side Encryption
+
+1.1.9.2 - May 10 2011
+* Release notes: Fixed bug that was always storing the past sent mail addresses in next mail messages.
+
 
 ## TODO
 
@@ -44,8 +54,3 @@ Docs: http://grails-aws.github.com/grails-aws
 - Amazon SNS * Basic integration with Amazon SNS
 - Amazon SQS * Basic integration with Amazon SQS with Typica (http://code.google.com/p/typica/wiki/TypicaSampleCode)
 - Amazon Beanstalk * Scripts for allowing deploy directly to Amazon Beanstalk infrastructure
-
-## Found a bug?
-
-# Open an issue on Github
-
