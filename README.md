@@ -28,3 +28,29 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 ## Documentation
 
 Docs: http://grails-aws.github.com/grails-aws
+
+## Contributing
+
+# Fork the repo
+# Make some changes
+# Send a pull request
+
+## TODO
+
+# Amazon Cloudfront
+* Cloudfront Distribution creation
+# Amazon SNS
+
+* Basic integration with Amazon SNS
+
+# Amazon SQS
+* Basic integration with Amazon SQS with Typica (http://code.google.com/p/typica/wiki/TypicaSampleCode)
+
+# Amazon Beanstalk
+* Scripts for allowing deploy directly to Amazon Beanstalk infrastructure
+   
+
+## Found a bug?
+
+# Open an issue on Github
+
