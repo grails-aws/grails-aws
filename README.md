@@ -7,7 +7,7 @@ Grails AWS Plugin
 Include the plugin in the `BuildConfig.groovy`:
 
         plugins {
-            compile ':aws:1.2.12.3'
+            compile ':aws:1.2.12.4'
         }
         
         
@@ -35,11 +35,15 @@ Docs: http://grails-aws.github.com/grails-aws
 - Create a branch (`git checkout -b my_markup`)
 - Commit your changes (`git commit -am "Added Snarkdown"`)
 - Push to the branch (`git push origin my_markup`)
-- Create an [Issue](grails-aws/issues/new) with a link to your branch
+- Create an [Issue](/grails-aws/grails-aws/issues/new) with a link to your branch
 - Enjoy a refreshing Diet Coke and wait
 
 
 ## Changelog
+
+1.2.12.4 - November 30 2013
+* Added support to access only file metadata on S3
+* Added support to specify charset for SES
 
 1.2.12.3 - September 30 2012
 * Add support for S3 Server Side Encryption
