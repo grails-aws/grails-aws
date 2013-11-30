@@ -31,24 +31,19 @@ Docs: http://grails-aws.github.com/grails-aws
 
 ## Contributing
 
-# Fork the repo
-# Make some changes
-# Send a pull request
+- Fork it.
+- Create a branch (`git checkout -b my_markup`)
+- Commit your changes (`git commit -am "Added Snarkdown"`)
+- Push to the branch (`git push origin my_markup`)
+- Create an [Issue][1] with a link to your branch
+- Enjoy a refreshing Diet Coke and wait
 
 ## TODO
 
-# Amazon Cloudfront
-* Cloudfront Distribution creation
-# Amazon SNS
-
-* Basic integration with Amazon SNS
-
-# Amazon SQS
-* Basic integration with Amazon SQS with Typica (http://code.google.com/p/typica/wiki/TypicaSampleCode)
-
-# Amazon Beanstalk
-* Scripts for allowing deploy directly to Amazon Beanstalk infrastructure
-   
+- Amazon Cloudfront * Cloudfront Distribution creation
+- Amazon SNS * Basic integration with Amazon SNS
+- Amazon SQS * Basic integration with Amazon SQS with Typica (http://code.google.com/p/typica/wiki/TypicaSampleCode)
+- Amazon Beanstalk * Scripts for allowing deploy directly to Amazon Beanstalk infrastructure
 
 ## Found a bug?
 
