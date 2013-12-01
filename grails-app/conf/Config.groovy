@@ -9,13 +9,13 @@ grails.doc.authors = 'Lucas Teixeira, Jay Prall'
 grails.doc.license = 'Apache License'
 grails.doc.title = 'Grails AWS Plugin'
 
+// These settings are only used for plugin development
 grails {
 	plugin {
 		aws {
 			credentials {
-				//accessKey = "access-key"
-				//secretKey = "secret-key"
-				properties = "/Users/blanq01/Desktop/AwsCredentials.properties"
+				accessKey = "fake-access-key"
+				secretKey = "fake-secret-key"
 			}
 			s3 {
 				bucket = "grails-aws-test-bucket-20110515"
