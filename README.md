@@ -2,6 +2,10 @@ Grails AWS Plugin
 ===========
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)](https://travis-ci.org/grails-aws/grails-aws)
 
+## Introduction
+
+A Grails plugin for interacting with Amazon Web Services (AWS)
+
 ## Getting Started
 
 Include the plugin in the `BuildConfig.groovy`:
@@ -43,6 +47,7 @@ Docs: http://grails-aws.github.com/grails-aws
 
 1.2.12.4 - November 30 2013
 * Added support to access only file metadata on S3
+* Remove usages of the deprecated ConfigurationHolder which added warnings in grails logs
 * Added support to specify charset for SES
 
 1.2.12.3 - September 30 2012
