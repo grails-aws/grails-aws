@@ -2,6 +2,10 @@ Grails AWS Plugin
 ===========
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)](https://travis-ci.org/grails-aws/grails-aws)
 
+## Introduction
+
+A Grails plugin for interacting with Amazon Web Services (AWS)
+
 ## Getting Started
 
 Include the plugin in the `BuildConfig.groovy`:
