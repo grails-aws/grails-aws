@@ -16,18 +16,18 @@ target(awsSesGetSendStatistics: "Queries about the sending statistics in AWS SES
 		def intervals = sendStatisticsResult.getSendDataPoints().sort { it.timestamp }
 
 		println "[AWS SES]  -------------------------------------------------------------------------------"
-		println "[AWS SES] |    time range    | attemps | rejects (SES) | complaints (recipient) | bounces |"
+		println "[AWS SES] |    time range    | attempts | rejects (SES) | complaints (recipient) | bounces |"
 		println "[AWS SES] |-------------------------------------------------------------------------------|"
 
 		intervals.each { dp ->
 
 			def _timestamp = dp.timestamp?.format('yyyy/MM/dd HH:mm')
-			def _attemps = dp.deliveryAttempts?.toString()?.center(7, " ")
+			def _attempts = dp.deliveryAttempts?.toString()?.center(7, " ")
 			def _rejects = dp.rejects?.toString()?.center(13, " ")
 			def _complaints = dp.complaints?.toString()?.center(22, " ")
 			def _bounces = dp.bounces?.toString()?.center(7, " ")
 
-			println "[AWS SES] | ${_timestamp} | ${_attemps} | ${_rejects} | ${_complaints} | ${_bounces} |"
+			println "[AWS SES] | ${_timestamp} | ${_attempts} | ${_rejects} | ${_complaints} | ${_bounces} |"
 		}
 
 		println "[AWS SES]  -------------------------------------------------------------------------------"
