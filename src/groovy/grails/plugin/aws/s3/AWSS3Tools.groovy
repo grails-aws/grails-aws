@@ -3,6 +3,7 @@ package grails.plugin.aws.s3
 import grails.plugin.aws.GrailsAWSException
 
 import org.jets3t.service.impl.rest.httpclient.RestS3Service
+import org.jets3t.service.model.MultipleDeleteResult
 import org.jets3t.service.model.S3Bucket
 
 class AWSS3Tools {
@@ -21,6 +22,17 @@ class AWSS3Tools {
 		def objectKey = buildObjectKey(name, path)
 		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
 		s3Service.deleteObject(new S3Bucket(onTarget), objectKey)
+	}
+
+	//delete multiple files in one request
+	void deleteMultiple(String[] objectKeys) {
+		validateTarget()
+		def s3Bucket = new S3Bucket(onTarget)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		MultipleDeleteResult result = s3Service.deleteMultipleObjects(new S3Bucket(onTarget), objectKeys)
+		if (result.hasErrors()) {
+			log.error('deleteMultipleObjects had errors: ' + result.getErrorResults())
+		}
 	}
 
 	//delete all files in specified path
