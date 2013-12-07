@@ -11,7 +11,7 @@ A Grails plugin for interacting with Amazon Web Services (AWS)
 Include the plugin in the `BuildConfig.groovy`:
 
         plugins {
-            compile ':aws:1.2.12.4'
+            compile ':aws:1.6.7.0'
         }
         
         
