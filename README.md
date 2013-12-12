@@ -1,10 +1,10 @@
-Grails AWS Plugin
-===========
-[![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)](https://travis-ci.org/grails-aws/grails-aws)
+# Grails AWS Plugin
+[![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)][travis]
 
-## Introduction
+[travis]: https://travis-ci.org/grails-aws/grails-aws
 
-A Grails plugin for interacting with Amazon Web Services (AWS)
+#### A Grails plugin for interacting with Amazon Web Services
+Currently supports S3 and S3S
 
 ## Getting Started
 
