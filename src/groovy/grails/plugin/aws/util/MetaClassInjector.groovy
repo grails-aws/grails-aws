@@ -53,7 +53,7 @@ class MetaClassInjector {
 
 				def enabled = Boolean.valueOf(AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
 				if (!enabled) {
-					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
+					log.info "[AWS SES] Aborting attempt to send e-mail. E-mail sending disabled on this environment"
 					return
 				}
 
