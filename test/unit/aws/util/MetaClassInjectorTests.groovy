@@ -3,10 +3,14 @@ package aws.util
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.meta.AwsPluginSupport
+import grails.test.mixin.support.GrailsUnitTestMixin
+import org.codehaus.groovy.grails.commons.GrailsApplication
+
 
 import grails.test.GrailsUnitTestCase
 import java.util.Date
 
+@TestMixin(GrailsUnitTestMixin)
 class MetaClassInjectorTests extends GrailsUnitTestCase {
 
 	void testIntegerDotSecondWhenInjected() {
@@ -15,34 +19,38 @@ class MetaClassInjectorTests extends GrailsUnitTestCase {
 		assert 1.second.class == Date
 	}
 
-	void testSesIsEnabledWhenConfiguredAsTrue() {
-		mockConfigurationReader("grails.plugin.aws.ses.enabled = true")
+	void testSesIsDisabledWhenEnabledIsTrue() {
+		mockSESEnabled(true)
 
-		def result = MetaClassInjector.sesIsEnabled()
-
-		assert result == true
-	}
-
-	void testSesIsEnabledWhenConfiguredAsFalse() {
-		mockConfigurationReader("grails.plugin.aws.ses.enabled = false")
-
-		def result = MetaClassInjector.sesIsEnabled()
+		def result = MetaClassInjector.sesIsDisabled()
 
 		assert result == false
 	}
 
-	void testSesIsEnabledWhenMissingConfigDefaultsToTrue() {
-		mockConfigurationReader("")
+	void testSesIsDisabledWhenEnabledIsFalse() {
+		mockSESEnabled(false)
 
-		def result = MetaClassInjector.sesIsEnabled()
+		def result = MetaClassInjector.sesIsDisabled()
 
 		assert result == true
 	}
 
-	def mockConfigurationReader(String config) {
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile.deleteOnExit()
-		tmpFile << config
-		AwsPluginSupport.configurationReader = new ConfigReader(new ConfigSlurper().parse(tmpFile.toURI().toURL()))
+	void testSesIsDisabledWhenNotConfiguredDefaultsToFalse() {
+		mockSESEnabled(null)
+
+		def result = MetaClassInjector.sesIsDisabled()
+
+		assert result == false
+	}
+
+	def mockSESEnabled(val) {
+
+		MetaClassInjector.application = [
+		                    getConfig: {
+		                        def config = new ConfigObject()
+		                        config.grails.plugin.aws.ses.enabled = val
+		                        return config
+		                    }
+		                ] as GrailsApplication
 	}
 }

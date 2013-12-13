@@ -17,7 +17,9 @@ class AwsPluginSupport {
 	private static ConfigReader configurationReader
 
 	static doWithSpring = {
-
+		
+		MetaClassInjector.application = application
+		
 		configurationReader = new ConfigReader(application.config)
 
 		credentialsHolder(AWSCredentialsHolder) {
