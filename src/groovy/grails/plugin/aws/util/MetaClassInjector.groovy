@@ -41,6 +41,9 @@ class MetaClassInjector {
 		}
 	}
 
+	static Boolean sesIsEnabled() {
+		Boolean.valueOf(AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
+	}
 	static void injectSesMethods(grailsApplication, applicationContext) {
 
 		def targetClasses = []
@@ -51,9 +54,9 @@ class MetaClassInjector {
 
 			clazz.metaClass.sesMail = { Closure sendConfigClosure ->
 
-				def enabled = Boolean.valueOf(AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
+				def enabled = sesIsEnabled()
 				if (!enabled) {
-					log.info "[AWS SES] Aborting attempt to send e-mail. E-mail sending disabled on this environment"
+					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
 					return
 				}
 
