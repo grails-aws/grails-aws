@@ -1,4 +1,4 @@
-# Grails AWS Plugin
+# Amazon Web Services Grails Plugin
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)][travis]
 
 [travis]: https://travis-ci.org/grails-aws/grails-aws
