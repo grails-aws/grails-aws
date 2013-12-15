@@ -14,4 +14,17 @@ class S3IntegrationTests extends GroovyTestCase {
         }
         assert message == "S3 Error Message."
     }
+
+    void testS3UploadThrowsS3ServiceException() {
+        def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+        tmpFile.deleteOnExit()
+        
+        def message = shouldFail(S3ServiceException) {
+
+        	def uploadedFile = tmpFile.s3upload {
+            	bucket "foo"
+        	}
+		}
+		assert message == "S3 Error Message."
+    }
 }
