@@ -1,4 +1,4 @@
-# Grails AWS Plugin
+# Amazon Web Services Grails Plugin
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)][travis]
 
 [travis]: https://travis-ci.org/grails-aws/grails-aws
@@ -31,7 +31,9 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 ## Documentation
 
-Docs: http://grails-aws.github.com/grails-aws
+* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.2.12.4/)
+* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.2.12.4/gapi/)
+
 
 ## Contributing
 

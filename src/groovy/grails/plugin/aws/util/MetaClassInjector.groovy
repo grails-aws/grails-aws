@@ -1,9 +1,15 @@
 package grails.plugin.aws.util
 
+import java.lang.Boolean
+
+import org.codehaus.groovy.grails.commons.GrailsApplication
 import grails.plugin.aws.meta.AwsPluginSupport
 
 class MetaClassInjector {
 
+	/** Set at startup. */
+	static GrailsApplication application
+	
 	static void injectIntegerMethods() {
 
 		Integer.metaClass.propertyMissing = { name ->
@@ -41,6 +47,15 @@ class MetaClassInjector {
 		}
 	}
 
+	static sesIsDisabled() {
+		def enabled = application.config.grails.plugin.aws.ses.enabled
+		if (enabled instanceof Boolean) {
+			return !enabled
+		} else {
+			return false
+		}
+	}
+
 	static void injectSesMethods(grailsApplication, applicationContext) {
 
 		def targetClasses = []
@@ -51,9 +66,8 @@ class MetaClassInjector {
 
 			clazz.metaClass.sesMail = { Closure sendConfigClosure ->
 
-				def enabled = Boolean.valueOf(AwsPluginSupport.configurationReader.read("grails.plugin.aws.ses.enabled", "true"))
-				if (!enabled) {
-					log.info "[AWS SES] Aborting attemp to send e-mail. E-mail sending disabled on this environment"
+				if (sesIsDisabled()) {
+					log.info "[AWS SES] Aborting attempt to send e-mail. E-mail sending disabled on this environment"
 					return
 				}
 

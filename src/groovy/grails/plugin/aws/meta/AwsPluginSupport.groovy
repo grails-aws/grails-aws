@@ -17,7 +17,9 @@ class AwsPluginSupport {
 	private static ConfigReader configurationReader
 
 	static doWithSpring = {
-
+		
+		MetaClassInjector.application = application
+		
 		configurationReader = new ConfigReader(application.config)
 
 		credentialsHolder(AWSCredentialsHolder) {
@@ -39,7 +41,7 @@ class AwsPluginSupport {
 			acl               = read("s3.acl", "public")
 			bucket            = read("s3.bucket")
 			bucketLocation    = read("s3.bucketLocation")
-			rrs               = Boolean.valueOf(read("s3.rrs", "true"))
+			rrs               = Boolean.valueOf(read("s3.rrs", "true").toString())
 		}
 
 		awsS3(AWSS3Tools) {
@@ -68,7 +70,7 @@ class AwsPluginSupport {
 		s3FileUploadBean.acl               = read("s3.acl", "public")
 		s3FileUploadBean.bucket            = read("s3.bucket")
 		s3FileUploadBean.bucketLocation    = read("s3.bucketLocation")
-		s3FileUploadBean.rrs               = Boolean.valueOf(read("s3.rrs", "true"))
+		s3FileUploadBean.rrs               = Boolean.valueOf(read("s3.rrs", "true").toString())
 	}
 
 	static onChange = { event ->
