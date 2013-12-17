@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Include the plugin in the `BuildConfig.groovy`:
 
         plugins {
-            compile ':aws:1.6.7.0'
+            compile ':aws:1.6.7.1'
         }
         
         
@@ -31,8 +31,8 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 ## Documentation
 
-* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.2.12.4/)
-* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.2.12.4/gapi/)
+* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.6.7.1/)
+* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.6.7.1/gapi/)
 
 
 ## Contributing
@@ -46,6 +46,9 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 
 ## Changelog
+
+1.6.7.1 - December 10 2013
+* Update to AWS SDK version 1.6.7
 
 1.2.12.4 - November 30 2013
 * Added support to access only file metadata on S3

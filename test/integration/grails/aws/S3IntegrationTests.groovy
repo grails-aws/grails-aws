@@ -7,16 +7,24 @@ class S3IntegrationTests extends GroovyTestCase {
 
     def aws
 
-	void testSomething() {
-		assert true
-	}
+    void testGetOnAMissingFileThrowsS3ServiceException() {
+    
+        def message = shouldFail(S3ServiceException) {
+            aws.s3().on('missing-bucket').get('missing-file.txt')
+        }
+        assert message == "S3 Error Message."
+    }
 
-	// TODO: get this working in grails 2.3.4
-    // void testGetOnAMissingFileThrowsS3ServiceException() {
-    // 
-    //     def message = shouldFail(S3ServiceException) {
-    //         aws.s3().on('missing-bucket').get('missing-file.txt')
-    //     }
-    //     assert message == "S3 Error Message."
-    // }
+    void testS3UploadThrowsS3ServiceException() {
+        def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+        tmpFile.deleteOnExit()
+        
+        def message = shouldFail(S3ServiceException) {
+
+        	def uploadedFile = tmpFile.s3upload {
+            	bucket "foo"
+        	}
+		}
+		assert message == "S3 Error Message."
+    }
 }

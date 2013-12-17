@@ -72,7 +72,7 @@ class S3FileUpload {
 	//upload method for inputstreams
 	S3File inputStreamUpload(InputStream inputStream, String name, Closure cls) {
 
-		log.debug "attemping to upload file from inputStream"
+		log.debug "attempting to upload file from inputStream"
 		setClosureData(cls)
 		validateBucketName()
 
@@ -93,7 +93,7 @@ class S3FileUpload {
 
 	S3File fileUpload(File file, Closure cls) {
 
-		log.debug "attemping to upload file from plain file object"
+		log.debug "attempting to upload file from plain file object"
 		setClosureData(cls)
 		validateBucketName()
 
