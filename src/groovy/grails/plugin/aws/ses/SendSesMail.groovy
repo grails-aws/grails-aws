@@ -113,7 +113,7 @@ class SendSesMail {
 
 	//send the mail message
 	def send(Closure cls) {
-		log.debug "attemping to send mail..."
+		log.debug "attempting to send mail..."
 		setClosureData(cls)
 		checkValidFromAddress()
 
