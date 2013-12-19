@@ -35,6 +35,14 @@ class AWSS3Tools {
 		}
 	}
 
+	// list all files
+	S3File[] list() {
+		validateTarget()
+		def s3Bucket = new S3Bucket(onTarget)
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials())
+		return s3Service.listObjects(s3Bucket)
+	}
+
 	//delete all files in specified path
 	void deleteAll() {
 		validateTarget()
