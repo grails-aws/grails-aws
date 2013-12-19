@@ -21,8 +21,11 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
             plugin {
                 aws {
                     credentials {
-                        accessKey = "your-access-key-here"
-                        secretKey = "your-secret-key-here"
+                        accessKey = "your-access-key"
+                        secretKey = "your-secret-key"
+                    }
+                    s3 {
+                        bucket = "default-bucket-name"
                     }
                 }
             }
