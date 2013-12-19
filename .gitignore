@@ -31,4 +31,4 @@ grails-app/conf/Config.groovy
 
 # "temporary" build files
 /target
-
+/target-eclipse
