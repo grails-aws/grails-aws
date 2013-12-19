@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Include the plugin in the `BuildConfig.groovy`:
 
         plugins {
-            compile ':aws:1.6.7.1'
+            compile ':aws:1.6.7.2'
         }
         
         
