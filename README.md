@@ -8,14 +8,13 @@ Currently supports S3 and S3S
 
 ## Getting Started
 
-Include the plugin in the `BuildConfig.groovy`:
+Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 
         plugins {
             compile ':aws:1.6.7.2'
         }
-        
-        
-Use the Grails bean property override syntax to specify the AWS accessKey and secretKey.  You can do this by modifying `Config.groovy` or any file available in `grails.config.locations`.
+
+Configure the plugin in `grails-app/conf/Config.groovy`
 
         grails {
             plugin {
@@ -30,7 +29,6 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
                 }
             }
         }
-
 
 ## Documentation
 
