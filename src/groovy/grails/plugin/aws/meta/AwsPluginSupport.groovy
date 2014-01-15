@@ -2,6 +2,7 @@ package grails.plugin.aws.meta
 
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.AWSGenericTools
+import grails.plugin.aws.swf.AWSSWFTools
 import grails.plugin.aws.s3.AWSS3Tools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
