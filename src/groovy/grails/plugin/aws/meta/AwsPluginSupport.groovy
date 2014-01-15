@@ -49,8 +49,13 @@ class AwsPluginSupport {
 			credentialsHolder = ref('credentialsHolder')
 		}
 
+		awsSWF(AWSSWFTools) {
+			credentialsHolder = ref('credentialsHolder')
+		}
+
 		aws(AWSGenericTools) {
 			awsS3 = ref('awsS3')
+			awsSWF = ref('awsSWF')
 		}
 	}
 
