@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 
         plugins {
-            compile ':aws:1.6.7.3'
+            compile ':aws:1.6.7.4'
         }
 
 Configure the plugin in `grails-app/conf/Config.groovy`
@@ -47,6 +47,9 @@ Configure the plugin in `grails-app/conf/Config.groovy`
 
 
 ## Changelog
+1.6.7.4 - January 15 2014
+* Add the ability to start SWF executions
+* Upgrade to httpclient 4.2
 
 1.6.7.1 - December 10 2013
 * Update to AWS SDK version 1.6.7
