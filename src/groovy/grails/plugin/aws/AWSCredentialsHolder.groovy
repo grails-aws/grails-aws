@@ -15,6 +15,9 @@ class AWSCredentialsHolder {
 
 	private static Logger log = LoggerFactory.getLogger(this)
 
+	/**
+	 * @return BasicAWSCredentials which are compatible with the AWS SDK
+	 */
 	BasicAWSCredentials buildAwsSdkCredentials() {
 
 		if (properties) {
@@ -33,6 +36,9 @@ class AWSCredentialsHolder {
 		return new BasicAWSCredentials(accessKey, secretKey)
 	}
 
+	/**
+	 * @return JetS3tCredentials which are compatible with JetS3t
+	 */
 	JetS3tCredentials buildJetS3tCredentials() {
 
 		if (properties) {
