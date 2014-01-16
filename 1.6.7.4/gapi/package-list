@@ -1,0 +1,9 @@
+DefaultPackage
+aws.s3
+aws.ses
+grails.plugin.aws
+grails.plugin.aws.meta
+grails.plugin.aws.s3
+grails.plugin.aws.ses
+grails.plugin.aws.swf
+grails.plugin.aws.util

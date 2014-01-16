@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>2.2 Uploading files 1.6.7.4</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html">&lt;&lt; <strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2.2 Uploading files - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Lucas Teixeira, Jay Prall</p>
+
+                    <p><strong>Version:</strong> 1.6.7.4</p>
+
+                    
+                </div>
+
+                
+                <div id="table-of-content">
+                    <h2>Table of Contents</h2>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.1%20Setting%20file%20virual%20path"><strong>2.1</strong><span>Setting file virual path</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.2%20Overriding%20AWS%20credentials"><strong>2.2</strong><span>Overriding AWS credentials</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.3%20Overriding%20bucket%20to%20file%20upload"><strong>2.3</strong><span>Overriding bucket to file upload</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.4%20ACL%20(file%20permission)"><strong>2.4</strong><span>ACL (file permission)</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.5%20RRS%20-%20Reduced%20Redundancy%20Storage"><strong>2.5</strong><span>RRS - Reduced Redundancy Storage</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.6%20Setting%20File%20Metadata"><strong>2.6</strong><span>Setting File Metadata</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#2.2.7%20Using%20Server%20Side%20Encryption"><strong>2.7</strong><span>Using Server Side Encryption</span></a>
+                    </div>
+                    
+                </div>
+                
+
+                
+
+<h2 id="2.2 Uploading files">2.2 Uploading files</h2>
+The plugin adds support for uploading files to Amazon S3, by adding a s3upload(...) method to <strong class="bold">File</strong> and <strong class="bold">InputStream</strong> classes, so you'll just need to call this method passing a closure with overridden config options, but if you do not want to override it, just leave this and the plugin will catch from the Config.groovy default options.<p class="paragraph"/><h3>Simple File upload from a File object</h3><p class="paragraph"/><div class="code"><pre>def s3file = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    path <span class="java&#45;quote">"folder/to/my/file/"</span>
+&#125;</pre></div><p class="paragraph"/>This way your test.txt file will be uploaded to<p class="paragraph"/><div class="code"><pre>&#60;<span class="java&#45;keyword">default</span>&#45;bucket&#62;.s3.amazonaws.com/folder/to/my/file/test.txt</pre></div><p class="paragraph"/>If you want to override config during the file upload, check this guide next section.<p class="paragraph"/><h3>Uploading files directly from its InputStream</h3><p class="paragraph"/>This is useful when you don't have the file stored in your filesystem. When user uploads files to your application using a <strong class="bold">multipart/form-data</strong> form, you can upload it directly to s3. Imagine it have an upload form like this:<p class="paragraph"/><div class="code"><pre>&#60;g:uploadForm action=<span class="java&#45;quote">"uploadFromInputStream"</span>&#62;
+    &#60;input type=<span class="java&#45;quote">"file"</span> name=<span class="java&#45;quote">"photo"</span>&#62;
+    &#60;input type=<span class="java&#45;quote">"submit"</span> value=<span class="java&#45;quote">"upload"</span>&#62;
+&#60;/g:uploadForm&#62;</pre></div><p class="paragraph"/>you could have your <strong class="bold">uploadFromInputStream</strong> action implemented this way:<p class="paragraph"/><div class="code"><pre>def file = request.getFile('photo')
+def uploadedFile = file.inputStream.s3upload(file.originalFilename) &#123;
+    bucket <span class="java&#45;quote">"file&#45;upload&#45;from&#45;inputstream"</span>
+&#125;</pre></div><p class="paragraph"/><blockquote class="warning">
+Uploading from InputStream requires one extra parameters, the filename that this object will have in S3, usually the 'originalFileName'.
+</blockquote><p class="paragraph"/>Note that when you use <strong class="bold">File</strong>.s3upload you just pass the closure that configures it. When using from one inputStream, you <strong class="bold">SHOULD</strong> have to specify the name that file will have and the file size. The above example show exactly how to do it with the correct info from the uploaded file.
+
+
+<h2 id="2.2.1 Setting file virual path">2.2.1 Setting file virual path</h2>
+S3 does not support paths or buckets inside other buckets, to solve this and keep your files organized, you can use the path method inside the config closure. Doing this, the plugin will set a metadata into this file telling AWS that this file is virtually in a folder that does not exist.<p class="paragraph"/>The effect is exactly like in a regular folder. For example, doing the upload below:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/profile&#45;picture.jpg"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"my&#45;aws&#45;app"</span>
+    path <span class="java&#45;quote">"pictures/user/profile/"</span>
+&#125;</pre></div><p class="paragraph"/>The file will be stored and available in the following url:<p class="paragraph"/><div class="code"><pre>http://my&#45;aws&#45;app.s3.amazonaws.com/pictures/user/profile/profile&#45;picture.jpg</pre></div><p class="paragraph"/>And using the AWS S3 console, the files will visually be inside folders either.
+Some third-party apps is already using this feature to show "folders".
+
+
+<h2 id="2.2.2 Overriding AWS credentials">2.2.2 Overriding AWS credentials</h2>
+Just call the <strong class="bold">credentials</strong> method inside the upload closure, and this credentials will be used (for this upload only). Example:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    credentials <span class="java&#45;quote">"my&#45;other&#45;access&#45;key"</span>, <span class="java&#45;quote">"my&#45;other&#45;secret&#45;key"</span>
+&#125;</pre></div>
+
+
+
+<h2 id="2.2.3 Overriding bucket to file upload">2.2.3 Overriding bucket to file upload</h2>
+You can call the <strong class="bold">bucket</strong> method and define witch different bucket (from default) will be used. This bucket will be created if does not exist.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"other&#45;bucket"</span>
+&#125;</pre></div><p class="paragraph"/>This file will be uploaded to<p class="paragraph"/><div class="code"><pre>other&#45;bucket.s3.amazonaws.com/test.txt</pre></div><p class="paragraph"/>Remember, when plugin created a non pre-existent bucket, it will be created in the default <strong class="bold">US</strong> region. If you like to set a different location, just pass a second string parameter containing the region string. For example, to set this bucket creation in Europe region:<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    bucket <span class="java&#45;quote">"bucket&#45;not&#45;yet&#45;created&#45;in&#45;europe"</span>, <span class="java&#45;quote">"EU"</span>
+&#125;</pre></div>
+
+
+<h2 id="2.2.4 ACL (file permission)">2.2.4 ACL (file permission)</h2>
+The permissions that will be granted on this file, you can use the same values shown in "General Plugin Config" topic on this guide.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    acl <span class="java&#45;quote">"<span class="java&#45;keyword">private</span>"</span>
+&#125;</pre></div>
+
+
+<h2 id="2.2.5 RRS - Reduced Redundancy Storage">2.2.5 RRS - Reduced Redundancy Storage</h2>
+If some specifically file you like to use a different RRS setting, call the rrs method in the closure, passing true or false, as you wish<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    rrs <span class="java&#45;keyword">false</span>
+&#125;</pre></div>
+
+
+<h2 id="2.2.6 Setting File Metadata">2.2.6 Setting File Metadata</h2>
+AWS S3 files can store user metadata, doing this is simple as setting a metadata map to file upload<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    metadata &#91;user&#45;id: 123, username: 'johndoe', registered&#45;date: <span class="java&#45;keyword">new</span> Date().format('dd/MM/yyyy')&#93;
+&#125;</pre></div>
+
+
+<h2 id="2.2.7 Using Server Side Encryption">2.2.7 Using Server Side Encryption</h2>
+AWS S3 files can be stored encrypted in S3, and AWS allows you to specify this as a request header.
+To use this, simply set the useEncryption property to 'true' in the file upload closure. The plugin
+will set the header for encryption and the file will be encrypted using AES-256 algorithm by AWS before storing in S3.<p class="paragraph"/><div class="code"><pre>def uploadedFile = <span class="java&#45;keyword">new</span> File(<span class="java&#45;quote">"/tmp/test.txt"</span>).s3upload &#123;
+    useEncryption <span class="java&#45;keyword">true</span>
+&#125;</pre></div>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html">&lt;&lt; <strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">S3</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../../ref/S3/aws-s3-list-buckets.html">aws-s3-list-buckets</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">SES</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-get-send-quota.html">aws-ses-get-send-quota</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-get-send-statistics.html">aws-ses-get-send-statistics</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-list-verified-emails.html">aws-ses-list-verified-emails</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-send-ping-mail.html">aws-ses-send-ping-mail</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/SES/aws-ses-verify-email.html">aws-ses-verify-email</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
