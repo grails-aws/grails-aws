@@ -17,6 +17,12 @@ grails.project.dependency.resolution = {
 
         compile 'net.java.dev.jets3t:jets3t:0.9.0'
         // jetset 0.9.0 requires httpclient 4.1.2
+		
+        build 'org.apache.httpcomponents:httpcore:4.2'
+        build 'org.apache.httpcomponents:httpclient:4.2'
+        runtime 'org.apache.httpcomponents:httpcore:4.2'
+        runtime 'org.apache.httpcomponents:httpclient:4.2'
+
 
         compile 'javax.mail:mail:1.4.1'
         compile 'commons-logging:commons-logging:1.1.1'

@@ -1,9 +1,11 @@
 package aws.util
 
+import grails.test.mixin.TestMixin
+import grails.test.mixin.support.GrailsUnitTestMixin
+
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.meta.AwsPluginSupport
-import grails.test.mixin.support.GrailsUnitTestMixin
 import org.codehaus.groovy.grails.commons.GrailsApplication
 
 

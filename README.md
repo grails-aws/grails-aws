@@ -8,26 +8,27 @@ Currently supports S3 and S3S
 
 ## Getting Started
 
-Include the plugin in the `BuildConfig.groovy`:
+Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 
         plugins {
-            compile ':aws:1.6.7.1'
+            compile ':aws:1.6.7.4'
         }
-        
-        
-Use the Grails bean property override syntax to specify the AWS accessKey and secretKey.  You can do this by modifying `Config.groovy` or any file available in `grails.config.locations`.
+
+Configure the plugin in `grails-app/conf/Config.groovy`
 
         grails {
             plugin {
                 aws {
                     credentials {
-                        accessKey = "your-access-key-here"
-                        secretKey = "your-secret-key-here"
+                        accessKey = "your-access-key"
+                        secretKey = "your-secret-key"
+                    }
+                    s3 {
+                        bucket = "default-bucket-name"
                     }
                 }
             }
         }
-
 
 ## Documentation
 
@@ -46,6 +47,9 @@ Use the Grails bean property override syntax to specify the AWS accessKey and se
 
 
 ## Changelog
+1.6.7.4 - January 15 2014
+* Add the ability to start SWF executions
+* Upgrade to httpclient 4.2
 
 1.6.7.1 - December 10 2013
 * Update to AWS SDK version 1.6.7
