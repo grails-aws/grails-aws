@@ -9,9 +9,23 @@ class AWSSWFTools {
 	
 	static String DEFAULT_CHILD_POLICY = 'TERMINATE'
 
-	// injected
+	/**
+	 * AWSCredentialsHolder injected by the plugin
+	 */
 	def credentialsHolder
 
+	/**
+	 * Start SWF workflow execution
+	 * 
+	 * @param domainName String that is the domain in which the workflow execution is created. This field is required.
+	 * @param workflowId String that is the user-defined identifier associated with the workflow execution. This field is required.
+	 * @param workflowName String that is the name of the workflow type. This field is required.
+	 * @param workflowVersion String that is the version of the workflow type. This field is required.
+	 * @param taskName String
+	 * @param input String that is the input for the workflow execution
+	 * @param tags List<String> of tags to associate with the workflow execution
+	 * @return Run object that contains a runId
+	 */
 	def startWorkflowExecution(String domainName, 
 							   String workflowId,
 							   String workflowName, 
