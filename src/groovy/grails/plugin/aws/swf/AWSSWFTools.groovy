@@ -1,56 +1,56 @@
 package grails.plugin.aws.swf
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
+import com.amazonaws.services.simpleworkflow.model.DescribeWorkflowExecutionRequest
+import com.amazonaws.services.simpleworkflow.model.Run
 import com.amazonaws.services.simpleworkflow.model.StartWorkflowExecutionRequest
-import com.amazonaws.services.simpleworkflow.model.TaskList
-import com.amazonaws.services.simpleworkflow.model.WorkflowType
+import com.amazonaws.services.simpleworkflow.model.WorkflowExecutionAlreadyStartedException
+import com.amazonaws.services.simpleworkflow.model.WorkflowExecutionDetail
 
 class AWSSWFTools {
-	
-	static String DEFAULT_CHILD_POLICY = 'TERMINATE'
 
-	/**
-	 * AWSCredentialsHolder injected by the plugin
-	 */
-	def credentialsHolder
+    private static Logger log = LoggerFactory.getLogger(this)
+    
+    /**
+     * AWSCredentialsHolder injected by the plugin
+     */
+    def credentialsHolder
 
-	/**
-	 * Start SWF workflow execution
-	 * 
-	 * @param domainName String that is the domain in which the workflow execution is created. This field is required.
-	 * @param workflowId String that is the user-defined identifier associated with the workflow execution. This field is required.
-	 * @param workflowName String that is the name of the workflow type. This field is required.
-	 * @param workflowVersion String that is the version of the workflow type. This field is required.
-	 * @param taskName String
-	 * @param input String that is the input for the workflow execution
-	 * @param tags List<String> of tags to associate with the workflow execution
-	 * @return Run object that contains a runId
-	 */
-	def startWorkflowExecution(String domainName, 
-							   String workflowId,
-							   String workflowName, 
-							   String workflowVersion,
-							   String taskName,
-							   String childPolicy=DEFAULT_CHILD_POLICY,
-							   String input, 
-							   Collection tags) {
-		
-			def credentials	 = credentialsHolder.buildAwsSdkCredentials()
-			AmazonSimpleWorkflowClient swfService = new AmazonSimpleWorkflowClient(credentials)
+    /**
+     * Start SWF workflow execution
+     * @param StartWorkflowRequest
+     * @return String that is the started workflow's run id. NULL if workflow already started
+     */
+    String start(StartWorkflowExecutionRequest startWorkflowRequest) {
 
-			WorkflowType workflowType = new WorkflowType().withName(workflowName).withVersion(workflowVersion)
+        def credentials  = credentialsHolder.buildAwsSdkCredentials()
 
-			TaskList taskList = new TaskList().withName(taskName)
+        AmazonSimpleWorkflowClient swfClient = new AmazonSimpleWorkflowClient(credentials)
 
-			StartWorkflowExecutionRequest workflowRequest = new StartWorkflowExecutionRequest()
-				.withDomain(domainName)
-				.withWorkflowId(workflowId)
-				.withWorkflowType(workflowType)
-				.withTaskList(taskList)
-				.withChildPolicy(childPolicy)
-				.withInput(input)
-				.withTagList(tags)
+        Run result
+        try {
+            result = swfClient.startWorkflowExecution(startWorkflowRequest)
+            log.debug("WorkflowExecution started. runId: $result.runId")
+        } catch (WorkflowExecutionAlreadyStartedException e) {
+            log.warn("WorkflowExecution already started. $e.message")
+        }
+        return result?.runId
+    }
+    
+    /**
+     * Returns information about the specified workflow execution including its type and some statistics.
+     * @param describeWorkflowRequest
+     * @return WorkflowExecutionDetail
+     */
+    WorkflowExecutionDetail describe(DescribeWorkflowExecutionRequest describeWorkflowRequest) {
 
-			return swfService.startWorkflowExecution(workflowRequest)
-	}
+        def credentials  = credentialsHolder.buildAwsSdkCredentials()
+
+        AmazonSimpleWorkflowClient swfClient = new AmazonSimpleWorkflowClient(credentials)
+
+        return swfClient.describeWorkflowExecution(describeWorkflowRequest)
+    }
 }
