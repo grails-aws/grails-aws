@@ -12,5 +12,5 @@ env:
   - GRAILS_VERSION=2.2.4
   - GRAILS_VERSION=2.3.4
 language: groovy
-script: "grails clean && grails upgrade --non-interactive && grails test-app -unit --non-interactive --stacktrace"
+script: "grails clean && grails upgrade --non-interactive && grails test-app --non-interactive --stacktrace"
 
