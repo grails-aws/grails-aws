@@ -20,7 +20,7 @@ class AWSCredentialsHolder {
 	 */
 	BasicAWSCredentials buildAwsSdkCredentials() {
 
-		if (properties) {
+		if (properties instanceof String) {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
@@ -41,7 +41,7 @@ class AWSCredentialsHolder {
 	 */
 	JetS3tCredentials buildJetS3tCredentials() {
 
-		if (properties) {
+		if (properties instanceof String) {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
