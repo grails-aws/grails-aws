@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 
         plugins {
-            compile ':aws:1.6.7.4'
+            compile ':aws:1.6.7.5'
         }
 
 Configure the plugin in `grails-app/conf/Config.groovy`
@@ -32,8 +32,8 @@ Configure the plugin in `grails-app/conf/Config.groovy`
 
 ## Documentation
 
-* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.6.7.1/)
-* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.6.7.1/gapi/)
+* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/)
+* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/gapi/)
 
 
 ## Contributing

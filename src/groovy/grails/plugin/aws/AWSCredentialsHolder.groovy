@@ -9,15 +9,29 @@ import com.amazonaws.auth.PropertiesCredentials
 
 class AWSCredentialsHolder {
 
-	def accessKey
-	def secretKey
-	def properties
+	/**
+	 * AWS access key
+	 */
+	String accessKey
+	
+	/**
+	 * AWS secret key
+	 */
+	String secretKey
+	
+	/**
+	 * Location of a properties file
+	 */
+	String properties
 
 	private static Logger log = LoggerFactory.getLogger(this)
 
+	/**
+	 * @return BasicAWSCredentials which are compatible with the AWS SDK
+	 */
 	BasicAWSCredentials buildAwsSdkCredentials() {
 
-		if (properties) {
+		if (properties instanceof String) {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
@@ -33,9 +47,12 @@ class AWSCredentialsHolder {
 		return new BasicAWSCredentials(accessKey, secretKey)
 	}
 
+	/**
+	 * @return JetS3tCredentials which are compatible with JetS3t
+	 */
 	JetS3tCredentials buildJetS3tCredentials() {
 
-		if (properties) {
+		if (properties instanceof String) {
 			def propertiesCredentials = new PropertiesCredentials(new File(properties))
 			accessKey = propertiesCredentials.getAWSAccessKeyId()
 			secretKey = propertiesCredentials.getAWSSecretKey()
