@@ -9,9 +9,20 @@ import com.amazonaws.auth.PropertiesCredentials
 
 class AWSCredentialsHolder {
 
-	def accessKey
-	def secretKey
-	def properties
+	/**
+	 * AWS access key
+	 */
+	String accessKey
+	
+	/**
+	 * AWS secret key
+	 */
+	String secretKey
+	
+	/**
+	 * Location of a properties file
+	 */
+	String properties
 
 	private static Logger log = LoggerFactory.getLogger(this)
 
