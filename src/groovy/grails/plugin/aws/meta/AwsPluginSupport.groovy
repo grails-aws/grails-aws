@@ -24,9 +24,9 @@ class AwsPluginSupport {
 		configurationReader = new ConfigReader(application.config)
 
 		credentialsHolder(AWSCredentialsHolder) {
-			accessKey  = read("credentials.accessKey")
-			secretKey  = read("credentials.secretKey")
-			properties = read("credentials.properties")
+			accessKey  = readString("credentials.accessKey")
+			secretKey  = readString("credentials.secretKey")
+			properties = readString("credentials.properties")
 		}
 
 		sendSesMail(SendSesMail) { bean ->
@@ -64,9 +64,9 @@ class AwsPluginSupport {
 		configurationReader = new ConfigReader(application.config)
 
 		def credentialsHolderBean          = event.ctx.credentialsHolder
-		credentialsHolderBean.accessKey    = read("credentials.accessKey")
-		credentialsHolderBean.secretKey    = read("credentials.secretKey")
-		credentialsHolderBean.properties   = read("credentials.properties")
+		credentialsHolderBean.accessKey    = readString("credentials.accessKey")
+		credentialsHolderBean.secretKey    = readString("credentials.secretKey")
+		credentialsHolderBean.properties   = readString("credentials.properties")
 
 		def sendSesMailBean                = event.ctx.sendSesMail
 		sendSesMailBean.from               = read("ses.from")
@@ -93,6 +93,9 @@ class AwsPluginSupport {
 		MetaClassInjector.injectSesMethods(application, applicationContext)
 	}
 
+	private static String readString(String name) {
+		read(name)
+	}
 	private static read(String name, defaultValue = null) {
 		configurationReader.read("grails.plugin.aws." + name, defaultValue)
 	}
