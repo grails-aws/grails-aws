@@ -17,47 +17,63 @@ class AwsPluginSupport {
 	private static Logger log = LoggerFactory.getLogger(this)
 	private static ConfigReader configurationReader
 
-	static doWithSpring = {
-		
-		MetaClassInjector.application = application
-		
-		configurationReader = new ConfigReader(application.config)
+    static doWithSpring = {
 
-		credentialsHolder(AWSCredentialsHolder) {
-			accessKey  = readString("credentials.accessKey")
-			secretKey  = readString("credentials.secretKey")
-			properties = readString("credentials.properties")
-		}
+        MetaClassInjector.application = application
 
-		sendSesMail(SendSesMail) { bean ->
-			bean.singleton    = false
-			credentialsHolder = ref('credentialsHolder')
-			from              = read("ses.from")
-			catchall          = read("ses.catchall")
-		}
+        configurationReader = new ConfigReader(application.config)
 
-		s3FileUpload(S3FileUpload) { bean ->
-			bean.singleton    = false
-			credentialsHolder = ref('credentialsHolder')
-			acl               = read("s3.acl", "public")
-			bucket            = read("s3.bucket")
-			bucketLocation    = read("s3.bucketLocation")
-			rrs               = Boolean.valueOf(read("s3.rrs", "true") as boolean)
-		}
+        String accessKeyVal, secretKeyVal, propertiesVal
+        ( accessKeyVal, secretKeyVal, propertiesVal ) =
+            ["credentials.accessKey", "credentials.secretKey", "credentials.properties"].collect {
+                readString( it ) ?: null
+            }
 
-		awsS3(AWSS3Tools) {
-			credentialsHolder = ref('credentialsHolder')
-		}
+        credentialsHolder(AWSCredentialsHolder) {
+            accessKey  = accessKeyVal
+            secretKey  = secretKeyVal
+            properties = propertiesVal
+        }
 
-		awsSWF(AWSSWFTools) {
-			credentialsHolder = ref('credentialsHolder')
-		}
+        def from, catchall
+        ( from, catchall ) =
+            [ "ses.from", "ses.catchall" ].collect { read( it ) ?: null }
 
-		aws(AWSGenericTools) {
-			awsS3 = ref('awsS3')
-			awsSWF = ref('awsSWF')
-		}
-	}
+        sendSesMail(SendSesMail) { bean ->
+            bean.singleton    = false
+            credentialsHolder = ref('credentialsHolder')
+            from              = from
+            catchall          = catchall
+        }
+
+        def acl, bucket, bucketLocation
+        ( acl, bucket, bucketLocation ) =
+            ["s3.acl", "s3.bucket", "s3.bucketLocation"].collect {
+                (it == "s3.acl" ? read( it, "public" ) : read( it )) ?: null
+            }
+
+        s3FileUpload(S3FileUpload) { bean ->
+            bean.singleton    = false
+            credentialsHolder = ref('credentialsHolder')
+            acl               = acl
+            bucket            = bucket
+            bucketLocation    = bucketLocation
+            rrs               = Boolean.valueOf(read("s3.rrs", "true") as boolean)
+        }
+
+        awsS3(AWSS3Tools) {
+            credentialsHolder = ref('credentialsHolder')
+        }
+
+        awsSWF(AWSSWFTools) {
+            credentialsHolder = ref('credentialsHolder')
+        }
+
+        aws(AWSGenericTools) {
+            awsS3 = ref('awsS3')
+            awsSWF = ref('awsSWF')
+        }
+    }
 
 	static onConfigChange = { event ->
 
