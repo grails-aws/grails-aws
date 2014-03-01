@@ -269,7 +269,7 @@ class SendSesMail {
 			attBodyPart.setFileName(map.filename)
 			attBodyPart.setHeader("Content-Type", dataSource.getContentType())
 			attBodyPart.setHeader("Content-ID", map.filename)
-            attBodyPart.setDisposition(Part.ATTACHMENT)
+			attBodyPart.setDisposition(Part.ATTACHMENT)
 
 			mp.addBodyPart(attBodyPart)
         }
