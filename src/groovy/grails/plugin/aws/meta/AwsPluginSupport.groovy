@@ -35,15 +35,15 @@ class AwsPluginSupport {
             properties = propertiesVal
         }
 
-        def fromVal, catchall
-        ( fromVal, catchall ) =
+        def fromVal, catchallVal
+        ( fromVal, catchallVal ) =
             [ "ses.from", "ses.catchall" ].collect { read( it ) ?: null }
 
         sendSesMail(SendSesMail) { bean ->
             bean.singleton    = false
             credentialsHolder = ref('credentialsHolder')
             from              = fromVal
-            catchall          = catchall
+            catchall          = catchallVal
         }
 
         def aclVal, bucketVal, bucketLocationVal
