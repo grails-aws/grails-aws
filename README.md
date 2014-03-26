@@ -9,26 +9,28 @@ Currently supports S3 and S3S
 ## Getting Started
 
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
-
-        plugins {
-            compile ':aws:1.6.7.5'
-        }
+```groovy
+plugins {
+    compile ':aws:1.6.7.5'
+}
+```
 
 Configure the plugin in `grails-app/conf/Config.groovy`
-
-        grails {
-            plugin {
-                aws {
-                    credentials {
-                        accessKey = "your-access-key"
-                        secretKey = "your-secret-key"
-                    }
-                    s3 {
-                        bucket = "default-bucket-name"
-                    }
-                }
+```groovy
+grails {
+    plugin {
+        aws {
+            credentials {
+                accessKey = "your-access-key"
+                secretKey = "your-secret-key"
+            }
+            s3 {
+                bucket = "default-bucket-name"
             }
         }
+    }
+}
+```
 
 ## Documentation
 
