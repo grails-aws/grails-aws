@@ -35,19 +35,19 @@ class AwsPluginSupport {
             properties = propertiesVal
         }
 
-        def from, catchall
-        ( from, catchall ) =
+        def fromVal, catchallVal
+        ( fromVal, catchallVal ) =
             [ "ses.from", "ses.catchall" ].collect { read( it ) ?: null }
 
         sendSesMail(SendSesMail) { bean ->
             bean.singleton    = false
             credentialsHolder = ref('credentialsHolder')
-            from              = from
-            catchall          = catchall
+            from              = fromVal
+            catchall          = catchallVal
         }
 
-        def acl, bucket, bucketLocation
-        ( acl, bucket, bucketLocation ) =
+        def aclVal, bucketVal, bucketLocationVal
+        ( aclVal, bucketVal, bucketLocationVal ) =
             ["s3.acl", "s3.bucket", "s3.bucketLocation"].collect {
                 (it == "s3.acl" ? read( it, "public" ) : read( it )) ?: null
             }
@@ -55,9 +55,9 @@ class AwsPluginSupport {
         s3FileUpload(S3FileUpload) { bean ->
             bean.singleton    = false
             credentialsHolder = ref('credentialsHolder')
-            acl               = acl
-            bucket            = bucket
-            bucketLocation    = bucketLocation
+            acl               = aclVal
+            bucket            = bucketVal
+            bucketLocation    = bucketLocationVal
             rrs               = Boolean.valueOf(read("s3.rrs", "true") as boolean)
         }
 

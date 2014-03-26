@@ -2,6 +2,7 @@ package grails.plugin.aws.ses
 
 import grails.plugin.aws.GrailsAWSException
 
+import javax.mail.util.ByteArrayDataSource
 import java.nio.ByteBuffer
 
 import javax.activation.DataHandler
@@ -34,6 +35,7 @@ class SendSesMail {
 	def bcc = []
 	def replyTo = []
 	def attachments = []
+	def byteAttachments = []
 	def charset = "UTF-8"
 
 	def body	 = ""
@@ -83,6 +85,12 @@ class SendSesMail {
 		log.debug "Setting 'attachments' files to ${attachments}"
 	}
 
+    void attach(String filename, String contentType, byte[] bytes) {
+		def map = [filename: filename, contentType: contentType, bytes: bytes]
+		this.byteAttachments.add map
+		log.debug "Setting 'byteAttachment' to: ${byteAttachments.filename}"
+    }
+
 	// charset
 	void charset(String charset) {
 		this.charset = charset
@@ -117,7 +125,7 @@ class SendSesMail {
 		setClosureData(cls)
 		checkValidFromAddress()
 
-		if (attachments && attachments?.size() > 0) {
+		if (attachments && attachments?.size() > 0 || byteAttachments && byteAttachments.size() > 0) {
 			sendRawMail(from)
 		} else {
 			def destination = buildSimpleDestination()
@@ -251,6 +259,20 @@ class SendSesMail {
 
 			mp.addBodyPart(attBodyPart)
 		}
+
+        byteAttachments.each { map ->
+
+			def attBodyPart = new MimeBodyPart()
+			def dataSource = new ByteArrayDataSource(map.bytes, map.contentType)
+
+			attBodyPart.setDataHandler(new DataHandler(dataSource))
+			attBodyPart.setFileName(map.filename)
+			attBodyPart.setHeader("Content-Type", dataSource.getContentType())
+			attBodyPart.setHeader("Content-ID", map.filename)
+			attBodyPart.setDisposition(Part.ATTACHMENT)
+
+			mp.addBodyPart(attBodyPart)
+        }
 
 		msg.setContent(mp)
 
