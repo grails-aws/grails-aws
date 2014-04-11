@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 ```groovy
 plugins {
-    compile ':aws:1.6.7.6'
+    compile ':aws:1.7.5.0'
 }
 ```
 
@@ -49,6 +49,11 @@ grails {
 
 
 ## Changelog
+
+1.7.5.0 - April 11 2014
+* Upgrade to AWS SDK version 1.7.5
+* Ability to configure SES AWS region
+
 1.6.7.4 - January 15 2014
 * Add the ability to start SWF executions
 * Upgrade to httpclient 4.2
