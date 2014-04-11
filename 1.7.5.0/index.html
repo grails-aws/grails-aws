@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>Grails AWS Plugin 1.7.5.0</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="./css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+        <link rel="stylesheet" href="./css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+    </head>
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <ul>
+                <li>
+                    <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                        <a href="./guide/index.html" class="button">Table of contents</a>
+                        <div id="nav-summary-childs" style="display:none;">
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a></div>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="separator selected">
+                    <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                </li>
+            </ul>
+        </div>
+        <div id="header">
+            <div class="images clearfix">
+                
+                
+            </div>
+            <p>Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS</p>
+        </div>
+
+
+        <table id="colset" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Grails AWS Plugin - Reference Documentation</h1>
+                            <p><strong>Authors:</strong> Lucas Teixeira, Jay Prall</p>
+                            <p><strong>Version:</strong> 1.7.5.0</p>
+                            
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html"><strong>1</strong><span>Introduction to Grails AWS Plugin</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html#1.1%20Installing%20Grails%20AWS%20Plugin"><strong>1.1</strong><span>Installing Grails AWS Plugin</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html#1.2%20Getting%20the%20source%20code"><strong>1.2</strong><span>Getting the source code</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html#1.3%20Configuring%20the%20plugin%20in%20your%20application"><strong>1.3</strong><span>Configuring the plugin in your application</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html#1.3.1%20Setting%20AWS%20Credentials"><strong>1.3.1</strong><span>Setting AWS Credentials</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/1%20Introduction%20to%20Grails%20AWS%20Plugin.html#1.4%20Gant%20scripts"><strong>1.4</strong><span>Gant scripts</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html"><strong>2</strong><span>Amazon Simple Storage Service (AWS S3)</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.1%20Specific%20configuration%20for%20S3"><strong>2.1</strong><span>Specific configuration for S3</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2%20Uploading%20files"><strong>2.2</strong><span>Uploading files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.1%20Setting%20file%20virual%20path"><strong>2.2.1</strong><span>Setting file virual path</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.2%20Overriding%20AWS%20credentials"><strong>2.2.2</strong><span>Overriding AWS credentials</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.3%20Overriding%20bucket%20to%20file%20upload"><strong>2.2.3</strong><span>Overriding bucket to file upload</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.4%20ACL%20(file%20permission)"><strong>2.2.4</strong><span>ACL (file permission)</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.5%20RRS%20-%20Reduced%20Redundancy%20Storage"><strong>2.2.5</strong><span>RRS - Reduced Redundancy Storage</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.6%20Setting%20File%20Metadata"><strong>2.2.6</strong><span>Setting File Metadata</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.2.7%20Using%20Server%20Side%20Encryption"><strong>2.2.7</strong><span>Using Server Side Encryption</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.3%20Deleting%20files"><strong>2.3</strong><span>Deleting files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4%20Accessing%20files"><strong>2.4</strong><span>Accessing files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4.1%20Accessing%20public%20files"><strong>2.4.1</strong><span>Accessing public files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4.2%20Accessing%20private%20files"><strong>2.4.2</strong><span>Accessing private files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4.3%20Creating%20public%20URLs%20for%20private%20files"><strong>2.4.3</strong><span>Creating public URLs for private files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4.4%20Creating%20torrent%20for%20S3%20hosted%20files"><strong>2.4.4</strong><span>Creating torrent for S3 hosted files</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="./guide/2%20Amazon%20Simple%20Storage%20Service%20(AWS%20S3).html#2.4.5%20Accessing%20only%20file%20metadata"><strong>2.4.5</strong><span>Accessing only file metadata</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html"><strong>3</strong><span>Amazon Simple Email Service (AWS SES)</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html#3.1%20Configuring%20the%20SES%20options"><strong>3.1</strong><span>Configuring the SES options</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html#3.2%20Sending%20text%20emails"><strong>3.2</strong><span>Sending text emails</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html#3.3%20Sending%20HTML%20emails"><strong>3.3</strong><span>Sending HTML emails</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="./guide/3%20Amazon%20Simple%20Email%20Service%20(AWS%20SES).html#3.4%20Sending%20emails%20with%20attachments"><strong>3.4</strong><span>Sending emails with attachments</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="./guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">S3</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="./ref/S3/aws-s3-list-buckets.html">aws-s3-list-buckets</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">SES</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="./ref/SES/aws-ses-get-send-quota.html">aws-ses-get-send-quota</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="./ref/SES/aws-ses-get-send-statistics.html">aws-ses-get-send-statistics</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="./ref/SES/aws-ses-list-verified-emails.html">aws-ses-list-verified-emails</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="./ref/SES/aws-ses-send-ping-mail.html">aws-ses-send-ping-mail</a>
+                        </div>
+                        
+                        <div class="menu-item"><a href="./ref/SES/aws-ses-verify-email.html">aws-ses-verify-email</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
+        <div id="footer">
+            
+            
+        </div>
+
+
+
+<script type="text/javascript" src="./js/docs.js"></script>
+
+    </body>
+</html>
