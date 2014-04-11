@@ -15,6 +15,12 @@ h3. from
 
 The default 'from' address to be used. You can override this parameter in every call to the plugin, setting the 'from' parameter. As said before, this address have to be verified with AWS (check Gant scripts section to see how to do it).
 
+h3. region
+
+Optional code to set the SES region to use. Provide string in all caps. Defaults to 'US_EAST_1'.
+
+Regions available as of April 11th, 2014:  US_EAST_1, US_WEST_2, EU_WEST_1
+
 h3. Configuration example
 
 To configure it, you'll do the following inside the *grails.plugin.aws* section of your application Config.
@@ -28,6 +34,7 @@ grails {
             enabled = false
             catchall = "allmailforme@gmail.com"
             from = "my-verified-email@gmail.com"
+            region "US_WEST_2"  //optional, defaults to US_EAST_1
          }
 
       }

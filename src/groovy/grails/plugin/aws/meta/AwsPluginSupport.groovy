@@ -2,13 +2,12 @@ package grails.plugin.aws.meta
 
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.AWSGenericTools
-import grails.plugin.aws.swf.AWSSWFTools
 import grails.plugin.aws.s3.AWSS3Tools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
+import grails.plugin.aws.swf.AWSSWFTools
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -35,15 +34,16 @@ class AwsPluginSupport {
             properties = propertiesVal
         }
 
-        def fromVal, catchallVal
-        ( fromVal, catchallVal ) =
-            [ "ses.from", "ses.catchall" ].collect { read( it ) ?: null }
+        def fromVal, catchallVal, regionVal
+        ( fromVal, catchallVal, regionVal ) =
+            [ "ses.from", "ses.catchall", "ses.region" ].collect { read( it ) ?: null }
 
         sendSesMail(SendSesMail) { bean ->
             bean.singleton    = false
             credentialsHolder = ref('credentialsHolder')
             from              = fromVal
             catchall          = catchallVal
+            region            = regionVal
         }
 
         def aclVal, bucketVal, bucketLocationVal

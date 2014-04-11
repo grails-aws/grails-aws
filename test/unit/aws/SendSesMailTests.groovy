@@ -3,7 +3,6 @@ package aws
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.ses.SendSesMail
 import grails.test.GrailsUnitTestCase
-
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
 
 class SendSesMailTests extends GrailsUnitTestCase {
@@ -476,4 +475,25 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  0, destination.bccAddresses.size()
 		assertEquals  "catchall@server.com", destination.toAddresses[0]
 	}
+
+    void testSetRegionGoodVal(){
+        def sender = new SendSesMail()
+        sender.region = 'US_EAST_1'
+
+        assertEquals(sender.awsRegion.getName(), 'us-east-1')
+    }
+
+    void testSetRegionBadVal(){
+        def sender = new SendSesMail()
+        shouldFail{
+            sender.region = 'US_EAST_1_badvalue'
+        }
+    }
+
+    void testSetRegionNull(){
+        def sender = new SendSesMail()
+        sender.region = null
+
+        assertEquals(sender.awsRegion.getName(), 'us-east-1')
+    }
 }
