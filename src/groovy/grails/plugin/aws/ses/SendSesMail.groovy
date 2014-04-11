@@ -1,39 +1,34 @@
 package grails.plugin.aws.ses
 
+import com.amazonaws.regions.Region
+import com.amazonaws.regions.Regions
+import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
+import com.amazonaws.services.simpleemail.model.*
 import grails.plugin.aws.GrailsAWSException
-
-import java.nio.ByteBuffer
+import org.codehaus.groovy.grails.web.util.StreamCharBuffer
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 import javax.activation.DataHandler
 import javax.activation.FileDataSource
 import javax.mail.Part
 import javax.mail.Session
-import javax.mail.Message.RecipientType
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeBodyPart
 import javax.mail.internet.MimeMessage
 import javax.mail.internet.MimeMultipart
-
-import org.codehaus.groovy.grails.web.util.StreamCharBuffer
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-
-import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient
-import com.amazonaws.services.simpleemail.model.Body
-import com.amazonaws.services.simpleemail.model.Content
-import com.amazonaws.services.simpleemail.model.Destination
-import com.amazonaws.services.simpleemail.model.Message
-import com.amazonaws.services.simpleemail.model.RawMessage
-import com.amazonaws.services.simpleemail.model.SendEmailRequest
-import com.amazonaws.services.simpleemail.model.SendRawEmailRequest
+import javax.mail.util.ByteArrayDataSource
+import java.nio.ByteBuffer
 
 class SendSesMail {
 
-	def to	= []
+    public static final String US__EAST_1 = 'US_EAST_1'
+    def to	= []
 	def cc	= []
 	def bcc = []
 	def replyTo = []
 	def attachments = []
+	def byteAttachments = []
 	def charset = "UTF-8"
 
 	def body	 = ""
@@ -44,10 +39,24 @@ class SendSesMail {
 	def from
 	def catchall
 	def credentialsHolder
+    String region
 
-	private static Logger log = LoggerFactory.getLogger(this)
+    //set from injected props
+    Region awsRegion
 
-	//from
+    SendSesMail() {
+        setRegion(US__EAST_1) //default to east
+    }
+
+    private static Logger log = LoggerFactory.getLogger(this)
+
+    void setRegion(region) {
+        this.region = region ?: US__EAST_1 //default to east if not set
+        this.awsRegion = Region.getRegion(Regions.valueOf(this.region))
+        log.debug("SES Region set to: " + awsRegion.name)
+    }
+
+    //from
 	void from(String _from) {
 		from = _from
 		log.debug "Setting from address to ${from}"
@@ -83,6 +92,12 @@ class SendSesMail {
 		log.debug "Setting 'attachments' files to ${attachments}"
 	}
 
+    void attach(String filename, String contentType, byte[] bytes) {
+		def map = [filename: filename, contentType: contentType, bytes: bytes]
+		this.byteAttachments.add map
+		log.debug "Setting 'byteAttachment' to: ${byteAttachments.filename}"
+    }
+
 	// charset
 	void charset(String charset) {
 		this.charset = charset
@@ -117,7 +132,7 @@ class SendSesMail {
 		setClosureData(cls)
 		checkValidFromAddress()
 
-		if (attachments && attachments?.size() > 0) {
+		if (attachments && attachments?.size() > 0 || byteAttachments && byteAttachments.size() > 0) {
 			sendRawMail(from)
 		} else {
 			def destination = buildSimpleDestination()
@@ -177,6 +192,7 @@ class SendSesMail {
 	def sendSimpleMail(_from, _destination, _message) {
 		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
 		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
+        sesService.region = awsRegion
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)
 
 		if (replyTo) {
@@ -252,6 +268,20 @@ class SendSesMail {
 			mp.addBodyPart(attBodyPart)
 		}
 
+        byteAttachments.each { map ->
+
+			def attBodyPart = new MimeBodyPart()
+			def dataSource = new ByteArrayDataSource(map.bytes, map.contentType)
+
+			attBodyPart.setDataHandler(new DataHandler(dataSource))
+			attBodyPart.setFileName(map.filename)
+			attBodyPart.setHeader("Content-Type", dataSource.getContentType())
+			attBodyPart.setHeader("Content-ID", map.filename)
+			attBodyPart.setDisposition(Part.ATTACHMENT)
+
+			mp.addBodyPart(attBodyPart)
+        }
+
 		msg.setContent(mp)
 
 		def out = new ByteArrayOutputStream()
@@ -263,6 +293,7 @@ class SendSesMail {
 		//sending e-mail
 		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
 		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
+        sesService.region = awsRegion
 		def rawEmailRequest = new SendRawEmailRequest()
 		rawEmailRequest.source = _from
 		rawEmailRequest.rawMessage = rm

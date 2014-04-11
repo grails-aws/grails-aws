@@ -9,7 +9,7 @@ grails.doc.authors = 'Lucas Teixeira, Jay Prall'
 grails.doc.license = 'Apache License 2.0'
 grails.doc.title = 'Grails AWS Plugin'
 
-// These settings are only used for plugin development
+// These settings are only used for plugin development and testing
 grails {
     plugin {
         aws {

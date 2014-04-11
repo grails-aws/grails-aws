@@ -9,26 +9,28 @@ Currently supports S3 and S3S
 ## Getting Started
 
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
-
-        plugins {
-            compile ':aws:1.6.7.5'
-        }
+```groovy
+plugins {
+    compile ':aws:1.7.5.0'
+}
+```
 
 Configure the plugin in `grails-app/conf/Config.groovy`
-
-        grails {
-            plugin {
-                aws {
-                    credentials {
-                        accessKey = "your-access-key"
-                        secretKey = "your-secret-key"
-                    }
-                    s3 {
-                        bucket = "default-bucket-name"
-                    }
-                }
+```groovy
+grails {
+    plugin {
+        aws {
+            credentials {
+                accessKey = "your-access-key"
+                secretKey = "your-secret-key"
+            }
+            s3 {
+                bucket = "default-bucket-name"
             }
         }
+    }
+}
+```
 
 ## Documentation
 
@@ -47,6 +49,11 @@ Configure the plugin in `grails-app/conf/Config.groovy`
 
 
 ## Changelog
+
+1.7.5.0 - April 11 2014
+* Upgrade to AWS SDK version 1.7.5
+* Ability to configure SES AWS region
+
 1.6.7.4 - January 15 2014
 * Add the ability to start SWF executions
 * Upgrade to httpclient 4.2

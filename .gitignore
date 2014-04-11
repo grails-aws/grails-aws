@@ -12,6 +12,7 @@ grails-app/conf/Config.groovy
 /*.tmproj
 /ivy*
 /eclipse
+/*.iml
 
 # logs
 /stacktrace.log

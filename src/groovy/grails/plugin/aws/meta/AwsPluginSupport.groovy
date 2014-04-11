@@ -2,13 +2,12 @@ package grails.plugin.aws.meta
 
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.AWSGenericTools
-import grails.plugin.aws.swf.AWSSWFTools
 import grails.plugin.aws.s3.AWSS3Tools
 import grails.plugin.aws.s3.S3FileUpload
 import grails.plugin.aws.ses.SendSesMail
+import grails.plugin.aws.swf.AWSSWFTools
 import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
-
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -17,56 +16,73 @@ class AwsPluginSupport {
 	private static Logger log = LoggerFactory.getLogger(this)
 	private static ConfigReader configurationReader
 
-	static doWithSpring = {
-		
-		MetaClassInjector.application = application
-		
-		configurationReader = new ConfigReader(application.config)
+    static doWithSpring = {
 
-		credentialsHolder(AWSCredentialsHolder) {
-			accessKey  = read("credentials.accessKey")
-			secretKey  = read("credentials.secretKey")
-			properties = read("credentials.properties")
-		}
+        MetaClassInjector.application = application
 
-		sendSesMail(SendSesMail) { bean ->
-			bean.singleton    = false
-			credentialsHolder = ref('credentialsHolder')
-			from              = read("ses.from")
-			catchall          = read("ses.catchall")
-		}
+        configurationReader = new ConfigReader(application.config)
 
-		s3FileUpload(S3FileUpload) { bean ->
-			bean.singleton    = false
-			credentialsHolder = ref('credentialsHolder')
-			acl               = read("s3.acl", "public")
-			bucket            = read("s3.bucket")
-			bucketLocation    = read("s3.bucketLocation")
-			rrs               = Boolean.valueOf(read("s3.rrs", "true") as boolean)
-		}
+        String accessKeyVal, secretKeyVal, propertiesVal
+        ( accessKeyVal, secretKeyVal, propertiesVal ) =
+            ["credentials.accessKey", "credentials.secretKey", "credentials.properties"].collect {
+                readString( it ) ?: null
+            }
 
-		awsS3(AWSS3Tools) {
-			credentialsHolder = ref('credentialsHolder')
-		}
+        credentialsHolder(AWSCredentialsHolder) {
+            accessKey  = accessKeyVal
+            secretKey  = secretKeyVal
+            properties = propertiesVal
+        }
 
-		awsSWF(AWSSWFTools) {
-			credentialsHolder = ref('credentialsHolder')
-		}
+        def fromVal, catchallVal, regionVal
+        ( fromVal, catchallVal, regionVal ) =
+            [ "ses.from", "ses.catchall", "ses.region" ].collect { read( it ) ?: null }
 
-		aws(AWSGenericTools) {
-			awsS3 = ref('awsS3')
-			awsSWF = ref('awsSWF')
-		}
-	}
+        sendSesMail(SendSesMail) { bean ->
+            bean.singleton    = false
+            credentialsHolder = ref('credentialsHolder')
+            from              = fromVal
+            catchall          = catchallVal
+            region            = regionVal
+        }
+
+        def aclVal, bucketVal, bucketLocationVal
+        ( aclVal, bucketVal, bucketLocationVal ) =
+            ["s3.acl", "s3.bucket", "s3.bucketLocation"].collect {
+                (it == "s3.acl" ? read( it, "public" ) : read( it )) ?: null
+            }
+
+        s3FileUpload(S3FileUpload) { bean ->
+            bean.singleton    = false
+            credentialsHolder = ref('credentialsHolder')
+            acl               = aclVal
+            bucket            = bucketVal
+            bucketLocation    = bucketLocationVal
+            rrs               = Boolean.valueOf(read("s3.rrs", "true") as boolean)
+        }
+
+        awsS3(AWSS3Tools) {
+            credentialsHolder = ref('credentialsHolder')
+        }
+
+        awsSWF(AWSSWFTools) {
+            credentialsHolder = ref('credentialsHolder')
+        }
+
+        aws(AWSGenericTools) {
+            awsS3 = ref('awsS3')
+            awsSWF = ref('awsSWF')
+        }
+    }
 
 	static onConfigChange = { event ->
 
 		configurationReader = new ConfigReader(application.config)
 
 		def credentialsHolderBean          = event.ctx.credentialsHolder
-		credentialsHolderBean.accessKey    = read("credentials.accessKey")
-		credentialsHolderBean.secretKey    = read("credentials.secretKey")
-		credentialsHolderBean.properties   = read("credentials.properties")
+		credentialsHolderBean.accessKey    = readString("credentials.accessKey")
+		credentialsHolderBean.secretKey    = readString("credentials.secretKey")
+		credentialsHolderBean.properties   = readString("credentials.properties")
 
 		def sendSesMailBean                = event.ctx.sendSesMail
 		sendSesMailBean.from               = read("ses.from")
@@ -93,6 +109,9 @@ class AwsPluginSupport {
 		MetaClassInjector.injectSesMethods(application, applicationContext)
 	}
 
+	private static String readString(String name) {
+		read(name)
+	}
 	private static read(String name, defaultValue = null) {
 		configurationReader.read("grails.plugin.aws." + name, defaultValue)
 	}
