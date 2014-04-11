@@ -34,8 +34,8 @@ grails {
 
 ## Documentation
 
-* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/)
-* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/gapi/)
+* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.7.5.0/)
+* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.7.5.0/gapi/)
 
 
 ## Contributing
