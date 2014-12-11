@@ -8,9 +8,10 @@ before_install:
   - "source ~/.gvm/bin/gvm-init.sh"
   - "gvm install grails $GRAILS_VERSION || true"
 env: 
+  - GRAILS_VERSION=2.0.4
   - GRAILS_VERSION=2.2.4
   - GRAILS_VERSION=2.3.4
-  - GRAILS_VERSION=2.4.4
+  - GRAILS_VERSION=2.3.5
 language: groovy
 script: "grails clean && grails upgrade --non-interactive && grails test-app --non-interactive --stacktrace"
 
