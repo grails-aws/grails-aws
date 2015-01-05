@@ -11,7 +11,7 @@ Currently supports S3 and S3S
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 ```groovy
 plugins {
-    compile ':aws:1.7.5.0'
+    compile ':aws:1.9.13.0'
 }
 ```
 
@@ -49,6 +49,9 @@ grails {
 
 
 ## Changelog
+
+1.9.13.0 - January 5 2015
+* Upgrade to AWS SDK version 1.9.13
 
 1.7.5.0 - April 11 2014
 * Upgrade to AWS SDK version 1.7.5
