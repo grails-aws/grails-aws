@@ -192,7 +192,7 @@ class SendSesMail {
 	def sendSimpleMail(_from, _destination, _message) {
 		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
 		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
-        sesService.region = awsRegion
+        sesService.setRegion(awsRegion)
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)
 
 		if (replyTo) {
