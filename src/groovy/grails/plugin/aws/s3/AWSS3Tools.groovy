@@ -111,4 +111,13 @@ class AWSS3Tools {
 		}
 		return objectKey
 	}
+	
+	//get all buckets
+	def getAllBuckets(String accessKey, String secretKey) {
+
+		JetS3tCredentials awsCredentials = new JetS3tCredentials(accessKey, secretKey);
+		def s3Service = new RestS3Service(credentialsHolder.buildJetS3tCredentials(accessKey, secretKey))
+		S3Bucket[] myBuckets = s3Service.listAllBuckets();
+		return myBuckets
+	}
 }
