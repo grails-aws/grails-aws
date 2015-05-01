@@ -5,13 +5,15 @@ import grails.plugin.aws.ses.SendSesMail
 import grails.test.GrailsUnitTestCase
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
 import org.junit.Test
+import grails.test.mixin.support.GrailsUnitTestMixin
 
-class SendSesMailTests extends GrailsUnitTestCase {
+
+@TestMixin(GrailsUnitTestMixin)
+class SendSesMailTests {
 
 	static final long DEFAULT_MAIL_ID = 63718397162749
 
-    protected void setUp() {
-        super.setUp()
+    void setUp() {
 		SendSesMail.metaClass.sendSimpleMail = { from, destination, message ->
 			println "sending mail..."
 			return DEFAULT_MAIL_ID
