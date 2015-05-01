@@ -1,5 +1,6 @@
 package grails.plugin.aws.meta
 
+import grails.plugin.aws.ses.SendSesMail
 import static org.junit.Assert.*
 import org.junit.*
 
@@ -7,6 +8,7 @@ class AwsPluginSupportIntegrationTests {
 
 	def s3FileUpload
 	def credentialsHolder
+	def sendSesMail
 	
     @Test
     void injectS3FileUploadBeanDefaultsRRSPropertyToTrue() {
@@ -22,5 +24,12 @@ class AwsPluginSupportIntegrationTests {
 		assert credentialsHolder.accessKey == "fake-access-key"
 		assert credentialsHolder.secretKey == "fake-secret-key"
 		assert credentialsHolder.properties == null
+	}
+	
+	@Test
+	void sesMailRegionDefaultsToUSEast1() {
+
+	    assert sendSesMail.region == SendSesMail.US__EAST_1
+
 	}
 }

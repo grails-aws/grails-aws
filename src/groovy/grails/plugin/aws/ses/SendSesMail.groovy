@@ -39,7 +39,7 @@ class SendSesMail {
 	def from
 	def catchall
 	def credentialsHolder
-    String region
+    def region
 
     //set from injected props
     Region awsRegion
