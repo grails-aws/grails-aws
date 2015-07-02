@@ -9,7 +9,7 @@ before_install:
   - "gvm install grails $GRAILS_VERSION || true"
 env: 
   - GRAILS_VERSION=2.0.4
-  - GRAILS_VERSION=2.2.4
+  - GRAILS_VERSION=2.2.5
   - GRAILS_VERSION=2.3.4
   - GRAILS_VERSION=2.3.5
 language: groovy
