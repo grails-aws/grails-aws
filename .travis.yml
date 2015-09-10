@@ -10,8 +10,8 @@ before_install:
 env: 
   - GRAILS_VERSION=2.0.4
   - GRAILS_VERSION=2.2.5
-  - GRAILS_VERSION=2.3.4
   - GRAILS_VERSION=2.3.11
+  - GRAILS_VERSION=2.5.0
 language: groovy
 script:
    - grails clean
