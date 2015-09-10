@@ -15,7 +15,10 @@ env:
   - GRAILS_VERSION=2.5.0
 language: groovy
 script:
-   - grails clean
-   - grails upgrade --non-interactive
-   - grails set-grails-version $GRAILS_VERSION
-   - grails test-app --non-interactive --stacktrace
+  - grails clean
+  - case $GRAILS_VERSION in
+      2.4* ) grails set-grails_version $GRAILS_VERSION ;;
+      2.5* ) grails set-grails_version $GRAILS_VERSION ;;
+      * ) grails upgrade --non-interactive ;;
+    fi
+  - grails test-app --non-interactive --stacktrace
