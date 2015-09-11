@@ -16,7 +16,7 @@ grails.project.dependency.resolution = {
 
     dependencies {
 
-        compile 'net.java.dev.jets3t:jets3t:0.9.1'
+        compile 'net.java.dev.jets3t:jets3t:0.9.0'
         // jetset 0.9.1 uses httpclient 4.3.2; httpcore 4.3.1
 
         build 'org.apache.httpcomponents:httpcore:4.3.1'
