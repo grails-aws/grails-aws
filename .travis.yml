@@ -12,6 +12,9 @@ env:
   - GRAILS_VERSION=2.2.5
   - GRAILS_VERSION=2.3.11
 language: groovy
+jdk:
+ - openjdk7
+ - openjdk8
 sudo: false
 script:
   - grails clean
