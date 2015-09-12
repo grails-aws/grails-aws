@@ -1,5 +1,7 @@
 # Amazon Web Services Grails Plugin
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)][travis]
+[![Coverage Status](https://coveralls.io/repos/grails-aws/grails-aws/badge.svg?branch=master&service=github)](https://coveralls.io/github/grails-aws/grails-aws?branch=master)
+
 
 [travis]: https://travis-ci.org/grails-aws/grails-aws
 
