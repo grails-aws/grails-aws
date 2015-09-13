@@ -10,6 +10,8 @@ before_install:
 env: 
   - GRAILS_VERSION=2.4.4
 language: groovy
+jdk:
+ - oraclejdk7
 sudo: false
 script:
   - grails clean
