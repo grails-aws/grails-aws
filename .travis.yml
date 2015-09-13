@@ -10,7 +10,6 @@ before_install:
 env: 
   - GRAILS_VERSION=2.0.4
   - GRAILS_VERSION=2.2.5
-  - GRAILS_VERSION=2.3.11
 language: groovy
 jdk:
  - oraclejdk7
