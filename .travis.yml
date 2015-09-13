@@ -8,8 +8,6 @@ before_install:
   - "source ~/.gvm/bin/gvm-init.sh"
   - "gvm install grails $GRAILS_VERSION || true"
 env: 
-  - GRAILS_VERSION=2.0.4
-  - GRAILS_VERSION=2.2.5
   - GRAILS_VERSION=2.3.11
 language: groovy
 jdk:
