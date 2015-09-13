@@ -2,7 +2,6 @@ package aws
 
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.ses.SendSesMail
-import grails.test.GrailsUnitTestCase
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
 import org.junit.Test
 import grails.test.mixin.support.GrailsUnitTestMixin

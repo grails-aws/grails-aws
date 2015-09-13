@@ -4,6 +4,10 @@ import grails.plugin.aws.ses.SendSesMail
 import static org.junit.Assert.*
 import org.junit.Test
 
+import grails.test.mixin.integration.IntegrationTestMixin
+import grails.test.mixin.TestMixin
+
+@TestMixin(IntegrationTestMixin)
 class AwsPluginSupportIntegrationTests {
 
     def s3FileUpload
