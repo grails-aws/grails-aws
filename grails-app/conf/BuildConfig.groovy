@@ -3,6 +3,7 @@ grails.project.work.dir = 'target'
 // for backwards-compatibility, the docs are checked into gh-pages branch
 grails.project.docs.output.dir = 'docs/manual'
 
+grails.project.dependency.resolver = "maven" // or ivy
 grails.project.dependency.resolution = {
 
     inherits 'global'
@@ -34,7 +35,9 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build ':release:2.2.1', ':rest-client-builder:1.0.3', {
+        // 2.3.11 version
+        build(":release:3.0.1",
+              ":rest-client-builder:1.0.3") {
             export = false
         }
     }
