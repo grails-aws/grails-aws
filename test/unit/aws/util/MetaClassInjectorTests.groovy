@@ -16,47 +16,47 @@ import java.util.Date
 class MetaClassInjectorTests extends GrailsUnitTestCase {
 
     @Test
-	void integerDotSecondWhenInjected() {
+   void integerDotSecondWhenInjected() {
 
-		MetaClassInjector.injectIntegerMethods()
-		assert 1.second.class == Date
-	}
-
-    @Test
-	void sesIsDisabledWhenEnabledIsTrue() {
-		mockSESEnabled(true)
-
-		def result = MetaClassInjector.sesIsDisabled()
-
-		assert result == false
-	}
+      MetaClassInjector.injectIntegerMethods()
+      assert 1.second.class == Date
+   }
 
     @Test
-	void sesIsDisabledWhenEnabledIsFalse() {
-		mockSESEnabled(false)
+   void sesIsDisabledWhenEnabledIsTrue() {
+      mockSESEnabled(true)
 
-		def result = MetaClassInjector.sesIsDisabled()
+      def result = MetaClassInjector.sesIsDisabled()
 
-		assert result == true
-	}
+      assert result == false
+   }
 
     @Test
-	void sesIsDisabledWhenNotConfiguredDefaultsToFalse() {
-		mockSESEnabled(null)
+   void sesIsDisabledWhenEnabledIsFalse() {
+      mockSESEnabled(false)
 
-		def result = MetaClassInjector.sesIsDisabled()
+      def result = MetaClassInjector.sesIsDisabled()
 
-		assert result == false
-	}
+      assert result == true
+   }
 
-	def mockSESEnabled(val) {
+    @Test
+   void sesIsDisabledWhenNotConfiguredDefaultsToFalse() {
+      mockSESEnabled(null)
 
-		MetaClassInjector.application = [
-		                    getConfig: {
-		                        def config = new ConfigObject()
-		                        config.grails.plugin.aws.ses.enabled = val
-		                        return config
-		                    }
-		                ] as GrailsApplication
-	}
+      def result = MetaClassInjector.sesIsDisabled()
+
+      assert result == false
+   }
+
+   def mockSESEnabled(val) {
+
+      MetaClassInjector.application = [
+                          getConfig: {
+                              def config = new ConfigObject()
+                              config.grails.plugin.aws.ses.enabled = val
+                              return config
+                          }
+                      ] as GrailsApplication
+   }
 }
