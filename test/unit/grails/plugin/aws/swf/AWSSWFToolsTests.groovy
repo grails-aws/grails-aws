@@ -2,7 +2,7 @@ package grails.plugin.aws.swf
 
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.test.mixin.*
-import grails.test.mixin.support.*
+import grails.test.mixin.support.GrailsUnitTestMixin
 import groovy.mock.interceptor.MockFor
 
 import org.junit.Before

@@ -1,12 +1,14 @@
 package aws
 
 import grails.plugin.aws.s3.AWSS3Tools
-import grails.test.GrailsUnitTestCase
 import org.junit.Test
+import grails.test.mixin.support.GrailsUnitTestMixin
 
-class AWSS3ToolsTests extends GrailsUnitTestCase {
 
-    @Test
+@TestMixin(GrailsUnitTestMixin)
+class AWSS3ToolsTests {
+
+   @Test
    void onMethod() {
 
       def s3Tools = new AWSS3Tools()
