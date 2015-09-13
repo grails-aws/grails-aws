@@ -2,7 +2,7 @@ package grails.aws
 
 import org.jets3t.service.S3ServiceException
 import static org.junit.Assert.*
-
+import groovy.util.GroovyTestCase
 import org.junit.Test
 
 class S3IntegrationTests extends GroovyTestCase {

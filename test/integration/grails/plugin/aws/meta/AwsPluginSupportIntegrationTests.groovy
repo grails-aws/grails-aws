@@ -3,8 +3,9 @@ package grails.plugin.aws.meta
 import grails.plugin.aws.ses.SendSesMail
 import static org.junit.Assert.*
 import org.junit.Test
+import groovy.util.GroovyTestCase
 
-class AwsPluginSupportIntegrationTests {
+class AwsPluginSupportIntegrationTests extends GroovyTestCase {
 
     def s3FileUpload
     def credentialsHolder

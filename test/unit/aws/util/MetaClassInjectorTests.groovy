@@ -9,20 +9,19 @@ import grails.plugin.aws.meta.AwsPluginSupport
 import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.junit.Test
 
-import grails.test.GrailsUnitTestCase
 import java.util.Date
 
 @TestMixin(GrailsUnitTestMixin)
-class MetaClassInjectorTests extends GrailsUnitTestCase {
+class MetaClassInjectorTests {
 
-    @Test
+   @Test
    void integerDotSecondWhenInjected() {
 
       MetaClassInjector.injectIntegerMethods()
       assert 1.second.class == Date
    }
 
-    @Test
+   @Test
    void sesIsDisabledWhenEnabledIsTrue() {
       mockSESEnabled(true)
 
@@ -31,7 +30,7 @@ class MetaClassInjectorTests extends GrailsUnitTestCase {
       assert result == false
    }
 
-    @Test
+   @Test
    void sesIsDisabledWhenEnabledIsFalse() {
       mockSESEnabled(false)
 
@@ -40,7 +39,7 @@ class MetaClassInjectorTests extends GrailsUnitTestCase {
       assert result == true
    }
 
-    @Test
+   @Test
    void sesIsDisabledWhenNotConfiguredDefaultsToFalse() {
       mockSESEnabled(null)
 
