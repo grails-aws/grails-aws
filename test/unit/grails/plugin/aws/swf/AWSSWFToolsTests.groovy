@@ -5,7 +5,9 @@ import grails.test.mixin.*
 import grails.test.mixin.support.*
 import groovy.mock.interceptor.MockFor
 
-import org.junit.*
+import org.junit.Before
+import org.junit.Test
+
 
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.simpleworkflow.AmazonSimpleWorkflowClient
@@ -26,7 +28,8 @@ class AWSSWFToolsTests {
         mockCredentialsHolder()
     }
 
-    void testStartReturnsRunIdAsString() {
+    @Test
+    void startReturnsRunIdAsString() {
         def expectedRunId = 'MockRunId5'
 
         def mock = new MockFor(AmazonSimpleWorkflowClient)
@@ -37,7 +40,8 @@ class AWSSWFToolsTests {
         }
     }
 
-    void testStartReturnsNullWhenWorkflowAlreadyStarted() {
+    @Test
+    void startReturnsNullWhenWorkflowAlreadyStarted() {
 
         def mock = new MockFor(AmazonSimpleWorkflowClient)
         mock.demand.startWorkflowExecution { throw new WorkflowExecutionAlreadyStartedException() }

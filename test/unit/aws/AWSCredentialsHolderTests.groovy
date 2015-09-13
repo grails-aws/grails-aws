@@ -3,139 +3,151 @@ package aws
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.test.GrailsUnitTestCase
 
+import org.junit.Test
+
 class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 
-    void test_BuildAwsSdkCredentialsWithPlainCredentials() {
+    @Test
+    void buildAwsSdkCredentialsWithPlainCredentials() {
 
-		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.accessKey = "my-plain-access-key"
-		credentialsHolder.secretKey = "my-plain-secret-key"
+      def credentialsHolder       = new AWSCredentialsHolder()
+      credentialsHolder.accessKey = "my-plain-access-key"
+      credentialsHolder.secretKey = "my-plain-secret-key"
 
-		def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
-		assertEquals "my-plain-access-key", credentialsReturned.getAWSAccessKeyId()
-		assertEquals "my-plain-secret-key", credentialsReturned.getAWSSecretKey()
-		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
+      assertEquals "my-plain-access-key", credentialsReturned.getAWSAccessKeyId()
+      assertEquals "my-plain-secret-key", credentialsReturned.getAWSSecretKey()
+      assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildAwsSdkCredentialsWithPropertiesCredentials() {
+    @Test
+    void buildAwsSdkCredentialsWithPropertiesCredentials() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << """accessKey = my-properties-access-key
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << """accessKey = my-properties-access-key
                       secretKey = my-properties-secret-key"""
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.properties = tmpFile.toString()
 
-		def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
-		assertEquals "my-properties-access-key", credentialsReturned.getAWSAccessKeyId()
-		assertEquals "my-properties-secret-key", credentialsReturned.getAWSSecretKey()
-		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
+      assertEquals "my-properties-access-key", credentialsReturned.getAWSAccessKeyId()
+      assertEquals "my-properties-secret-key", credentialsReturned.getAWSSecretKey()
+      assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildAwsSdkCredentialsWithBothCredentialsPropertiesReturned() {
+    @Test
+    void buildAwsSdkCredentialsWithBothCredentialsPropertiesReturned() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << """accessKey = my-properties-access-key
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << """accessKey = my-properties-access-key
                       secretKey = my-properties-secret-key"""
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.accessKey  = "my-plain-access-key"
-		credentialsHolder.secretKey  = "my-plain-secret-key"
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.accessKey  = "my-plain-access-key"
+      credentialsHolder.secretKey  = "my-plain-secret-key"
+      credentialsHolder.properties = tmpFile.toString()
 
-		def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
-		assertEquals "my-properties-access-key", credentialsReturned.getAWSAccessKeyId()
-		assertEquals "my-properties-secret-key", credentialsReturned.getAWSSecretKey()
-		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
+      assertEquals "my-properties-access-key", credentialsReturned.getAWSAccessKeyId()
+      assertEquals "my-properties-secret-key", credentialsReturned.getAWSSecretKey()
+      assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_FailToBuildAwsSdkCredentialsWithoutAccessOrSecretInPlainText() {
+    @Test
+    void failToBuildAwsSdkCredentialsWithoutAccessOrSecretInPlainText() {
 
-		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.accessKey = "my-plain-access-key"
+      def credentialsHolder       = new AWSCredentialsHolder()
+      credentialsHolder.accessKey = "my-plain-access-key"
 
-		shouldFail {
-			def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
-		}
+      shouldFail {
+         def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
+      }
     }
 
-    void test_FailToBuildAwsSdkCredentialsWithoutAccessOrSecretInProperties() {
+    @Test
+    void failToBuildAwsSdkCredentialsWithoutAccessOrSecretInProperties() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << "accessKey = my-properties-access-key"
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << "accessKey = my-properties-access-key"
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.properties = tmpFile.toString()
 
-		shouldFail {
-			def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
-		}
+      shouldFail {
+         def credentialsReturned = credentialsHolder.buildAwsSdkCredentials()
+      }
     }
 
-    void test_BuildJetS3tCredentialsWithPlainCredentials() {
+    @Test
+    void buildJetS3tCredentialsWithPlainCredentials() {
 
-		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.accessKey = "my-plain-access-key"
-		credentialsHolder.secretKey = "my-plain-secret-key"
+      def credentialsHolder       = new AWSCredentialsHolder()
+      credentialsHolder.accessKey = "my-plain-access-key"
+      credentialsHolder.secretKey = "my-plain-secret-key"
 
-		def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
-		assertEquals "my-plain-access-key", credentialsReturned.accessKey
-		assertEquals "my-plain-secret-key", credentialsReturned.secretKey
-		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
+      assertEquals "my-plain-access-key", credentialsReturned.accessKey
+      assertEquals "my-plain-secret-key", credentialsReturned.secretKey
+      assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildJetS3tCredentialsWithPropertiesCredentials() {
+    @Test
+    void buildJetS3tCredentialsWithPropertiesCredentials() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << """accessKey = my-properties-access-key
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << """accessKey = my-properties-access-key
                       secretKey = my-properties-secret-key"""
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.properties = tmpFile.toString()
 
-		def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
-		assertEquals "my-properties-access-key", credentialsReturned.accessKey
-		assertEquals "my-properties-secret-key", credentialsReturned.secretKey
- 		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
+      assertEquals "my-properties-access-key", credentialsReturned.accessKey
+      assertEquals "my-properties-secret-key", credentialsReturned.secretKey
+       assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
    }
 
-    void test_BuildJetS3tCredentialsWithBothCredentialsPropertiesReturned() {
+   @Test
+    void buildJetS3tCredentialsWithBothCredentialsPropertiesReturned() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << """accessKey = my-properties-access-key
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << """accessKey = my-properties-access-key
                       secretKey = my-properties-secret-key"""
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.accessKey  = "my-plain-access-key"
-		credentialsHolder.secretKey  = "my-plain-secret-key"
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.accessKey  = "my-plain-access-key"
+      credentialsHolder.secretKey  = "my-plain-secret-key"
+      credentialsHolder.properties = tmpFile.toString()
 
-		def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
-		assertEquals "my-properties-access-key", credentialsReturned.accessKey
-		assertEquals "my-properties-secret-key", credentialsReturned.secretKey
-		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
+      def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
+      assertEquals "my-properties-access-key", credentialsReturned.accessKey
+      assertEquals "my-properties-secret-key", credentialsReturned.secretKey
+      assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_FailToBuildJetS3tCredentialsWithoutAccessOrSecretInPlainText() {
+    @Test
+    void failToBuildJetS3tCredentialsWithoutAccessOrSecretInPlainText() {
 
-		def credentialsHolder       = new AWSCredentialsHolder()
-		credentialsHolder.accessKey = "my-plain-access-key"
+      def credentialsHolder       = new AWSCredentialsHolder()
+      credentialsHolder.accessKey = "my-plain-access-key"
 
-		shouldFail {
-			def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
-		}
+      shouldFail {
+         def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
+      }
     }
 
-    void test_FailToBuildJetS3tCredentialsWithoutAccessOrSecretInProperties() {
+    @Test
+    void failToBuildJetS3tCredentialsWithoutAccessOrSecretInProperties() {
 
-		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
-		tmpFile << "accessKey = my-properties-access-key"
+      def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
+      tmpFile << "accessKey = my-properties-access-key"
 
-		def credentialsHolder        = new AWSCredentialsHolder()
-		credentialsHolder.properties = tmpFile.toString()
+      def credentialsHolder        = new AWSCredentialsHolder()
+      credentialsHolder.properties = tmpFile.toString()
 
-		shouldFail {
-			def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
-		}
+      shouldFail {
+         def credentialsReturned = credentialsHolder.buildJetS3tCredentials()
+      }
     }
 }

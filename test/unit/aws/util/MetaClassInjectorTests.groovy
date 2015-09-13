@@ -7,7 +7,7 @@ import grails.plugin.aws.util.ConfigReader
 import grails.plugin.aws.util.MetaClassInjector
 import grails.plugin.aws.meta.AwsPluginSupport
 import org.codehaus.groovy.grails.commons.GrailsApplication
-
+import org.junit.Test
 
 import grails.test.GrailsUnitTestCase
 import java.util.Date
@@ -15,44 +15,48 @@ import java.util.Date
 @TestMixin(GrailsUnitTestMixin)
 class MetaClassInjectorTests extends GrailsUnitTestCase {
 
-	void testIntegerDotSecondWhenInjected() {
+    @Test
+   void integerDotSecondWhenInjected() {
 
-		MetaClassInjector.injectIntegerMethods()
-		assert 1.second.class == Date
-	}
+      MetaClassInjector.injectIntegerMethods()
+      assert 1.second.class == Date
+   }
 
-	void testSesIsDisabledWhenEnabledIsTrue() {
-		mockSESEnabled(true)
+    @Test
+   void sesIsDisabledWhenEnabledIsTrue() {
+      mockSESEnabled(true)
 
-		def result = MetaClassInjector.sesIsDisabled()
+      def result = MetaClassInjector.sesIsDisabled()
 
-		assert result == false
-	}
+      assert result == false
+   }
 
-	void testSesIsDisabledWhenEnabledIsFalse() {
-		mockSESEnabled(false)
+    @Test
+   void sesIsDisabledWhenEnabledIsFalse() {
+      mockSESEnabled(false)
 
-		def result = MetaClassInjector.sesIsDisabled()
+      def result = MetaClassInjector.sesIsDisabled()
 
-		assert result == true
-	}
+      assert result == true
+   }
 
-	void testSesIsDisabledWhenNotConfiguredDefaultsToFalse() {
-		mockSESEnabled(null)
+    @Test
+   void sesIsDisabledWhenNotConfiguredDefaultsToFalse() {
+      mockSESEnabled(null)
 
-		def result = MetaClassInjector.sesIsDisabled()
+      def result = MetaClassInjector.sesIsDisabled()
 
-		assert result == false
-	}
+      assert result == false
+   }
 
-	def mockSESEnabled(val) {
+   def mockSESEnabled(val) {
 
-		MetaClassInjector.application = [
-		                    getConfig: {
-		                        def config = new ConfigObject()
-		                        config.grails.plugin.aws.ses.enabled = val
-		                        return config
-		                    }
-		                ] as GrailsApplication
-	}
+      MetaClassInjector.application = [
+                          getConfig: {
+                              def config = new ConfigObject()
+                              config.grails.plugin.aws.ses.enabled = val
+                              return config
+                          }
+                      ] as GrailsApplication
+   }
 }
