@@ -4,20 +4,24 @@ import grails.plugin.aws.AWSCredentialsHolder
 import grails.plugin.aws.ses.SendSesMail
 import grails.test.GrailsUnitTestCase
 import org.codehaus.groovy.grails.web.util.StreamCharBuffer
+import org.junit.Test
+import grails.test.mixin.support.GrailsUnitTestMixin
 
-class SendSesMailTests extends GrailsUnitTestCase {
+
+@TestMixin(GrailsUnitTestMixin)
+class SendSesMailTests {
 
 	static final long DEFAULT_MAIL_ID = 63718397162749
 
-    protected void setUp() {
-        super.setUp()
+    void setUp() {
 		SendSesMail.metaClass.sendSimpleMail = { from, destination, message ->
 			println "sending mail..."
 			return DEFAULT_MAIL_ID
 		}
     }
-
-    void testBuildSimpleSenderWithoutCatchAll() {
+    
+    @Test
+    void buildSimpleSenderWithoutCatchAll() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -30,7 +34,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "default-from-email@server.com", sender.from
     }
 
-    void testBuildSimpleSenderWithCatchAll() {
+    @Test
+    void buildSimpleSenderWithCatchAll() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -45,7 +50,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "catch-all@server.com", sender.catchall
     }
 
-	void testSetFrom() {
+    @Test
+	void setFrom() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -59,7 +65,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-from@server.com", sender.from
 	}
 
-	void testSetTo() {
+    @Test
+	void setTo() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -74,7 +81,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-to@server.com", sender.to[0]
 	}
 
-	void testSetMultipleTo() {
+    @Test
+	void setMultipleTo() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -90,7 +98,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-to-2@server.com", sender.to[1]
 	}
 
-	void testSetCc() {
+    @Test
+	void setCc() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -105,7 +114,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-cc@server.com", sender.cc[0]
 	}
 
-	void testSetMultipleCc() {
+    @Test
+	void setMultipleCc() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -121,7 +131,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-cc-2@server.com", sender.cc[1]
 	}
 
-	void testSetBcc() {
+    @Test
+	void setBcc() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -136,7 +147,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-bcc@server.com", sender.bcc[0]
 	}
 
-	void testSetMultipleBcc() {
+    @Test
+	void setMultipleBcc() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -152,7 +164,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "new-bcc-2@server.com", sender.bcc[1]
 	}
 
-	void testSetBody() {
+    @Test
+	void setBody() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -166,7 +179,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "This is the mail body!", sender.body
 	}
 
-	void testSetHtml() {
+    @Test
+	void setHtml() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -180,7 +194,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "This is the html mail body!", sender.html
 	}
 
-	void testSetHtmlFromStreamCharBuffer() {
+    @Test
+	void setHtmlFromStreamCharBuffer() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -197,7 +212,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "Testing mail body from StreamCharBuffer", sender.html
 	}
 
-	void testSetSubject() {
+    @Test
+	void setSubject() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -211,7 +227,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals "E-mail subject", sender.subject
 	}
 
-	void test_SetClosureData() {
+    @Test
+	void setClosureData() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -237,7 +254,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 
 	}
 
-	void test_CheckValidFromAddress_FailWithoutFrom() {
+    @Test
+	void checkValidFromAddress_FailWithoutFrom() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -256,7 +274,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		}
 	}
 
-	void test_CheckValidFromAddress_OkWithFromInClosure() {
+    @Test
+	void checkValidFromAddress_OkWithFromInClosure() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -274,7 +293,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		}
 	}
 
-	void test_CheckValidFromAddress_OkWithFromInSetter() {
+    @Test
+	void checkValidFromAddress_OkWithFromInSetter() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -292,7 +312,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		}
 	}
 
-	void test_BuildTextMailMessage() {
+    @Test
+	void buildTextMailMessage() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -315,7 +336,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  "e-mail body (plain text)", message.body.text.data
 	}
 
-	void test_BuildHtmlMailMessage() {
+    @Test
+	void buildHtmlMailMessage() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -338,7 +360,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  "e-mail body (html content)", message.body.html.data
 	}
 
-	void test_BuildTextAndHtmlMailMessage() {
+    @Test
+	void buildTextAndHtmlMailMessage() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -363,7 +386,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  "e-mail body (plain text)", message.body.text.data
 	}
 	
-	void test_BuildSimpleMessageDefaultsCharsetToUTF8() {
+	@Test
+	void buildSimpleMessageDefaultsCharsetToUTF8() {
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"
@@ -388,7 +412,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assert message.body.text.charset == expectedCharset
 	}
 
-	void test_BuildSimpleMessageAllowsCharsetOverride() {
+    @Test
+	void buildSimpleMessageAllowsCharsetOverride() {
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
 		credentialsHolder.secretKey = "my-plain-secret-key"
@@ -414,7 +439,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assert message.body.text.charset == expectedCharset
 	}
 
-	void test_BuildDestinationWithoutCatchAll() {
+    @Test
+	void buildDestinationWithoutCatchAll() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -447,7 +473,8 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  "new-bcc-3@server.com", destination.bccAddresses[2]
 	}
 
-	void test_BuildDestinationWithCatchAll() {
+    @Test
+	void buildDestinationWithCatchAll() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -475,22 +502,25 @@ class SendSesMailTests extends GrailsUnitTestCase {
 		assertEquals  0, destination.bccAddresses.size()
 		assertEquals  "catchall@server.com", destination.toAddresses[0]
 	}
-
-    void testSetRegionGoodVal(){
+    
+    @Test
+    void setRegionGoodVal(){
         def sender = new SendSesMail()
         sender.region = 'US_EAST_1'
 
         assertEquals(sender.awsRegion.getName(), 'us-east-1')
     }
 
-    void testSetRegionBadVal(){
+    @Test
+    void setRegionBadVal(){
         def sender = new SendSesMail()
         shouldFail{
             sender.region = 'US_EAST_1_badvalue'
         }
     }
-
-    void testSetRegionNull(){
+    
+    @Test
+    void setRegionNull(){
         def sender = new SendSesMail()
         sender.region = null
 

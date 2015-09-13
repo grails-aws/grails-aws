@@ -39,7 +39,7 @@ class SendSesMail {
 	def from
 	def catchall
 	def credentialsHolder
-    String region
+    def region
 
     //set from injected props
     Region awsRegion
@@ -192,7 +192,14 @@ class SendSesMail {
 	def sendSimpleMail(_from, _destination, _message) {
 		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
 		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
-        sesService.region = awsRegion
+
+		//Fix to #51 - Checking the instance type, else is not supposed to be ever reached, but just in case ...
+		if(awsRegion instanceof Region){
+			sesService.setRegion((Region)awsRegion)
+		}else{
+			sesService.region = awsRegion
+		}
+
 		def emailRequest = new SendEmailRequest(_from, _destination, _message)
 
 		if (replyTo) {
@@ -293,7 +300,14 @@ class SendSesMail {
 		//sending e-mail
 		def credentials	 = credentialsHolder.buildAwsSdkCredentials()
 		def sesService	 = new AmazonSimpleEmailServiceClient(credentials)
-        sesService.region = awsRegion
+
+		//Fix to #51 - Checking the instance type, else is not supposed to be ever reached, but just in case ...
+		if(awsRegion instanceof Region){
+			sesService.setRegion((Region)awsRegion)
+		}else{
+			sesService.region = awsRegion
+		}
+
 		def rawEmailRequest = new SendRawEmailRequest()
 		rawEmailRequest.source = _from
 		rawEmailRequest.rawMessage = rm

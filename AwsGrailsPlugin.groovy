@@ -2,7 +2,7 @@ import grails.plugin.aws.meta.AwsPluginSupport
 
 class AwsGrailsPlugin {
 
-    def version                  = "1.7.5.0"
+    def version                  = "1.9.13.4"
     def grailsVersion            = "1.3.0 > *"
     def loadAfter                = ['services', 'controllers']
     def observe                  = ['services', 'controllers']
@@ -16,7 +16,7 @@ class AwsGrailsPlugin {
 
     def title                    = "Grails AWS Plugin"
     def description              = "Amazon Web Services (AWS) grails plugin provides easy access to simpler functions of AWS"
-    def documentation            = "https://grails-aws.github.com/grails-aws"
+    def documentation            = "https://grails-aws.github.io/grails-aws/$version/"
 
     def license                  = "APACHE"
     def organization             = [  name: "Grails AWS", url: "https://github.com/grails-aws" ]

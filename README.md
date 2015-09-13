@@ -1,5 +1,7 @@
 # Amazon Web Services Grails Plugin
 [![Build Status](https://travis-ci.org/grails-aws/grails-aws.png?branch=master)][travis]
+[![Coverage Status](https://coveralls.io/repos/grails-aws/grails-aws/badge.svg?branch=master&service=github)](https://coveralls.io/github/grails-aws/grails-aws?branch=master)
+
 
 [travis]: https://travis-ci.org/grails-aws/grails-aws
 
@@ -11,7 +13,7 @@ Currently supports S3 and S3S
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 ```groovy
 plugins {
-    compile ':aws:1.7.5.0'
+    compile ':aws:1.9.13.4'
 }
 ```
 
@@ -34,8 +36,8 @@ grails {
 
 ## Documentation
 
-* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/)
-* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.6.7.4/gapi/)
+* [Reference Documentation](http://grails-aws.github.io/grails-aws/1.7.5.0/)
+* [Groovy Documentation](http://grails-aws.github.io/grails-aws/1.7.5.0/gapi/)
 
 
 ## Contributing
@@ -49,6 +51,12 @@ grails {
 
 
 ## Changelog
+
+1.9.13.4 - September 11 2015
+* upgrade jets3t to 0.9.1, httpclient to 4.3.2, and httpcore to 4.3.1
+
+1.9.13.0 - January 5 2015
+* Upgrade to AWS SDK version 1.9.13
 
 1.7.5.0 - April 11 2014
 * Upgrade to AWS SDK version 1.7.5

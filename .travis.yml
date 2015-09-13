@@ -9,9 +9,17 @@ before_install:
   - "gvm install grails $GRAILS_VERSION || true"
 env: 
   - GRAILS_VERSION=2.0.4
-  - GRAILS_VERSION=2.2.4
-  - GRAILS_VERSION=2.3.4
-  - GRAILS_VERSION=2.3.5
+  - GRAILS_VERSION=2.2.5
+  - GRAILS_VERSION=2.3.11
 language: groovy
-script: "grails clean && grails upgrade --non-interactive && grails test-app --non-interactive --stacktrace"
-
+jdk:
+ - oraclejdk7
+sudo: false
+script:
+  - grails clean
+  - case $GRAILS_VERSION in
+      2.4* ) grails set-grails-version $GRAILS_VERSION ;;
+      2.5* ) grails set-grails-version $GRAILS_VERSION ;;
+      * ) grails upgrade --non-interactive ;;
+    esac
+  - grails test-app --non-interactive --stacktrace
