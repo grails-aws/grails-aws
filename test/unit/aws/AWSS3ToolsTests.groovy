@@ -2,10 +2,12 @@ package aws
 
 import grails.plugin.aws.s3.AWSS3Tools
 import grails.test.GrailsUnitTestCase
+import org.junit.Test
 
 class AWSS3ToolsTests extends GrailsUnitTestCase {
 
-	void testUrl() {
+    @Test
+	void onMethod() {
 
 		def s3Tools = new AWSS3Tools()
 		assertEquals "http://my-bucket.s3.amazonaws.com/file.txt", s3Tools.on("my-bucket").url("file.txt")

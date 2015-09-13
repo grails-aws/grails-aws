@@ -3,9 +3,12 @@ package aws
 import grails.plugin.aws.AWSCredentialsHolder
 import grails.test.GrailsUnitTestCase
 
+import org.junit.Test
+
 class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 
-    void test_BuildAwsSdkCredentialsWithPlainCredentials() {
+    @Test
+    void buildAwsSdkCredentialsWithPlainCredentials() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -17,7 +20,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildAwsSdkCredentialsWithPropertiesCredentials() {
+    @Test
+    void buildAwsSdkCredentialsWithPropertiesCredentials() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << """accessKey = my-properties-access-key
@@ -32,7 +36,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildAwsSdkCredentialsWithBothCredentialsPropertiesReturned() {
+    @Test
+    void buildAwsSdkCredentialsWithBothCredentialsPropertiesReturned() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << """accessKey = my-properties-access-key
@@ -49,7 +54,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		assertEquals com.amazonaws.auth.BasicAWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_FailToBuildAwsSdkCredentialsWithoutAccessOrSecretInPlainText() {
+    @Test
+    void failToBuildAwsSdkCredentialsWithoutAccessOrSecretInPlainText() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -59,7 +65,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		}
     }
 
-    void test_FailToBuildAwsSdkCredentialsWithoutAccessOrSecretInProperties() {
+    @Test
+    void failToBuildAwsSdkCredentialsWithoutAccessOrSecretInProperties() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << "accessKey = my-properties-access-key"
@@ -72,7 +79,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		}
     }
 
-    void test_BuildJetS3tCredentialsWithPlainCredentials() {
+    @Test
+    void buildJetS3tCredentialsWithPlainCredentials() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -84,7 +92,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_BuildJetS3tCredentialsWithPropertiesCredentials() {
+    @Test
+    void buildJetS3tCredentialsWithPropertiesCredentials() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << """accessKey = my-properties-access-key
@@ -99,7 +108,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
  		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
    }
 
-    void test_BuildJetS3tCredentialsWithBothCredentialsPropertiesReturned() {
+   @Test
+    void buildJetS3tCredentialsWithBothCredentialsPropertiesReturned() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << """accessKey = my-properties-access-key
@@ -116,7 +126,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		assertEquals org.jets3t.service.security.AWSCredentials, credentialsReturned.getClass()
     }
 
-    void test_FailToBuildJetS3tCredentialsWithoutAccessOrSecretInPlainText() {
+    @Test
+    void failToBuildJetS3tCredentialsWithoutAccessOrSecretInPlainText() {
 
 		def credentialsHolder       = new AWSCredentialsHolder()
 		credentialsHolder.accessKey = "my-plain-access-key"
@@ -126,7 +137,8 @@ class AWSCredentialsHolderTests extends GrailsUnitTestCase {
 		}
     }
 
-    void test_FailToBuildJetS3tCredentialsWithoutAccessOrSecretInProperties() {
+    @Test
+    void failToBuildJetS3tCredentialsWithoutAccessOrSecretInProperties() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile << "accessKey = my-properties-access-key"

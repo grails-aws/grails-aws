@@ -2,12 +2,10 @@ package aws
 
 import grails.plugin.aws.util.ConfigReader
 import grails.test.GrailsUnitTestCase
+import org.junit.Test
 
 class ConfigReaderTests extends GrailsUnitTestCase {
 
-	protected void setUp() {
-		super.setUp()
-	}
 
 	private String testConfig = """
 	grails {
@@ -30,7 +28,8 @@ class ConfigReaderTests extends GrailsUnitTestCase {
 	}
 	"""
 
-	void testConfiguration() {
+    @Test
+	void configuration() {
 
 		def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
 		tmpFile.deleteOnExit()

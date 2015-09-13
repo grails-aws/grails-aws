@@ -6,9 +6,12 @@ import grails.test.GrailsUnitTestCase
 import org.jets3t.service.acl.AccessControlList
 import org.jets3t.service.model.S3Object
 
+import org.junit.Test
+
 class S3FileUploadTests extends GrailsUnitTestCase {
 
-    void testSetBucket() {
+    @Test
+    void setBucket() {
 
 		def s3fu = new S3FileUpload()
 
@@ -16,7 +19,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "new-bucket", s3fu.bucket
     }
 
-	void testSetBucketWithLocation() {
+    @Test
+	void setBucketWithLocation() {
 
 		def s3fu = new S3FileUpload()
 
@@ -25,7 +29,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "location", s3fu.bucketLocation
     }
 
-    void testSetPath() {
+    @Test
+    void setPath() {
 
 		def s3fu = new S3FileUpload()
 
@@ -33,7 +38,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "path/to/pictures", s3fu.path
     }
 
-    void testSetMetadata() {
+    @Test
+    void setMetadata() {
 
 		def metaValues = [name: 'picture', type: 'user', id: '123']
 
@@ -43,7 +49,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals metaValues, s3fu.metadata
     }
 
-    void testSetAcl() {
+    @Test
+    void setAcl() {
 
 		def s3fu = new S3FileUpload()
 
@@ -51,7 +58,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "private", s3fu.acl
     }
 
-    void testSetRrs() {
+    @Test
+    void setRrs() {
 
 		def s3fu = new S3FileUpload()
 
@@ -59,14 +67,16 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertFalse s3fu.rrs
     }
 
-	void testSetUseEncryption() {
+    @Test
+	void setUseEncryption() {
 		def s3fu = new S3FileUpload()
 
 		s3fu.useEncryption(true)
 		assertTrue s3fu.useEncryption
 	}
 
-	void testSetClosureData() {
+    @Test
+	void setClosureData() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -90,7 +100,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals false, s3fu.useEncryption
 	}
 
-	void testValidateBucketName_Ok() {
+    @Test
+	void validateBucketName_Ok() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -101,7 +112,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		s3fu.validateBucketName()
 	}
 
-	void testValidateBucketName_FailWithNoBucketName() {
+    @Test
+	void validateBucketName_FailWithNoBucketName() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -110,7 +122,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		}
 	}
 
-	void testBuildObjectKey_JustWithName() {
+    @Test
+	void buildObjectKey_JustWithName() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -118,7 +131,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "object-key", objectKey
 	}
 
-	void testBuildObjectKey_WithPathAndName_NoTailingSlash() {
+    @Test
+	void buildObjectKey_WithPathAndName_NoTailingSlash() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -126,7 +140,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "path/to/object/object-key", objectKey
 	}
 
-	void testBuildObjectKey_WithPathAndName_TailingSlash() {
+    @Test
+	void buildObjectKey_WithPathAndName_TailingSlash() {
 
 		def s3fu  = new S3FileUpload()
 
@@ -134,7 +149,8 @@ class S3FileUploadTests extends GrailsUnitTestCase {
 		assertEquals "path/to/object/object-key", objectKey
 	}
 
-	void testBuildS3Object() {
+    @Test
+	void buildS3Object() {
 
 		def metaValues = [name: 'picture', type: 'user', id: '123']
 
