@@ -1,11 +1,12 @@
 package aws
 
 import grails.plugin.aws.AWSCredentialsHolder
-import grails.test.GrailsUnitTestCase
+import grails.test.mixin.support.GrailsUnitTestMixin
 
 import org.junit.Test
 
-class AWSCredentialsHolderTests extends GrailsUnitTestCase {
+@TestMixin(GrailsUnitTestMixin)
+class AWSCredentialsHolderTests {
 
     @Test
     void buildAwsSdkCredentialsWithPlainCredentials() {

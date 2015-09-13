@@ -1,14 +1,15 @@
 package aws
 
 import grails.plugin.aws.s3.S3FileUpload
-import grails.test.GrailsUnitTestCase
+import grails.test.mixin.support.GrailsUnitTestMixin
 
 import org.jets3t.service.acl.AccessControlList
 import org.jets3t.service.model.S3Object
 
 import org.junit.Test
 
-class S3FileUploadTests extends GrailsUnitTestCase {
+@TestMixin(GrailsUnitTestMixin)
+class S3FileUploadTests {
 
     @Test
     void setBucket() {
