@@ -9,6 +9,8 @@ before_install:
   - "gvm install grails $GRAILS_VERSION || true"
 env: 
   - GRAILS_VERSION=2.3.11
+  - GRAILS_VERSION=2.4.4
+  - GRAILS_VERSION=2.5.1
 language: groovy
 jdk:
  - oraclejdk7
