@@ -67,4 +67,18 @@ class AWSCredentialsHolder {
 
 		return new JetS3tCredentials(accessKey, secretKey)
 	}
+
+	/**
+     	* @return JetS3tCredentials which are compatible with JetS3t
+     	*/
+	JetS3tCredentials buildJetS3tCredentials(String awsAccessKey, awsSecretKey) {
+
+	   accessKey = awsAccessKey
+	   secretKey = awsSecretKey
+	   if (!accessKey || !secretKey) {
+	       throw new GrailsAWSException("Please provide AWS credentials")
+	   }
+
+	   return new JetS3tCredentials(accessKey, secretKey)
+	}
 }
