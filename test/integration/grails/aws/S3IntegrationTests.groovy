@@ -1,7 +1,6 @@
 package grails.aws
 
 import org.jets3t.service.S3ServiceException
-import static org.junit.Assert.*
 import groovy.util.GroovyTestCase
 import org.junit.Test
 
@@ -19,16 +18,32 @@ class S3IntegrationTests extends GroovyTestCase {
     }
 
     @Test
-    void s3UploadThrowsS3ServiceException() {
+    void fileS3UploadThrowsS3ServiceException() {
         def tmpFile = File.createTempFile("aws-plugin", "${System.currentTimeMillis()}")
         tmpFile.deleteOnExit()
         
         def message = shouldFail(S3ServiceException) {
 
             def uploadedFile = tmpFile.s3upload {
-                bucket "foo"
+                bucket "missing-bucket"
             }
         }
         assert message == "S3 Error Message."
     }
+
+    @Test
+    void inputStreamS3UploadThrowsS3ServiceException() {
+
+        def mockInputStream = new ByteArrayInputStream('mockInputStream'.getBytes())
+        def mockFilename = 'destinationS3Key.txt'
+
+        def message = shouldFail(S3ServiceException) {
+
+            def uploadedFile = mockInputStream.s3upload(mockFilename) {
+                bucket "missing-bucket"
+            }
+        }
+        assert message == "S3 Error Message."
+    }
+
 }
