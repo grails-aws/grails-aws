@@ -7,6 +7,12 @@ import org.grails.buffer.StreamCharBuffer
 import org.junit.Test
 import grails.test.mixin.support.GrailsUnitTestMixin
 
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertTrue
+import static org.junit.Assert.assertFalse
+import static org.junit.Assert.assertNotNull
+import static org.junit.Assert.assertNull
+
 
 @TestMixin(GrailsUnitTestMixin)
 class SendSesMailTests {

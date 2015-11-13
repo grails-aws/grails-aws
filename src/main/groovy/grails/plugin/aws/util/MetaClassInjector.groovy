@@ -2,14 +2,11 @@ package grails.plugin.aws.util
 
 import grails.core.GrailsApplication
 
-import java.lang.Boolean
-
-
 class MetaClassInjector {
 
 	/** Set at startup. */
 	static GrailsApplication application
-	
+
 	static void injectIntegerMethods() {
 
 		Integer.metaClass.propertyMissing = { name ->
@@ -47,7 +44,7 @@ class MetaClassInjector {
 		}
 	}
 
-	static sesIsDisabled() {
+	static boolean sesIsDisabled() {
 		def enabled = application.config.grails.plugin.aws.ses.enabled
 		if (enabled instanceof Boolean) {
 			return !enabled

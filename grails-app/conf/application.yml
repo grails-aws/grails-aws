@@ -13,12 +13,12 @@ spring:
         template:
             check-template-location: false
 
----
-grails:
-    doc:
-        authors: Lucas Teixeira, Jay Prall
-        license: Apache License 2.0
-        title: Grails AWS Plugin
+#---
+#grails:
+#    doc:
+#        authors: Lucas Teixeira, Jay Prall
+#        license: Apache License 2.0
+#        title: Grails AWS Plugin
 
 ---
 grails:
