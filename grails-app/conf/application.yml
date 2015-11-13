@@ -1,0 +1,35 @@
+grails:
+    profile: plugin
+    codegen:
+        defaultPackage: grails.aws
+
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    groovy:
+        template:
+            check-template-location: false
+
+---
+grails:
+    doc:
+        authors: Lucas Teixeira, Jay Prall
+        license: Apache License 2.0
+        title: Grails AWS Plugin
+
+---
+grails:
+    plugin:
+        aws:
+            credentials:
+                accessKey: fake-access-key
+                secretKey: fake-secret-key
+            s3:
+                bucket: grails-aws-test-bucket-20110515
+                rrs: true
+                acl: public
+            ses:
+                from: lucastex@gmail.com

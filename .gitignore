@@ -1,3 +1,5 @@
+/build
+.idea
 grails-app/conf/Config.groovy
 
 # web application files
