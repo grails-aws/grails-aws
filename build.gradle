@@ -16,7 +16,7 @@ plugins {
 	id "com.jfrog.bintray" version "1.2"
 }
 
-version "2.0.2"
+version "2.0.3"
 group "org.grails.plugins"
 
 apply plugin: 'maven-publish'
@@ -86,12 +86,12 @@ bintray {
 	publications = ['maven']
 	pkg {
 		repo = 'grails-plugins'
-		userOrg = 'ctoestreich'
+		userOrg = 'grails-aws'
 		name = "org.grails.plugins:grails-aws"
 		desc = "Grails AWS Plugin"
 		websiteUrl = "http://grails.org/plugin/grails-aws"
-		issueTrackerUrl = "https://github.com/Grails-Plugin-Consortium/grails-aws/issues"
-		vcsUrl = "https://github.com/Grails-Plugin-Consortium/grails-aws"
+		issueTrackerUrl = "https://github.com/grails-aws/grails-aws/issues"
+		vcsUrl = "https://github.com/grails-aws/grails-aws"
 		licenses = ['Apache-2.0']
 		publicDownloadNumbers = true
 	}
