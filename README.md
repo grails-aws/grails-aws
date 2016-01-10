@@ -12,26 +12,21 @@ Currently supports S3 and S3S
 
 Add the plugin to the plugins section of `grails-app/conf/BuildConfig.groovy`
 ```groovy
-plugins {
-    compile ':aws:1.9.13.4'
+dependencies {
+    runtime 'org.grails.plugins:grails-aws:2.0.1'
 }
 ```
 
-Configure the plugin in `grails-app/conf/Config.groovy`
-```groovy
-grails {
-    plugin {
-        aws {
-            credentials {
-                accessKey = "your-access-key"
-                secretKey = "your-secret-key"
-            }
-            s3 {
-                bucket = "default-bucket-name"
-            }
-        }
-    }
-}
+Configure the plugin in `grails-app/conf/application.yaml`
+```yaml
+grails:
+    plugin:
+        aws:
+            credentials:
+                accessKey: ASDASDASDASD
+                secretKey: fASDd1h/1Hf/0pkQ+nJx+oRSm36t/R8jUI/A1D2
+            s3:
+                bucket: my-bucket
 ```
 
 ## Documentation
@@ -51,6 +46,12 @@ grails {
 
 
 ## Changelog
+
+2.0.1 - October 13 2015
+* Grails 3.x support.
+* Scripts are not converted yet
+* S3 functionality only
+* SES not tested!
 
 1.9.13.4 - September 11 2015
 * upgrade jets3t to 0.9.1, httpclient to 4.3.2, and httpcore to 4.3.1
