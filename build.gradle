@@ -88,7 +88,7 @@ bintray {
 		repo = 'grails-plugins'
 		userOrg = 'ctoestreich'
 		name = "org.grails.plugins:grails-aws"
-		desc = "Grails CXF Plugin"
+		desc = "Grails AWS Plugin"
 		websiteUrl = "http://grails.org/plugin/grails-aws"
 		issueTrackerUrl = "https://github.com/Grails-Plugin-Consortium/grails-aws/issues"
 		vcsUrl = "https://github.com/Grails-Plugin-Consortium/grails-aws"
