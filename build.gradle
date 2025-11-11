@@ -62,7 +62,7 @@ dependencies {
 
 	testCompile "org.grails:grails-plugin-testing"
 	testCompile "org.grails.plugins:hibernate"
-	testCompile 'junit:junit:4.12'
+	testCompile 'junit:junit:4.13.2'
 
 	console "org.grails:grails-console"
 	compile 'net.java.dev.jets3t:jets3t:0.9.4'
