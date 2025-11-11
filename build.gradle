@@ -65,7 +65,7 @@ dependencies {
 	testCompile 'junit:junit:4.12'
 
 	console "org.grails:grails-console"
-	compile 'net.java.dev.jets3t:jets3t:0.9.0'
+	compile 'net.java.dev.jets3t:jets3t:0.9.4'
 	compile 'org.apache.httpcomponents:httpclient:4.3.4'
 	// httpcore 4.3.2 is a dependency of httpclient 4.3.4
 	compile 'org.apache.httpcomponents:httpcore:4.3.2'
