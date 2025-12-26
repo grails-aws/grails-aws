@@ -69,7 +69,7 @@ dependencies {
 	compile 'org.apache.httpcomponents:httpclient:4.3.4'
 	// httpcore 4.3.2 is a dependency of httpclient 4.3.4
 	compile 'org.apache.httpcomponents:httpcore:4.4.16'
-	compile 'javax.mail:mail:1.4.1'
+	compile 'javax.mail:mail:1.4.7'
 	compile 'commons-logging:commons-logging:1.1.1'
 	compile 'org.codehaus.jackson:jackson-core-asl:1.7.2'
 
