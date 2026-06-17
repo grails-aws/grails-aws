@@ -70,7 +70,7 @@ dependencies {
 	// httpcore 4.3.2 is a dependency of httpclient 4.3.4
 	compile 'org.apache.httpcomponents:httpcore:4.4.16'
 	compile 'javax.mail:mail:1.4.7'
-	compile 'commons-logging:commons-logging:1.1.1'
+	compile 'commons-logging:commons-logging:1.3.5'
 	compile 'org.codehaus.jackson:jackson-core-asl:1.7.2'
 
 	compile('com.amazonaws:aws-java-sdk:1.9.13')
